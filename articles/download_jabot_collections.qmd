@@ -1,0 +1,75 @@
+---
+title: "Download JABOT specimen records"
+format: html
+---
+
+Here we present a complete guide to the `jabot_download()` function of the `jabotR` package. This function allows users to retrieve plant specimen records in Darwin Core Format from the Rio de Janeiro Botanical Garden's JABOT online managing herbarium collection system.
+
+## Function Overview
+
+The `jabot_download()` function downloads specimen data for all or specific JABOT-associated herbarium collections. It offers flexibility through several arguments.
+
+## Arguments
+
+| Argument    | Description |
+|-------------|-------------|
+| `herbarium` | A character vector of herbarium acronyms (e.g., `"RB"`, `"K"`). Use `NULL` to download all collections. |
+| `repatriated` | Logical. If `FALSE`, repatriated herbaria will be skipped. Use `jabot_summary()` to identify them. |
+| `verbose`   | Logical. If `TRUE`, messages describing download progress will be shown. |
+| `dir`       | Directory path to save the files. Default is `"jabot_download"`. |
+
+## Download All JABOT Specimen Records
+
+Use the function with default settings to download all JABOT data.
+
+```r
+jabot_download(
+  verbose = TRUE, 
+  dir = "jabot_download"
+)
+```
+
+## Download Specimens from Selected Collections
+
+Specify collection codes with the `herbarium` argument:
+
+```r
+jabot_download(
+  herbarium = c("AFR", "R", "RB"),
+  verbose = TRUE,
+  dir = "jabot_download"
+)
+```
+
+## Skipping Repatriated Collections
+
+To exclude collections marked as repatriated:
+
+```r
+jabot_download(
+  repatriated = FALSE,
+  verbose = TRUE,
+  dir = "jabot_download"
+)
+```
+
+## Example: Custom Directory Without Verbose Messages
+
+```r
+jabot_download(
+  herbarium = "RB",
+  verbose = FALSE,
+  dir = "custom_directory"
+)
+```
+
+## Additional Tips
+
+- Use `jabot_summary()` to inspect which collections are available and whether they are repatriated.
+- Ensure internet access is available when running `jabot_download()`.
+- Review the contents of the downloaded folder to verify `occurrence.txt` and metadata presence.
+
+## See Also
+
+- [`jabot_summary()`](/articles/summarize_jabot_collections.qmd): Get a summary of JABOT collections
+

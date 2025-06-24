@@ -1,0 +1,78 @@
+---
+title: "Summarize JABOT collections"
+format: html
+---
+
+Here we present a complete guide to the `jabot_summary()` function of the `jabotR` package. This function provides summary statistics for plant specimen records available in the Rio de Janeiro Botanical Garden's JABOT online managing herbarium collection system and published via the Integrated Publishing Toolkit [(IPT)](https://ipt.jbrj.gov.br/jabot).
+
+## Function Overview
+
+The `jabot_summary()` function retrieves summary information for one or more JABOT-associated herbarium collections. It allows users to filter collections and optionally save the summary as a CSV file. It also provides metadata such as the number of records, publication version and date, and a direct link to each herbarium's IPT page.
+
+## Arguments
+
+| Argument    | Description |
+|-------------|-------------|
+| `herbarium` | A character vector of herbarium acronyms (e.g., `"RB"`, `"K"`). Use `NULL` to summarize all collections. |
+| `verbose`   | Logical. If `TRUE`, messages describing summary progress will be shown. |
+| `save`      | Logical. If `TRUE`, the summary will be saved as a CSV file. |
+| `dir`       | Directory path to save the file. Default is `"jabot_summary"`. |
+
+## Summarize All JABOT Collections
+
+Use the function with default settings to get a summary of all collections, including the herbarium acronym, curator's contact, record count, and a direct IPT link:
+
+```r
+summary_df <- jabot_summary(
+  verbose = TRUE,
+  save = TRUE,
+  dir = "jabot_summary"
+)
+```
+
+## Summarize Specific Collections
+
+Specify one or more herbaria with the `herbarium` argument:
+
+```r
+summary_some_df <- jabot_summary(
+  herbarium = c("AFR", "R", "RB"),
+  verbose = TRUE,
+  save = TRUE,
+  dir = "jabot_summary"
+)
+```
+
+## Save Summary to Custom Directory
+
+You can customize the output directory for the summary file:
+
+```r
+jabot_summary(
+  herbarium = "RB",
+  verbose = TRUE,
+  save = TRUE,
+  dir = "custom_summary"
+)
+```
+
+## Disable Verbose Output
+
+Suppress progress messages with `verbose = FALSE`:
+
+```r
+jabot_summary(
+  verbose = FALSE
+)
+```
+
+## Additional Tips
+
+- The summary includes fields such as collection code, record count, repatriation status, contact information, and a link to the IPT entry.
+- Use this summary to filter or preview collections before downloading or parsing records.
+- If `save = TRUE`, the function will automatically store the results in CSV format.
+
+## See Also
+
+- [`jabot_download()`](/articles/download_jabot_collections.qmd): Download JABOT specimen records
+- [`jabot_parse()`](/articles/parse_jabot_dwca.qmd): Parse and clean downloaded records

@@ -1,0 +1,99 @@
+---
+title: "jabot_parse"
+description: "Documentation for `jabot_parse()` from the refloraR package."
+toc: true
+toc-depth: 3
+---
+ 
+```{r}
+#| eval: false
+refloraR::jabot_parse()
+```
+
+ **Description**
+ \description
+{
+
+
+Read Darwin Core Archive (DwC-A) files from any downloaded dwca
+
+folder at 
+\href
+
+{
+https://ipt.jbrj.gov.br/jabot
+}
+
+{
+JABOT
+}
+ hosted by the
+
+\href
+
+{
+https://www.gov.br/jbrj/pt-br
+}
+
+{
+Rio de Janeiro Botanical Garden
+}
+.
+
+} 
+
+ **Details**
+  
+
+ **Arguments**
+
+| Argument | Description |
+|----------|-------------|
+| \item  { path }  { Pathway to the computer's directory, where the REFLORA-downloaded
+ dwca folders are. } | \item  { path }  { Pathway to the computer's directory, where the REFLORA-downloaded
+ dwca folders are. } |
+| \item  { herbarium }  { A vector of specific herbarium acronyms (collection code) in
+ uppercase letters or leave it as  \code { NULL } | \item  { herbarium }  { A vector of specific herbarium acronyms (collection code) in
+ uppercase letters or leave it as  \code { NULL } |
+| \item  { verbose }  { Logical, if  \code { FALSE } | \item  { verbose }  { Logical, if  \code { FALSE } | 
+
+ **Value**
+ \value
+{
+
+
+A list of dwca files, including data and associated metada.
+
+} 
+
+ **Examples**
+```r
+ \examples
+{
+
+
+\dontrun
+{
+
+
+
+
+jabot_download(herbarium = c("ALCB", "HUEFS", "K", "RB"),
+
+               verbose = TRUE,
+
+               dir = "jabot_download")
+
+
+
+dwca <- jabot_parse(path = "jabot_download",
+
+                    verbose = TRUE)
+
+}
+
+
+
+
+} 
+```

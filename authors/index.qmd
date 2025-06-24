@@ -1,0 +1,190 @@
+---
+format:
+  html:
+    toc: true
+    toc-depth: 3
+resources:
+  - authors/images/
+---
+
+<style>
+  body {
+    position: relative;
+  }
+
+  .watermark {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    opacity: 0.15;
+    z-index: -1;
+    width: 400px;
+  }
+
+  .background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: -1;
+  }
+
+  .icon-link {
+    display: inline-block;
+    margin: 0 6px;
+  }
+
+  .icon-link img {
+    width: 18px;
+    height: 18px;
+    vertical-align: text-bottom;
+  }
+</style>
+
+<img src="/figures/jabot_original_logo.png" class="watermark" alt="jabot logo watermark">
+
+
+## The `jaboR` Developers
+
+```{=html}
+<div class="authors-group">
+
+  <div class="author-card">
+    <img src="images/domingos.jpg" alt="Domingos Cardoso" class="author-photo" />
+    <div class="author-info">
+      <h3 class="author-name">Domingos Cardoso</h3>
+      <p>
+        <a class="icon-link" href="mailto:domingoscardoso@jbrj.gov.br"><img src="/authors/images/email.png" alt="Email"/></a>
+        <a class="icon-link" href="https://orcid.org/0000-0001-7072-2656" target="_blank"><img src="/authors/images/orcid.png" alt="ORCID"/></a>
+        <a class="icon-link" href="http://lattes.cnpq.br/2228981567893077" target="_blank"><img src="/authors/images/lattes.png" alt="Lattes"/></a>
+      </p>
+      <p>Taxonomist and bioinformatician leading the jabotR package, responsible for designing and coding functions as well as developing the project website</p>
+    </div>
+  </div>
+  
+  <div class="author-card">
+    <img src="images/luis.jpg" alt="Luís Alexandre Estevão da Silva" class="author-photo" />
+    <div class="author-info">
+      <h3 class="author-name">Luís Alexandre Estevão da Silva</h3>
+      <p>
+        <a class="icon-link" href="mailto:estevao@jbrj.gov.br"><img src="/authors/images/email.png" alt="Email"/></a>
+        <a class="icon-link" href="https://orcid.org/0000-0002-3897-4615" target="_blank"><img src="/authors/images/orcid.png" alt="ORCID"/></a>
+        <a class="icon-link" href="http://lattes.cnpq.br/4001922228786610" target="_blank"><img src="/authors/images/lattes.png" alt="Lattes"/></a>
+      </p>
+      <p>Data administrator for the JABOT system. Participated in the system specification and has been involved since its first version, launched in 2005</p>
+    </div>
+  </div>
+  
+</div>
+```
+
+## The JABOT Team
+
+```{=html}
+<div class="authors-group">
+
+  <div class="author-card">
+    <img src="images/rafaela.jpg" alt="Rafaela Forzza" class="author-photo" />
+    <div class="author-info">
+      <h3 class="author-name">Rafaela Forzza</h3>
+      <p>
+        <a class="icon-link" href="mailto:rafaela@jbrj.gov.br"><img src="/authors/images/email.png" alt="Email"/></a>
+        <a class="icon-link" href="https://orcid.org/0000-0002-7035-9313" target="_blank"><img src="/authors/images/orcid.png" alt="ORCID"/></a>
+        <a class="icon-link" href="http://lattes.cnpq.br/6249814039461102" target="_blank"><img src="/authors/images/lattes.png" alt="Lattes"/></a>
+      </p>
+      <p>Senior taxonomist. Participated in the JABOT system specification and process model definition, and suggested the inclusion of several features</p>
+    </div>
+  </div>
+
+  <div class="author-card">
+    <img src="images/rafael.jpg" alt="Rafael Oliveira Lima" class="author-photo" />
+    <div class="author-info">
+      <h3 class="author-name">Rafael Oliveira Lima</h3>
+      <p>
+        <a class="icon-link" href="mailto:rafael@jbrj.gov.br"><img src="/authors/images/email.png" alt="Email"/></a>
+        <a class="icon-link" href="https://orcid.org/0000-0002-2997-3784" target="_blank"><img src="/authors/images/orcid.png" alt="ORCID"/></a>
+        <a class="icon-link" href="http://lattes.cnpq.br/6097135982786067" target="_blank"><img src="/authors/images/lattes.png" alt="Lattes"/></a>
+      </p>
+      <p>JABOT system developer. Took part in the system specification and has been involved since its first version, launched in 2005</p>
+    </div>
+  </div>
+
+  <div class="author-card">
+    <img src="images/felipe.jpg" alt="Felipe Alves de Oliveira" class="author-photo" />
+    <div class="author-info">
+      <h3 class="author-name">Felipe Alves de Oliveira</h3>
+      <p>
+        <a class="icon-link" href="mailto:ffilardi@jbrj.gov.br"><img src="/authors/images/email.png" alt="Email"/></a>
+        <a class="icon-link" href="https://orcid.org/0000-0002-0372-4325" target="_blank"><img src="/authors/images/orcid.png" alt="ORCID"/></a>
+        <a class="icon-link" href="http://lattes.cnpq.br/0510166925160914" target="_blank"><img src="/authors/images/lattes.png" alt="Lattes"/></a>
+      </p>
+      <p>Analyst, developer, and support specialist for the JABOT system. He has been involved in the system's development since Version 2, launched in 2014</p>
+    </div>
+  </div>
+
+  <div class="author-card">
+    <img src="images/wellington.jpg" alt="Wellington Braga" class="author-photo" />
+    <div class="author-info">
+      <h3 class="author-name">Wellington Braga</h3>
+      <p>
+        <a class="icon-link" href="mailto:welington.braga@jbrj.gov.br "><img src="/authors/images/email.png" alt="Email"/></a>
+        <a class="icon-link" href="https://orcid.org/0000-0001-9634-0365" target="_blank"><img src="/authors/images/orcid.png" alt="ORCID"/></a>
+        <a class="icon-link" href="http://lattes.cnpq.br/1843612090689191" target="_blank"><img src="/authors/images/lattes.png" alt="Lattes"/></a>
+      </p>
+      <p>Support analyst for the JABOT system</p>
+    </div>
+  </div>
+  
+</div>
+```
+
+<style>
+.authors-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 2rem;
+}
+
+.author-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  padding: 1rem;
+  width: 300px;
+  transition: transform 0.3s ease;
+}
+
+.author-card:hover {
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+.author-photo {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.author-info {
+  text-align: center;
+}
+
+.author-info p a {
+  margin: 0 6px;
+  color: #007bff;
+  font-size: 1.1rem;
+}
+
+.author-name {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+</style>
+

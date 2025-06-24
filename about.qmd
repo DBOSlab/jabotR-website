@@ -1,0 +1,77 @@
+---
+title: "About jabotR"
+subtitle: "Open source tools to explore plant specimen collections from JABOT"
+format:
+  html:
+    toc: true
+---
+
+<style>
+  body {
+    position: relative;
+  }
+
+  .watermark {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    opacity: 0.15;
+    z-index: -1;
+    width: 400px;
+  }
+
+  .background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: -1;
+  }
+</style>
+
+<img src='/figures/jabot_original_logo.png' class='watermark' alt='jabot logo watermark'>
+
+
+## Overview
+
+`jabotR` is an R package for exploring plant specimen collections from the [JABOT online herbarium collections](https://jabot.jbrj.gov.br/v3/consulta.php), hosted by the [Rio de Janeiro Botanical Garden](https://www.gov.br/jbrj/pt-br). The package interacts with the JABOT Integrated Publishing Toolkit ([IPT IPT](https://ipt.jbrj.gov.br/jabot)) by readily downloading full specimen records in Darwin Core Format. It also provides functions to summarize and filter data by taxonomic or geographical criteria.
+
+## The JABOT
+
+JABOT is an online system for managing scientific collections housed in herbaria, research laboratory networks at botanical institutions, and living collections in botanical gardens. From a management perspective, it offers curators, sub-curators, and herbarium staff a variety of tools for administration, productivity monitoring, and report generation. The platform allows users to input and publish specimen data and images, with built-in features for analyzing and improving data quality.
+
+## Package Description
+
+Package: `jabotR`  
+Type: R Package  
+Version: 1.0.0  
+
+Authors: Domingos Cardoso ([\@DBOSlab](https://github.com/DBOSlab) [ORCID](https://orcid.org/0000-0001-7072-2656)) and Luís Alexandre Estevão da Silva ([\@DBOSlab](https://github.com/DBOSlab) [ORCID](https://orcid.org/0000-0001-7072-2656))
+
+Maintainer: Domingos Cardoso (<domingoscardoso@jbrj.gov.br>)
+
+### Features
+
+- Retrieve specimen records by taxonomic/geographic filters
+- Summarize collections and data availability
+- Supports Darwin Core Archive (DwC-A) standards
+- Fully integrates with tidyverse workflows
+- Includes data visualization and mapping support
+
+## Contribute
+
+You can contribute to `jabotR` by:
+
+- Opening issues for feedback or bug reports
+- Submitting pull requests for fixes or enhancements
+- Suggesting or developing new features (please open an issue for discussion first)
+
+## License
+
+`jabotR` is [open source software](/LICENSE.md). Open tools empower science through reproducibility, accessibility, and equitable knowledge sharing.
+
+## Acknowledgements
+
+Development of `jabotR` is led by the [Rio de Janeiro Botanical Garden (JBRJ)](https://www.gov.br/jbrj). We also gratefully acknowledge the financial support provided by [CNPq - Conselho Nacional de Desenvolvimento Científico e Tecnológico](https://www.gov.br/cnpq/pt-br), Brazil's National Council for Scientific and Technological Development, and [FINEP - Financiadora de Estudos e Projetos](https://www.gov.br/finep/pt-br), Brazil's Funding Authority for Studies and Projects.

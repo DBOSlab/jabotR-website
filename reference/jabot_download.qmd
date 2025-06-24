@@ -1,0 +1,94 @@
+---
+title: "jabot_download"
+description: "Documentation for `jabot_download()` from the refloraR package."
+toc: true
+toc-depth: 3
+---
+ 
+```{r}
+#| eval: false
+refloraR::jabot_download()
+```
+
+ **Description**
+ \description
+{
+
+
+Download plant specimen records in Darwin Core Format from any
+
+herbarium collection at 
+\href
+
+{
+https://ipt.jbrj.gov.br/jabot
+}
+
+{
+JABOT
+}
+
+
+hosted by the 
+\href
+
+{
+https://www.gov.br/jbrj/pt-br
+}
+
+{
+Rio de Janeiro Botanical Garden
+}
+.
+
+} 
+
+ **Details**
+  
+
+ **Arguments**
+
+| Argument | Description |
+|----------|-------------|
+| \item  { herbarium }  { A vector of specific herbarium acronyms (collection code) in
+ uppercase letters or leave it as NULL to download records for all JABOT herbaria. } | \item  { herbarium }  { A vector of specific herbarium acronyms (collection code) in
+ uppercase letters or leave it as NULL to download records for all JABOT herbaria. } |
+| \item  { verbose }  { Logical, if  \code { FALSE } | \item  { verbose }  { Logical, if  \code { FALSE } |
+| \item  { dir }  { Pathway to the computer's directory, where the file will be saved.
+ The default is to create a directory named  \code { jabot_download } | \item  { dir }  { Pathway to the computer's directory, where the file will be saved.
+ The default is to create a directory named  \code { jabot_download } | 
+
+ **Value**
+ \value
+{
+
+
+Folder with DwC-A files for an specific or all JABOT-associated herbaria.
+
+} 
+
+ **Examples**
+```r
+ \examples
+{
+
+
+\dontrun
+{
+
+
+
+
+jabot_download(herbarium = c("AFR", "RB"),
+
+               verbose = TRUE,
+
+               dir = "jabot_download")
+
+}
+
+
+
+
+} 
+```
