@@ -70,7 +70,7 @@ resources:
       <h3 class="author-name">Luís Alexandre Estevão da Silva</h3>
       <p>
         <a class="icon-link" href="mailto:estevao@jbrj.gov.br"><img src="/authors/images/email.png" alt="Email"/></a>
-        <a class="icon-link" href="https://orcid.org/0000-0002-3897-4615" target="_blank"><img src="/authors/images/orcid.png" alt="ORCID"/></a>
+        <a class="icon-link" href="https://orcid.org/0000-0002-7464-922X" target="_blank"><img src="/authors/images/orcid.png" alt="ORCID"/></a>
         <a class="icon-link" href="http://lattes.cnpq.br/4001922228786610" target="_blank"><img src="/authors/images/lattes.png" alt="Lattes"/></a>
       </p>
       <p>Data administrator for the JABOT system. Participated in the system specification and has been involved since its first version, launched in 2005</p>
@@ -117,7 +117,7 @@ resources:
       <h3 class="author-name">Felipe Alves de Oliveira</h3>
       <p>
         <a class="icon-link" href="mailto:ffilardi@jbrj.gov.br"><img src="/authors/images/email.png" alt="Email"/></a>
-        <a class="icon-link" href="https://orcid.org/0000-0002-0372-4325" target="_blank"><img src="/authors/images/orcid.png" alt="ORCID"/></a>
+        <a class="icon-link" href="https://orcid.org/0000-0003-4011-3504" target="_blank"><img src="/authors/images/orcid.png" alt="ORCID"/></a>
         <a class="icon-link" href="http://lattes.cnpq.br/0510166925160914" target="_blank"><img src="/authors/images/lattes.png" alt="Lattes"/></a>
       </p>
       <p>Analyst, developer, and support specialist for the JABOT system. He has been involved in the system's development since Version 2, launched in 2014</p>
