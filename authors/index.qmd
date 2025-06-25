@@ -65,6 +65,19 @@ resources:
   </div>
   
   <div class="author-card">
+    <img src="images/carlos.jpg" alt="Carlos Calderón" class="author-photo" />
+    <div class="author-info">
+      <h3 class="author-name">Carlos Calderón</h3>
+      <p>
+        <a class="icon-link" href="mailto:caldecid@gmail.com"><img src="/authors/images/email.png" alt="Email"/></a>
+        <a class="icon-link" href="https://orcid.org/0000-0002-3897-4615" target="_blank"><img src="/authors/images/orcid.png" alt="ORCID"/></a>
+        <a class="icon-link" href="http://lattes.cnpq.br/3331732061175660" target="_blank"><img src="/authors/images/lattes.png" alt="Lattes"/></a>
+      </p>
+      <p>Bioinformatician contributing to the jabotR package, with a focus on designing and implementing function workflows</p>
+    </div>
+  </div>
+  
+  <div class="author-card">
     <img src="images/luis.jpg" alt="Luís Alexandre Estevão da Silva" class="author-photo" />
     <div class="author-info">
       <h3 class="author-name">Luís Alexandre Estevão da Silva</h3>

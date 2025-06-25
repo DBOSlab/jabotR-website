@@ -48,7 +48,7 @@ Package: `jabotR`
 Type: R Package  
 Version: 1.0.0  
 
-Authors: Domingos Cardoso ([\@DBOSlab](https://github.com/DBOSlab) [ORCID](https://orcid.org/0000-0001-7072-2656)) and Luís Alexandre Estevão da Silva ([\@DBOSlab](https://github.com/DBOSlab) [ORCID](https://orcid.org/0000-0001-7072-2656))
+Authors: Domingos Cardoso ([\@DBOSlab](https://github.com/DBOSlab) [ORCID](https://orcid.org/0000-0001-7072-2656)), Carlos Calderón ([\@caldecid](https://github.com/caldecid) [ORCID](https://orcid.org/0000-0002-3897-4615)) and Luís Alexandre Estevão da Silva ([\@DBOSlab](https://github.com/DBOSlab) [ORCID](https://orcid.org/0000-0002-7464-922X))
 
 Maintainer: Domingos Cardoso (<domingoscardoso@jbrj.gov.br>)
 
