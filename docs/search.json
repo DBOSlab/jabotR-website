@@ -575,9 +575,9 @@
   {
     "objectID": "articles/index.html",
     "href": "articles/index.html",
-    "title": "Articles",
+    "title": "How-To Articles",
     "section": "",
-    "text": "Summarize JABOT collections\n\nSummarize collections\n\n\n\n\n\n\nDownload and parse JABOT records\n\nDownload specimen records\nParse JABOT Darwin Core Archives\n\n\n\n\n\n\nFilter JABOT records\n\nRetrieve taxon-specific specimens\nFilter indeterminate specimens",
+    "text": "Summarize JABOT collections\n\nSummarize collections\n\n\n\n\nDownload and parse JABOT records\n\nDownload specimen records\nParse JABOT Darwin Core Archives\n\n\n\n\n\nFilter JABOT records\n\nRetrieve taxon-specific specimens\nFilter indeterminate specimens",
     "crumbs": [
       "Articles",
       "Overview"

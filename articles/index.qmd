@@ -1,5 +1,5 @@
 ---
-title: "Articles"
+title: "How-To Articles"
 format: html
 ---
 
@@ -21,20 +21,22 @@ format: html
 <img src="/figures/jabot_original_logo.png" class="watermark" alt="jabot logo watermark">
 
 ::: {layout-ncol="2"}
+
 ::: {style="display: block;"}
 ### Summarize JABOT collections
 - [Summarize collections](/articles/summarize_jabot_collections.qmd)  
+:::
 
 ::: {style="display: block;"}
-:::
 ### Download and parse JABOT records   
 - [Download specimen records](/articles/download_jabot_collections.qmd)
 - [Parse JABOT Darwin Core Archives](/articles/parse_jabot_dwca.qmd)
+:::
 
 ::: {style="display: block;"}
-:::
 ### Filter JABOT records   
 - [Retrieve taxon-specific specimens](/articles/filter_jabot_records.qmd)
 - [Filter indeterminate specimens](/articles/filter_indeterminate_jabot_specimens.qmd)
 :::
+
 :::
