@@ -1,99 +1,43 @@
 ---
-title: "jabot_parse"
-description: "Documentation for `jabot_parse()` from the refloraR package."
+title: 'jabot_parse'
+description: 'Parse Darwin Core Archive files'
 toc: true
 toc-depth: 3
 ---
- 
+
+
 ```{r}
 #| eval: false
-refloraR::jabot_parse()
+jabotR::jabot_parse()
 ```
 
- **Description**
- \description
-{
-
+### Description
 
 Read Darwin Core Archive (DwC-A) files from any downloaded dwca
+folder at [JABOT](https://ipt.jbrj.gov.br/jabot) hosted by the
+[Rio de Janeiro Botanical Garden](https://www.gov.br/jbrj/pt-br).
 
-folder at 
-\href
-
-{
-https://ipt.jbrj.gov.br/jabot
-}
-
-{
-JABOT
-}
- hosted by the
-
-\href
-
-{
-https://www.gov.br/jbrj/pt-br
-}
-
-{
-Rio de Janeiro Botanical Garden
-}
-.
-
-} 
-
- **Details**
-  
-
- **Arguments**
+### Arguments
 
 | Argument | Description |
-|----------|-------------|
-| \item  { path }  { Pathway to the computer's directory, where the REFLORA-downloaded
- dwca folders are. } | \item  { path }  { Pathway to the computer's directory, where the REFLORA-downloaded
- dwca folders are. } |
-| \item  { herbarium }  { A vector of specific herbarium acronyms (collection code) in
- uppercase letters or leave it as  \code { NULL } | \item  { herbarium }  { A vector of specific herbarium acronyms (collection code) in
- uppercase letters or leave it as  \code { NULL } |
-| \item  { verbose }  { Logical, if  \code { FALSE } | \item  { verbose }  { Logical, if  \code { FALSE } | 
+|---|---|
+| path | Pathway to the computer's directory, where the REFLORA-downloaded dwca folders are. |
+| herbarium | A vector of specific herbarium acronyms (collection code) in uppercase letters or leave it as `NULL` to parse specimen records for all herbarim dcwa folders in the defined path directory. |
+| verbose | Logical, if `FALSE`, a message showing steps when summarizing specimen records will not be printed in the console in full. |
 
- **Value**
- \value
-{
-
+### Value
 
 A list of dwca files, including data and associated metada.
 
-} 
+### Examples
 
- **Examples**
 ```r
- \examples
-{
-
-
-\dontrun
-{
-
-
-
-
 jabot_download(herbarium = c("ALCB", "HUEFS", "K", "RB"),
-
                verbose = TRUE,
-
                dir = "jabot_download")
 
-
-
 dwca <- jabot_parse(path = "jabot_download",
-
                     verbose = TRUE)
-
-}
-
-
-
-
-} 
 ```
+
+

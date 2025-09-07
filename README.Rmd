@@ -97,4 +97,3 @@ Full function documentation and articles are available at the `jabotR` [website]
 
 ## Citation
 Cardoso, D., Calderón, C. & Silva, L.A.E. 2025. _jabotR_: An R Package for Exploring JABOT Online Plant Specimen Collections. https://github.com/dboslab/jabotR
-

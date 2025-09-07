@@ -1,99 +1,43 @@
 ---
-title: "jabot_summary"
-description: "Documentation for `jabot_summary()` from the refloraR package."
+title: 'jabot_summary'
+description: 'Summarize current plant specimen records at JABOT'
 toc: true
 toc-depth: 3
 ---
- 
+
+
 ```{r}
 #| eval: false
-refloraR::jabot_summary()
+jabotR::jabot_summary()
 ```
 
- **Description**
- \description
-{
-
+### Description
 
 Summarize current available plant specimen records at
+[JABOT](https://ipt.jbrj.gov.br/jabot) hosted by the
+[Rio de Janeiro Botanical Garden](https://www.gov.br/jbrj/pt-br).
 
-\href
-
-{
-https://ipt.jbrj.gov.br/jabot
-}
-
-{
-JABOT
-}
- hosted by the
-
-\href
-
-{
-https://www.gov.br/jbrj/pt-br
-}
-
-{
-Rio de Janeiro Botanical Garden
-}
-.
-
-} 
-
- **Details**
-  
-
- **Arguments**
+### Arguments
 
 | Argument | Description |
-|----------|-------------|
-| \item  { herbarium }  { A vector of specific herbarium acronyms (collection code) in
- uppercase letters or leave it as  \code { NULL } | \item  { herbarium }  { A vector of specific herbarium acronyms (collection code) in
- uppercase letters or leave it as  \code { NULL } |
-| \item  { verbose }  { Logical, if  \code { FALSE } | \item  { verbose }  { Logical, if  \code { FALSE } |
-| \item  { save }  { Logical, if  \code { TRUE } | \item  { save }  { Logical, if  \code { TRUE } |
-| \item  { dir }  { Pathway to the computer's directory, where the table-formatted
- summary will be saved. The default is to create a directory named
-   \code { jabot_summary } | \item  { dir }  { Pathway to the computer's directory, where the table-formatted
- summary will be saved. The default is to create a directory named
-   \code { jabot_summary } | 
+|---|---|
+| herbarium | A vector of specific herbarium acronyms (collection code) in uppercase letters or leave it as `NULL` to summarize specimen records for all JABOT-hosted herbaria. |
+| verbose | Logical, if `FALSE`, a message showing steps when summarizing specimen records will not be printed in the console in full. |
+| save | Logical, if `TRUE`, the search results will be saved on disk. |
+| dir | Pathway to the computer's directory, where the table-formatted summary will be saved. The default is to create a directory named `jabot_summary`. |
 
- **Value**
- \value
-{
-
+### Value
 
 A dataframe summarizing current available plant specimen records in
-
 JABOT.
 
-} 
+### Examples
 
- **Examples**
 ```r
- \examples
-{
-
-
-\dontrun
-{
-
-
-
-
 jabot_summary(herbarium = c("ALCB", "HUEFS", "K", "RB"),
-
               verbose = TRUE,
-
               save = TRUE,
-
               dir = "jabot_summary")
-
-}
-
-
-
-
-} 
 ```
+
+

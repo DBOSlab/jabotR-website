@@ -10,7 +10,6 @@ format:
   body {
     position: relative;
   }
-
   .watermark {
     position: fixed;
     bottom: 50px;
@@ -19,32 +18,20 @@ format:
     z-index: -1;
     width: 400px;
   }
-
-  .background-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
-    z-index: -1;
-  }
 </style>
 
-<img src='/figures/jabot_original_logo.png' class='watermark' alt='jabot logo watermark'>
+<img src="/figures/jabot_original_logo.png" class="watermark" alt="jabot logo watermark">
 
-## jabot_records
-- [jabot_records](/reference/jabot_records.qmd)
+## jabotR
 
-## jabot_summary
-- [jabot_summary](/reference/jabot_summary.qmd)
+- [`jabot_download()`](/reference/jabot_download.qmd)
 
-## jabot_indets
-- [jabot_indets](/reference/jabot_indets.qmd)
+- [`jabot_indets()`](/reference/jabot_indets.qmd)
 
-## jabot_parse
-- [jabot_parse](/reference/jabot_parse.qmd)
+- [`jabot_parse()`](/reference/jabot_parse.qmd)
 
-## jabot_download
-- [jabot_download](/reference/jabot_download.qmd)
+- [`jabot_records()`](/reference/jabot_records.qmd)
+
+- [`jabot_summary()`](/reference/jabot_summary.qmd)
+
 

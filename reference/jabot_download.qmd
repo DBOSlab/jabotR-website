@@ -1,94 +1,40 @@
 ---
-title: "jabot_download"
-description: "Documentation for `jabot_download()` from the refloraR package."
+title: 'jabot_download'
+description: 'Download plant specimen records from JABOT'
 toc: true
 toc-depth: 3
 ---
- 
+
+
 ```{r}
 #| eval: false
-refloraR::jabot_download()
+jabotR::jabot_download()
 ```
 
- **Description**
- \description
-{
-
+### Description
 
 Download plant specimen records in Darwin Core Format from any
+herbarium collection at [JABOT](https://ipt.jbrj.gov.br/jabot)
+hosted by the [Rio de Janeiro Botanical Garden](https://www.gov.br/jbrj/pt-br).
 
-herbarium collection at 
-\href
-
-{
-https://ipt.jbrj.gov.br/jabot
-}
-
-{
-JABOT
-}
-
-
-hosted by the 
-\href
-
-{
-https://www.gov.br/jbrj/pt-br
-}
-
-{
-Rio de Janeiro Botanical Garden
-}
-.
-
-} 
-
- **Details**
-  
-
- **Arguments**
+### Arguments
 
 | Argument | Description |
-|----------|-------------|
-| \item  { herbarium }  { A vector of specific herbarium acronyms (collection code) in
- uppercase letters or leave it as NULL to download records for all JABOT herbaria. } | \item  { herbarium }  { A vector of specific herbarium acronyms (collection code) in
- uppercase letters or leave it as NULL to download records for all JABOT herbaria. } |
-| \item  { verbose }  { Logical, if  \code { FALSE } | \item  { verbose }  { Logical, if  \code { FALSE } |
-| \item  { dir }  { Pathway to the computer's directory, where the file will be saved.
- The default is to create a directory named  \code { jabot_download } | \item  { dir }  { Pathway to the computer's directory, where the file will be saved.
- The default is to create a directory named  \code { jabot_download } | 
+|---|---|
+| herbarium | A vector of specific herbarium acronyms (collection code) in uppercase letters or leave it as NULL to download records for all JABOT herbaria. |
+| verbose | Logical, if `FALSE`, a message showing steps when downloading herbarium specimen records will not be printed in the console in full. |
+| dir | Pathway to the computer's directory, where the file will be saved. The default is to create a directory named `jabot_download` and the results will be saved within a subfolder named by each searched JABOT-associated herbarium collection. |
 
- **Value**
- \value
-{
-
+### Value
 
 Folder with DwC-A files for an specific or all JABOT-associated herbaria.
 
-} 
+### Examples
 
- **Examples**
 ```r
- \examples
-{
-
-
-\dontrun
-{
-
-
-
-
 jabot_download(herbarium = c("AFR", "RB"),
-
                verbose = TRUE,
-
                dir = "jabot_download")
-
-}
-
-
-
-
-} 
 ```
+
+
