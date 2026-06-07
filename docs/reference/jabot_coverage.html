@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Summarize current plant specimen records at JABOT">
+<meta name="description" content="Herbarium representativeness within the Flora e Funga do Brasil">
 
-<title>jabot_summary – jabotR</title>
+<title>jabot_coverage – jabotR</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -4180,6 +4180,7 @@ height: 400px;
    
   <ul>
   <li><a href="#description" id="toc-description" class="nav-link active" data-scroll-target="#description">Description</a></li>
+  <li><a href="#details" id="toc-details" class="nav-link" data-scroll-target="#details">Details</a></li>
   <li><a href="#arguments" id="toc-arguments" class="nav-link" data-scroll-target="#arguments">Arguments</a></li>
   <li><a href="#value" id="toc-value" class="nav-link" data-scroll-target="#value">Value</a></li>
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
@@ -4195,12 +4196,12 @@ height: 400px;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">jabot_summary</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">jabot_coverage</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 <div>
   <div class="description">
-    Summarize current plant specimen records at JABOT
+    Herbarium representativeness within the Flora e Funga do Brasil
   </div>
 </div>
 
@@ -4218,11 +4219,24 @@ height: 400px;
 
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>jabotR<span class="sc">::</span><span class="fu">jabot_summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>jabotR<span class="sc">::</span><span class="fu">jabot_coverage</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="description" class="level3">
 <h3 class="anchored" data-anchor-id="description">Description</h3>
-<p>Summarize current available plant specimen records at <a href="https://ipt.jbrj.gov.br/jabot">JABOT</a> hosted by the <a href="https://www.gov.br/jbrj/pt-br">Rio de Janeiro Botanical Garden</a>.</p>
+<p>Measures how well a JABOT-hosted herbarium represents the <a href="https://floradobrasil.jbrj.gov.br/consulta/">Flora e Funga do Brasil (FFB)</a>. Unlike [jabot_gaps()] (which focuses on what is <strong>missing</strong>), this function characterises what is <strong>present</strong>, computing coverage ratios at every taxonomic and geographic level:</p>
+<ul>
+<li>Overall representativeness (% of FFB species held in the herbarium)</li>
+<li>Coverage by <strong>kingdom</strong>, <strong>family</strong>, and <strong>phytogeographic domain</strong></li>
+<li><strong>Family-level bar charts</strong> ranked by coverage (best- and worst-covered)</li>
+<li><strong>Choropleth map</strong> of % coverage by Brazilian state</li>
+<li>Summary statistics table</li>
+<li>An <strong>HTML report</strong> (always generated) and optional <strong>PDF</strong> / <strong>PNG</strong> exports of every individual figure</li>
+</ul>
+</section>
+<section id="details" class="level3">
+<h3 class="anchored" data-anchor-id="details">Details</h3>
+<p>Coverage is defined as: = </p>
+<p>The function follows the same data-preparation pipeline as [jabot_gaps()]: FFB data are parsed, JABOT records fetched, and synonym names resolved before the comparison is made.</p>
 </section>
 <section id="arguments" class="level3">
 <h3 class="anchored" data-anchor-id="arguments">Arguments</h3>
@@ -4240,33 +4254,59 @@ height: 400px;
 <tbody>
 <tr class="odd">
 <td>herbarium</td>
-<td>A vector of specific herbarium acronyms (collection code) in uppercase letters or leave it as <code>NULL</code> to summarize specimen records for all JABOT-hosted herbaria.</td>
+<td>Character. Herbarium acronym in uppercase (e.g. <code>&quot;RB&quot;</code>).</td>
+</tr>
+<tr class="even">
+<td>ffb_path</td>
+<td>Character or <code>NULL</code>. Path to a directory holding a previously downloaded FFB DwC-A dataset. When <code>NULL</code> (default) the dataset is downloaded automatically via [floraR::flora_download()].</td>
+</tr>
+<tr class="odd">
+<td>jabot_path</td>
+<td>Character or <code>NULL</code>. Path to a directory holding previously downloaded JABOT DwC-A files. When <code>NULL</code> (default) the records are downloaded automatically via [jabot_download()].</td>
+</tr>
+<tr class="even">
+<td>format</td>
+<td>Character vector. Static formats for saving individual figures: <code>&quot;pdf&quot;</code>, <code>&quot;png&quot;</code>, or both. The HTML report is <strong>always</strong> generated.</td>
+</tr>
+<tr class="odd">
+<td>fig_width</td>
+<td>Numeric. Width of saved figures in inches. Default <code>10</code>.</td>
+</tr>
+<tr class="even">
+<td>fig_height</td>
+<td>Numeric. Height of saved figures in inches. Default <code>6</code>.</td>
+</tr>
+<tr class="odd">
+<td>open_report</td>
+<td>Logical. If <code>TRUE</code> (default), opens the HTML report in the default browser after rendering.</td>
 </tr>
 <tr class="even">
 <td>verbose</td>
-<td>Logical, if <code>FALSE</code>, a message showing steps when summarizing specimen records will not be printed in the console in full.</td>
+<td>Logical. If <code>TRUE</code> (default), progress messages are printed.</td>
 </tr>
 <tr class="odd">
-<td>save</td>
-<td>Logical, if <code>TRUE</code>, the search results will be saved on disk.</td>
-</tr>
-<tr class="even">
 <td>dir</td>
-<td>Pathway to the computer’s directory, where the table-formatted summary will be saved. The default is to create a directory named <code>jabot_summary</code>.</td>
+<td>Character. Output directory. Defaults to <code>&quot;herbarium_representativeness&quot;</code>.</td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="value" class="level3">
 <h3 class="anchored" data-anchor-id="value">Value</h3>
-<p>A dataframe summarizing current available plant specimen records in JABOT.</p>
+<p>Invisibly returns a named list with all computed data frames and ggplot2 objects. The HTML report (and optional figures) are written to <code>dir</code>.</p>
 </section>
 <section id="examples" class="level3">
 <h3 class="anchored" data-anchor-id="examples">Examples</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">jabot_summary</span>(<span class="at">herbarium =</span> <span class="fu">c</span>(<span class="st">&quot;ALCB&quot;</span>, <span class="st">&quot;HUEFS&quot;</span>, <span class="st">&quot;K&quot;</span>, <span class="st">&quot;RB&quot;</span>),</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">save =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">dir =</span> <span class="st">&quot;jabot_summary&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Full run — renders HTML and saves PDF figures</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">jabot_coverage</span>(<span class="at">herbarium =</span> <span class="st">&quot;RB&quot;</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">format    =</span> <span class="st">&quot;pdf&quot;</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">dir       =</span> <span class="st">&quot;RB_representativeness&quot;</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-run using cached data</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">jabot_coverage</span>(<span class="at">herbarium  =</span> <span class="st">&quot;RB&quot;</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">ffb_path   =</span> <span class="st">&quot;flora_download&quot;</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                         <span class="at">jabot_path =</span> <span class="st">&quot;jabot_download&quot;</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                         <span class="at">format     =</span> <span class="fu">c</span>(<span class="st">&quot;pdf&quot;</span>, <span class="st">&quot;png&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 <!-- -->
@@ -4738,8 +4778,8 @@ height: 400px;
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
 <div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &#39;jabot_summary&#39;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> &#39;Summarize current plant specimen records at JABOT&#39;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &#39;jabot_coverage&#39;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> &#39;Herbarium representativeness within the Flora e Funga do Brasil&#39;</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">toc-depth:</span><span class="co"> 3</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
@@ -4747,38 +4787,69 @@ height: 400px;
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>jabotR<span class="sc">::</span><span class="fu">jabot_summary</span>()</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>jabotR<span class="sc">::</span><span class="fu">jabot_coverage</span>()</span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="fu">### Description</span></span>
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>Summarize current available plant specimen records at</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">JABOT</span><span class="co">](https://ipt.jbrj.gov.br/jabot)</span> hosted by the</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Rio de Janeiro Botanical Garden</span><span class="co">](https://www.gov.br/jbrj/pt-br)</span>.</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="fu">### Arguments</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>Measures how well a JABOT-hosted herbarium represents the</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Flora e Funga do Brasil (FFB)</span><span class="co">](https://floradobrasil.jbrj.gov.br/consulta/)</span>.</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>Unlike <span class="co">[</span><span class="ot">jabot_gaps()</span><span class="co">]</span> (which focuses on what is **missing**), this</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>function characterises what is **present**, computing coverage ratios at</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>every taxonomic and geographic level:</span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Argument <span class="pp">|</span> Description <span class="pp">|</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> herbarium <span class="pp">|</span> A vector of specific herbarium acronyms (collection code) in uppercase letters or leave it as <span class="in">`NULL`</span> to summarize specimen records for all JABOT-hosted herbaria. <span class="pp">|</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> verbose <span class="pp">|</span> Logical, if <span class="in">`FALSE`</span>, a message showing steps when summarizing specimen records will not be printed in the console in full. <span class="pp">|</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> save <span class="pp">|</span> Logical, if <span class="in">`TRUE`</span>, the search results will be saved on disk. <span class="pp">|</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> dir <span class="pp">|</span> Pathway to the computer&#39;s directory, where the table-formatted summary will be saved. The default is to create a directory named <span class="in">`jabot_summary`</span>. <span class="pp">|</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="fu">### Value</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>A dataframe summarizing current available plant specimen records in</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>JABOT.</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="fu">### Examples</span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="fu">jabot_summary</span>(<span class="at">herbarium =</span> <span class="fu">c</span>(<span class="st">&quot;ALCB&quot;</span>, <span class="st">&quot;HUEFS&quot;</span>, <span class="st">&quot;K&quot;</span>, <span class="st">&quot;RB&quot;</span>),</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>              <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>              <span class="at">save =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>              <span class="at">dir =</span> <span class="st">&quot;jabot_summary&quot;</span>)</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Overall representativeness (% of FFB species held in the herbarium)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Coverage by **kingdom**, **family**, and **phytogeographic domain**</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Family-level bar charts** ranked by coverage (best- and worst-covered)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Choropleth map** of % coverage by Brazilian state</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Summary statistics table</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>An **HTML report** (always generated) and optional **PDF** / **PNG**</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  exports of every individual figure</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="fu">### Details</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>Coverage is defined as:</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>\text{coverage} = \frac{N_{\text{in herbarium}}}{N_{\text{FFB total}}} \times 100</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>The function follows the same data-preparation pipeline as</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="ot">[jabot_gaps()]: </span>FFB data are parsed, JABOT records fetched, and</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>synonym names resolved before the comparison is made.</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="fu">### Arguments</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Argument <span class="pp">|</span> Description <span class="pp">|</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> herbarium <span class="pp">|</span> Character. Herbarium acronym in uppercase (e.g. <span class="in">`&quot;RB&quot;`</span>). <span class="pp">|</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ffb_path <span class="pp">|</span> Character or <span class="in">`NULL`</span>. Path to a directory holding a previously downloaded FFB DwC-A dataset. When <span class="in">`NULL`</span> (default) the dataset is downloaded automatically via <span class="co">[</span><span class="ot">floraR::flora_download()</span><span class="co">]</span>. <span class="pp">|</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> jabot_path <span class="pp">|</span> Character or <span class="in">`NULL`</span>. Path to a directory holding previously downloaded JABOT DwC-A files. When <span class="in">`NULL`</span> (default) the records are downloaded automatically via <span class="co">[</span><span class="ot">jabot_download()</span><span class="co">]</span>. <span class="pp">|</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> format <span class="pp">|</span> Character vector. Static formats for saving individual figures: <span class="in">`&quot;pdf&quot;`</span>, <span class="in">`&quot;png&quot;`</span>, or both. The HTML report is **always** generated. <span class="pp">|</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> fig_width <span class="pp">|</span> Numeric. Width of saved figures in inches. Default <span class="in">`10`</span>. <span class="pp">|</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> fig_height <span class="pp">|</span> Numeric. Height of saved figures in inches. Default <span class="in">`6`</span>. <span class="pp">|</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> open_report <span class="pp">|</span> Logical. If <span class="in">`TRUE`</span> (default), opens the HTML report in the default browser after rendering. <span class="pp">|</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> verbose <span class="pp">|</span> Logical. If <span class="in">`TRUE`</span> (default), progress messages are printed. <span class="pp">|</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> dir <span class="pp">|</span> Character. Output directory. Defaults to <span class="in">`&quot;herbarium_representativeness&quot;`</span>. <span class="pp">|</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="fu">### Value</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>Invisibly returns a named list with all computed data frames and</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>  ggplot2 objects. The HTML report (and optional figures) are written to</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>  <span class="in">`dir`</span>.</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="fu">### Examples</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Full run — renders HTML and saves PDF figures</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="fu">jabot_coverage</span>(<span class="at">herbarium =</span> <span class="st">&quot;RB&quot;</span>,</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>                         <span class="at">format    =</span> <span class="st">&quot;pdf&quot;</span>,</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>                         <span class="at">dir       =</span> <span class="st">&quot;RB_representativeness&quot;</span>)</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-run using cached data</span></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="fu">jabot_coverage</span>(<span class="at">herbarium  =</span> <span class="st">&quot;RB&quot;</span>,</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>                         <span class="at">ffb_path   =</span> <span class="st">&quot;flora_download&quot;</span>,</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>                         <span class="at">jabot_path =</span> <span class="st">&quot;jabot_download&quot;</span>,</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>                         <span class="at">format     =</span> <span class="fu">c</span>(<span class="st">&quot;pdf&quot;</span>, <span class="st">&quot;png&quot;</span>))</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

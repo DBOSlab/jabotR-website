@@ -24,7 +24,11 @@ format:
 
 ## jabotR
 
+- [`jabot_coverage()`](/reference/jabot_coverage.qmd)
+
 - [`jabot_download()`](/reference/jabot_download.qmd)
+
+- [`jabot_gaps()`](/reference/jabot_gaps.qmd)
 
 - [`jabot_indets()`](/reference/jabot_indets.qmd)
 

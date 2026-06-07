@@ -46,7 +46,7 @@ resources:
 <img src="/figures/jabot_original_logo.png" class="watermark" alt="jabot logo watermark">
 
 
-## The `jaboR` Developers
+## The `jabotR` Developers
 
 ```{=html}
 <div class="authors-group">
@@ -64,19 +64,14 @@ resources:
     </div>
   </div>
   
-  <div class="author-card">
-    <img src="images/carlos.jpg" alt="Carlos Calderón" class="author-photo" />
-    <div class="author-info">
-      <h3 class="author-name">Carlos Calderón</h3>
-      <p>
-        <a class="icon-link" href="mailto:caldecid@gmail.com"><img src="/authors/images/email.png" alt="Email"/></a>
-        <a class="icon-link" href="https://orcid.org/0000-0002-3897-4615" target="_blank"><img src="/authors/images/orcid.png" alt="ORCID"/></a>
-        <a class="icon-link" href="http://lattes.cnpq.br/3331732061175660" target="_blank"><img src="/authors/images/lattes.png" alt="Lattes"/></a>
-      </p>
-      <p>Bioinformatician contributing to the jabotR package, with a focus on designing and implementing function workflows</p>
-    </div>
-  </div>
-  
+</div>
+```
+
+## The JABOT Team
+
+```{=html}
+<div class="authors-group">
+
   <div class="author-card">
     <img src="images/luis.jpg" alt="Luís Alexandre Estevão da Silva" class="author-photo" />
     <div class="author-info">
@@ -89,14 +84,6 @@ resources:
       <p>Data administrator for the JABOT system. Participated in the system specification and has been involved since its first version, launched in 2005</p>
     </div>
   </div>
-  
-</div>
-```
-
-## The JABOT Team
-
-```{=html}
-<div class="authors-group">
 
   <div class="author-card">
     <img src="images/rafaela.jpg" alt="Rafaela Forzza" class="author-photo" />
