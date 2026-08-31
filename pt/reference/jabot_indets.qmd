@@ -1,0 +1,77 @@
+---
+title: 'jabot_indets'
+description: 'Recuperar espécimes indeterminados do JABOT'
+toc: true
+toc-depth: 3
+---
+
+
+```{r}
+#| eval: false
+jabotR::jabot_indets()
+```
+
+### Descrição
+
+Recupera registros de ocorrência de espécimes indeterminados (por exemplo,
+identificados apenas até família ou gênero) no [JABOT](https://ipt.jbrj.gov.br/jabot),
+hospedado pelo [Jardim Botânico do Rio de Janeiro](https://www.gov.br/jbrj/pt-br).
+A função baixa e analisa automaticamente arquivos Darwin Core Archive (DwC-A),
+aplica filtros opcionais por táxon, herbário, estado e ano, e exporta os
+resultados se desejado.
+
+### Detalhes
+
+Esta função oferece suporte ao download e processamento de arquivos Darwin
+Core Archive (DwC-A) diretamente do repositório do JABOT. Ela permite
+filtragem flexível por táxon, herbário, localidade (estados brasileiros) e
+ano(s) de coleta. O parâmetro `level` permite filtrar registros indeterminados,
+como aqueles identificados apenas até a categoria FAMILY ou GENUS. A função
+usa funções auxiliares como `.arg_check_herbarium()` e `.filter_occur_df()`
+para validar entradas e refinar os registros de ocorrência. Se `path` não for
+fornecido, a função gerenciará automaticamente o download e armazenamento
+de novos arquivos DwC-A.
+
+### Argumentos
+
+| Argumento | Descrição |
+|---|---|
+| level | Vetor de caracteres. Filtra por categoria taxonômica. Valores aceitos: `"FAMILY"`, `"GENUS"`, ou ambos. O padrão é `NULL` para incluir todas as categorias indeterminadas. |
+| herbarium | Vetor de caracteres. Códigos de herbário (ex.: `"RB"`, `"SP"`) em maiúsculas. Use `NULL` para incluir todos os herbários. |
+| taxon | Vetor de caracteres. Nomes de táxons específicos para filtrar (ex.: `"Fabaceae"`). |
+| state | Vetor de caracteres. Nome completo ou siglas de estado brasileiro (ex.: `"BA"`, `"SP"`) para filtrar por localidade. |
+| recordYear | Vetor de caracteres ou numérico. Um único ano (ex.: `"2001"`) ou um intervalo (ex.: `c("2000", "2022")`). |
+| reorder | Vetor de caracteres. Reordena a saída pelas colunas. O padrão é: `c("herbarium", "taxa", "collector", "area", "year")`. |
+| path | Caractere. Caminho para arquivos dwca do JABOT já existentes. Se `NULL`, baixa dados novos. |
+| updates | Lógico. Se `TRUE` (padrão), verifica se há arquivos DwC-A atualizados do JABOT. |
+| verbose | Lógico. Se `TRUE` (padrão), imprime mensagens de progresso no console. |
+| save | Lógico. Se `TRUE` (padrão), salva os resultados em um arquivo CSV. |
+| dir | Caractere. Caminho do diretório para salvar os arquivos de saída. Padrão: `"jabot_indets"`. |
+| filename | Caractere. Nome do arquivo de saída (sem extensão). Padrão: `"jabot_indets_search"`. |
+
+### Valor
+
+Um `data.frame` contendo registros de espécimes filtrados para os espécimes
+indeterminados e critérios selecionados. Se `save = TRUE`, um arquivo CSV com
+os resultados será gravado no `dir` especificado, e um arquivo `log.txt`
+será criado ou acrescentado no mesmo diretório, resumindo a sessão de
+download e estatísticas-chave (total de registros, detalhamentos por
+herbário, família, gênero, país e estado).
+
+### Exemplos
+
+```r
+# Recuperar registros indeterminados de Fabaceae e Ochnaceae de todos os herbários
+jabot_indets(taxon = c("Fabaceae", "Ochnaceae"),
+             level = "FAMILY",
+             save = TRUE,
+             dir = "jabot_indets",
+             filename = "fabaceae_ochnaceae_records")
+
+# Filtrar por herbário e estado específicos
+jabot_indets(taxon = "Fabaceae",
+             herbarium = "RB",
+             state = c("BA", "MG"),
+             recordYear = c("1990", "2022"))
+```
+

@@ -1,0 +1,97 @@
+---
+title: 'jabot_missing'
+description: 'Espécies faltantes para um herbário local dentro de uma região-alvo'
+toc: true
+toc-depth: 3
+---
+
+
+```{r}
+#| eval: false
+jabotR::jabot_missing()
+```
+
+### Descrição
+
+Identifica espécies listadas na [Flora e Funga do Brasil (FFB)](https://floradobrasil.jbrj.gov.br/consulta/)
+que são esperadas em um estado e/ou município brasileiro alvo
+(`geo`), mas estão ausentes em um determinado herbário associado ao JABOT (`herbarium`),
+independentemente de onde no Brasil os espécimes desse herbário foram
+coletados. Para cada espécie faltante, a função busca nos registros de
+ocorrência agrupados de toda a rede JABOT (todos os herbários, ou um
+subconjunto definido por `network_herbaria`) vouchers já existentes coletados dentro
+da região-alvo, e produz:
+
+- Estatísticas resumidas (espécies da FFB esperadas na região, espécies já
+  presentes no herbário, espécies faltantes, % faltante, espécies faltantes com
+  localidades de coleta já conhecidas)
+
+- Uma tabela classificada de espécies faltantes, com o número de vouchers de rede
+  e municípios já conhecidos para cada uma (prioridade de coleta)
+
+- Espécies faltantes detalhadas por família
+
+- Um mapa interativo de localidades candidatas para coleta, construído a partir
+  de vouchers de rede das espécies faltantes dentro da região
+
+- Um mapa de calor em nível de município classificando a prioridade de coleta, ou seja,
+  quais municípios dentro da região já possuem os vouchers mais conhecidos
+  de espécies ainda faltantes no herbário, para ajudar a direcionar
+  futuras expedições de coleta
+
+- Uma tabela completa, em nível de registro, de cada voucher individual da rede
+  para as espécies faltantes encontradas dentro da região (não agregada por
+  espécie), cada um com um link para o espécime físico (imagem/página de visualização)
+  quando o herbário de origem disponibiliza essa informação
+
+- Um relatório HTML (sempre gerado) e exportações opcionais em PDF / PNG de figuras
+  individuais
+
+### Detalhes
+
+Como a Flora e Funga do Brasil reporta a distribuição geográfica em nível de
+estado, a lista de espécies esperadas para a região é sempre resolvida com
+base no(s) estado(s) que intersectam `geo` (um município é associado ao
+seu estado por meio dos registros do JABOT encontrados nele). O mapa de coleta
+candidata, no entanto, é restrito aos vouchers reais localizados dentro dos
+municípios/estados fornecidos em `geo`.
+
+A função segue o mesmo pipeline de resolução de sinônimos da
+`jabot_gaps`: nomes de táxons registrados como sinônimos na FFB são resolvidos
+para seus nomes aceitos via `floraR::flora_search` antes da comparação.
+
+### Argumentos
+
+| Argumento | Descrição |
+|---|---|
+| herbarium | Caractere. Sigla (em maiúsculas) do herbário local/alvo cujas lacunas estão sendo avaliadas (ex.: `"HUEFS"`). |
+| geo | Vetor de caracteres. Um ou mais nomes/siglas de estado brasileiro e/ou nomes de município delimitando a região de interesse (ex.: `"Bahia"`, `"BA"`, ou `c("Feira de Santana", "Tucano")`). |
+| network_herbaria | Vetor de caracteres ou `NULL`. Restringe a amostra agrupada da rede usada para buscar localidades candidatas de coleta a essas siglas de herbário. `NULL` (padrão) usa `todos` os herbários associados ao JABOT. |
+| jabot_path | Caractere ou `NULL`. Caminho para um diretório com arquivos DwC-A do JABOT previamente baixados (criados por `jabot_download`), compartilhado tanto pelo herbário-alvo quanto pela amostra da rede. Quando `NULL` (padrão), os registros são baixados automaticamente. |
+| format | Vetor de caracteres. Formatos estáticos para salvar as figuras individuais: `"pdf"`, `"png"`, ou ambos. O relatório HTML é sempre gerado. |
+| fig_width | Numérico. Largura das figuras salvas em polegadas. Padrão `10`. |
+| fig_height | Numérico. Altura das figuras salvas em polegadas. Padrão `6`. |
+| open_report | Lógico. Se `TRUE` (padrão), abre o relatório HTML no navegador padrão após a renderização. |
+| verbose | Lógico. Se `TRUE` (padrão), mensagens de progresso são impressas. |
+| dir | Caractere. Diretório de saída. O padrão é `"<herbarium>_missing_<geo>"`. |
+
+### Valor
+
+Retorna, de forma invisível, uma lista nomeada com todos os data frames e
+  objetos ggplot2 calculados. O relatório HTML (e as figuras opcionais) são
+  gravados em `dir`.
+
+### Exemplos
+
+```r
+# Espécies faltantes esperadas no estado da Bahia, mas ausentes no herbário HUEFS
+jabot_missing(herbarium = "HUEFS",
+                 geo = "Bahia",
+                 format = "pdf")
+
+# Restringir a busca de localidades candidatas a alguns municípios
+jabot_missing(herbarium = "HUEFS",
+                 geo = c("Feira de Santana", "Tucano"),
+                 jabot_path = "jabot_download")
+```
+

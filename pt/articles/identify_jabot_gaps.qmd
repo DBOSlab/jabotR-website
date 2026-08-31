@@ -1,0 +1,115 @@
+---
+title: "Identificar lacunas taxonômicas em relação à Flora e Funga do Brasil"
+format: html
+sidebar: pt-articles
+execute:
+  echo: true
+  eval: false
+  freeze: auto
+  cache: false
+  warning: false
+  message: false
+  include: true
+  inline: true
+---
+
+```{r setup, include=FALSE}
+library(jabotR)
+```
+
+Este guia demonstra como usar a função `jabot_gaps()` do pacote `jabotR` para identificar espécies listadas na [Flora e Funga do Brasil (FFB)](https://floradobrasil.jbrj.gov.br/consulta/) que estão ausentes em uma coleção de herbário associada ao JABOT.
+
+## Visão Geral da Função
+
+A `jabot_gaps()` compara as espécies presentes em um herbário-alvo com a lista completa de espécies aceitas reconhecidas pela FFB. Ela baixa (ou lê dados já baixados) da FFB e do JABOT, padroniza nomes de sinônimos, e produz um conjunto rico de análises e visualizações: estatísticas resumidas, táxons faltantes por grupo taxonômico/família/gênero, gêneros totalmente ausentes do herbário, táxons faltantes por domínio fitogeográfico, um mapa coroplético de táxons faltantes por estado brasileiro, e uma tabela interativa pesquisável das espécies faltantes. Um relatório HTML autocontido é sempre gerado.
+
+Essa ferramenta é ideal para curadores de herbário que desejam um retrato rápido e reprodutível de quais partes da flora/funga brasileira ainda não estão representadas em sua coleção, e onde o esforço taxonômico deveria ser priorizado.
+
+## Argumentos
+
+| Argumento | Descrição |
+|---|---|
+| `herbarium` | Sigla do herbário em maiúsculas (ex.: `"RB"`). |
+| `jabot_path` | Caminho para um diretório com arquivos DwC-A do JABOT previamente baixados. `NULL` baixa automaticamente. |
+| `priority_map` | Se `TRUE`, baixa adicionalmente registros agrupados da rede JABOT e adiciona um mapa de calor nacional em nível de município, classificando a prioridade de coleta para as espécies faltantes do herbário. |
+| `network_herbaria` | Siglas de herbário para restringir a amostra agrupada da rede, quando `priority_map = TRUE`. `NULL` usa todos os herbários associados ao JABOT. |
+| `format` | Formatos estáticos para salvar as figuras individuais: `"pdf"`, `"png"`, ou ambos. O relatório HTML é sempre gerado, independentemente disso. |
+| `fig_width`, `fig_height` | Dimensões (em polegadas) das figuras salvas. |
+| `open_report` | Se `TRUE`, abre o relatório HTML no navegador padrão após a renderização. |
+| `verbose` | Se `TRUE`, exibe mensagens de progresso. |
+| `dir` | Diretório de saída. O padrão é `"<herbarium>_gap_analysis"`. |
+
+## Caso de Uso Básico
+
+```{r}
+gap_analysis <- jabot_gaps(herbarium = "RB",
+                           verbose = TRUE,
+                           open_report = TRUE,
+                           dir = "RB_gap_analysis")
+```
+
+## Exportando Figuras Individuais
+
+Definir `format` salva adicionalmente cada figura como um arquivo PDF e/ou PNG estático dentro de `<dir>/figures/`, além do relatório HTML interativo.
+
+```{r}
+gap_analysis <- jabot_gaps(herbarium = "RB",
+                           format = c("pdf", "png"),
+                           verbose = TRUE,
+                           open_report = TRUE,
+                           dir = "RB_gap_analysis")
+```
+
+## Adicionando um Mapa Nacional de Prioridade de Coleta
+
+Definir `priority_map = TRUE` baixa registros agrupados da rede JABOT (opcionalmente restritos com `network_herbaria`) e classifica os municípios brasileiros de acordo com quantas das espécies faltantes do herbário já possuem um voucher conhecido ali, coletado por outro herbário da rede — um guia nacional de onde novas expedições de coleta poderiam preencher mais lacunas.
+
+```{r}
+gap_analysis <- jabot_gaps(herbarium = "RB",
+                           priority_map = TRUE,
+                           network_herbaria = c("ALCB", "HUEFS", "CEPEC"),
+                           verbose = TRUE,
+                           open_report = TRUE,
+                           dir = "RB_gap_analysis")
+```
+
+## Reutilizando um Conjunto de Dados Já Baixado
+
+```{r}
+gap_analysis <- jabot_gaps(herbarium = "RB",
+                           jabot_path = "jabot_download",
+                           format = "pdf",
+                           verbose = TRUE,
+                           open_report = TRUE,
+                           dir = "RB_gap_analysis")
+```
+
+## Exemplo de Saída
+
+A `jabot_gaps()` sempre gera um relatório HTML interativo e autocontido. A captura abaixo mostra os cartões-resumo (KPIs), o gráfico das famílias com mais lacunas, e o mapa coroplético de táxons faltantes por estado brasileiro:
+
+![Visão geral e resumo de KPIs do relatório HTML do `jabot_gaps()`](/figures/jabot_gaps_report_overview.png){.lightbox}
+
+![Mapa coroplético de táxons faltantes por estado brasileiro](/figures/jabot_gaps_report_state_map.png){.lightbox}
+
+A função também retorna (de forma invisível) uma lista nomeada com todos os data frames e objetos ggplot2 calculados, para que os resultados possam ser explorados diretamente no R:
+
+```{r}
+#| eval: false
+#| echo: true
+names(gap_analysis)
+head(gap_analysis$family_gap)
+```
+
+## Dicas
+
+- Execute `jabot_summary()` primeiro para confirmar que a sigla do herbário existe no JABOT.
+- Forneça `jabot_path` em execuções repetidas para evitar baixar novamente os dados da FFB e do JABOT.
+- Use `priority_map = TRUE` com moderação — ele baixa a amostra agrupada da rede JABOT, o que pode ser lento na primeira execução; reutilize `jabot_path` depois.
+- Para uma versão *restrita a uma região* da mesma ideia (espécies faltantes esperadas em um estado/município específico, com um mapa de localidades candidatas para coleta), veja [`jabot_missing()`](/pt/articles/locate_missing_jabot_species.qmd).
+
+## Veja Também
+
+- [`jabot_records()`](/pt/articles/filter_jabot_records.qmd): Recuperar espécimes por táxon
+- [Medir a representatividade do herbário](/pt/articles/measure_jabot_representativeness.qmd): `jabot_coverage()`
+- [Localizar espécies faltantes e prioridades de coleta](/pt/articles/locate_missing_jabot_species.qmd): `jabot_missing()`

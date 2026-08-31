@@ -1,0 +1,135 @@
+---
+format:
+  html:
+    toc: true
+    page-layout: custom
+execute:
+  echo: false
+  eval: true
+  freeze: auto
+  cache: false
+  warning: false
+  message: false
+  include: true
+  # ENABLE inline R code evaluation
+  inline: true
+resources:
+  - figures/
+---
+
+```{r setup, include=FALSE}
+library(jabotR)
+
+summary_df <- jabot_summary(verbose = FALSE,
+                            save = FALSE,
+                            dir = "jabot_summary")
+```
+
+
+<style>
+  .floating-logos {
+    position: fixed;
+    top: 60px;
+    right: 450px;
+    width: 165px;
+    opacity: 0.85;
+    z-index: 1;
+  }
+
+  .floating-logos img {
+    display: block;
+    width: 100%;
+    margin-bottom: 12px;
+    border-radius: 4px;
+  }
+</style>
+
+<div class="floating-logos">
+  <img src='/figures/jabotr_hex_sticker.png' alt='jabotR hex sticker'>
+  <img src='/figures/jbrj_marca.jpg' alt='logo JBRJ'>
+</div>
+
+::: whitebox
+::: {style="padding-left: 100px; padding-right: 50px; display: inline-block;"}
+
+::: {layout-ncol="2"}
+
+::: {style="text-align: left;"}
+
+\
+`jabotR` é um pacote R para explorar coleções de espécimes botânicos das [coleções de herbário online do JABOT](https://jabot.jbrj.gov.br/v3/consulta.php), hospedadas pelo [Jardim Botânico do Rio de Janeiro](https://www.gov.br/jbrj/pt-br). O pacote interage com o Integrated Publishing Toolkit [(IPT)](https://ipt.jbrj.gov.br/jabot) do JABOT, baixando prontamente registros completos de espécimes para qualquer herbário no formato Darwin Core. Além disso, o pacote conta com funções específicas para resumir informações e filtrar dados por critérios taxonômicos ou geográficos.\
+\
+
+## O JABOT
+
+O JABOT é um sistema online para gerenciamento de coleções científicas mantidas em herbários, redes de laboratórios de pesquisa em instituições botânicas e coleções vivas em jardins botânicos. Do ponto de vista da gestão, oferece a curadores, subcuradores e equipes de herbário uma variedade de ferramentas para administração, monitoramento de produtividade e geração de relatórios. A plataforma permite que os usuários insiram e publiquem dados e imagens de espécimes, com recursos integrados para analisar e melhorar a qualidade dos dados.\
+\
+
+## Histórico
+
+#### Versão 1.0
+A primeira versão do sistema JABOT (sigla para Jardim Botânico) começou a ser desenvolvida em 2002 e entrou em operação em 2005. Sua criação foi precedida por um cuidadoso processo de levantamento de requisitos, baseado em entrevistas e reuniões com um grupo de aproximadamente 50 pesquisadores do Instituto de Pesquisas do Jardim Botânico do Rio de Janeiro (IPJBRJ). O projeto também recebeu contribuições significativas dos curadores do maior herbário e coleção viva (arboreto) do Brasil.
+
+Como resultado desse processo colaborativo de design, o sistema foi adaptado aos fluxos de trabalho diversos dos laboratórios de pesquisa botânica, incluindo biologia molecular, botânica estrutural, biologia de sementes, algas e fungos, entre outros. Em sua versão inicial, o JABOT permitia aos usuários pesquisar diversas coleções científicas, como espécimes preservados (herbário), coleções vivas (arboreto), coleções carpológicas (frutos), xiloteca (madeira e lâminas de madeira) e arquivos fotográficos.
+
+Ao longo do tempo, sugestões de novas funcionalidades — impulsionadas por avanços tecnológicos e pela inclusão de novas coleções botânicas — levaram ao desenvolvimento de versões atualizadas.
+
+#### Versão 2.0
+A segunda versão incorporou tanto novos módulos quanto uma interface de usuário atualizada, projetada para ser responsiva em diferentes dispositivos, incluindo smartphones e tablets. O sistema foi inteiramente desenvolvido internamente no IPJBRJ, utilizando tecnologias de código aberto, especificamente a linguagem de programação PHP e o banco de dados PostgreSQL.
+
+#### Versão 3.0
+O desenvolvimento da Versão 3 começou em 2016, quando herbários parceiros passaram a adotar o JABOT para gerenciar suas próprias coleções científicas. Desde então, diversas novas funcionalidades foram adicionadas — muitas baseadas no retorno dos curadores — permitindo a integração entre herbários e fomentando o uso colaborativo dos dados. Isso facilitou o trabalho curatorial e melhorou a experiência do usuário.
+
+#### Versão 4.0
+Lançada em 2024, a Versão 4 marcou uma grande atualização, com toda a plataforma migrada para o ambiente de nuvem da Amazon, resultando em melhor desempenho e disponibilidade do sistema. Além da migração da plataforma, duas novas ferramentas — Jabot Image e Jabot Transfer — foram desenvolvidas para agilizar a transferência de imagens para o sistema JABOT/REFLORA.
+
+Atualmente, as seguintes **`r length(summary_df$collectionCode)`** coleções estão publicadas na plataforma JABOT, a maioria de herbários brasileiros e com espécimes digitalizados:
+
+```{r}
+#| echo: false
+knitr::asis_output(
+  paste0(
+    paste(
+      mapply(
+        function(code, url, holder) {
+          sprintf("<a href='%s'><strong>%s</strong></a> (%s)", url, code, holder)
+        },
+        summary_df$collectionCode,
+        summary_df$Jabot_URL,
+        summary_df$rightsHolder
+      ),
+      collapse = ", "
+    ),
+    "."
+  )
+)
+```
+
+Se você é curador(a) de herbário e deseja publicar imagens e dados da sua coleção no JABOT, envie uma solicitação por e-mail para **Luís Alexandre Estevão da Silva <estevao@jbrj.gov.br>**.\
+\
+:::
+::: {style="display: flex; gap: 16px; justify-content: center; align-items: center;"}
+:::
+:::
+:::
+:::
+
+::: mainbox
+::: {style="padding-left: 100px; padding-right: 100px; display: inline-block;"}
+::: {layout-ncol="2"}
+::: {style="text-align: center;"}
+### [Primeiros Passos](/pt/get-started/index.qmd)
+
+Bem-vindo(a), novo(a) usuário(a)! Comece aprendendo a instalar o `jabotR`
+:::
+
+::: {style="text-align: center;"}
+### [Artigos](/pt/articles/index.qmd)
+
+Artigos de "como fazer" para ajudar você a aprender a usar o `jabotR`
+:::
+:::
+:::
+:::
+
+:::

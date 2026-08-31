@@ -1,0 +1,69 @@
+---
+title: 'jabot_records'
+description: 'Recuperar registros de táxons do JABOT'
+toc: true
+toc-depth: 3
+---
+
+
+```{r}
+#| eval: false
+jabotR::jabot_records()
+```
+
+### Descrição
+
+Recupera registros de ocorrência para táxons específicos no
+[JABOT](https://ipt.jbrj.gov.br/jabot), hospedado pelo
+[Jardim Botânico do Rio de Janeiro](https://www.gov.br/jbrj/pt-br).
+Esta função gerencia o download, análise, filtragem e, opcionalmente,
+o salvamento automático dos dados de ocorrência.
+
+### Detalhes
+
+Esta função processa arquivos Darwin Core Archive (DwC-A) do JABOT. Você
+pode fornecer um caminho específico para arquivos já baixados usando `path`,
+ou deixar que a função gerencie o download automaticamente. Filtros podem
+ser aplicados por nome de táxon, código de herbário, estado e ano. O argumento
+`reorder` permite personalizar a estrutura dos dados retornados. Use
+`verbose = TRUE` para ver atualizações de status. Use `save = TRUE` para
+salvar os resultados em disco como um arquivo CSV no diretório especificado.
+
+### Argumentos
+
+| Argumento | Descrição |
+|---|---|
+| herbarium | Um vetor de siglas de herbário específicas (código da coleção) em letras maiúsculas, ou deixe como `NULL` para resumir os registros de espécimes de todos os herbários associados ao JABOT. |
+| taxon | Um vetor com o táxon desejado. Pode ser um ou mais nomes científicos em nível de família, gênero ou espécie. |
+| state | Um vetor com o(s) estado(s) brasileiro(s) desejado(s) (nome completo ou sigla). |
+| recordYear | Um vetor com o ano ou intervalo de anos desejado. Por exemplo, `"1992"` ou `c("1992", "2024")` |
+| indets | Lógico; se `FALSE`, remove todos os espécimes indeterminados que não foram identificados até o nível de espécie (ou seja, registros identificados apenas até família ou gênero). |
+| reorder | Forneça um vetor com quaisquer valores de `c("herbarium", "taxa", "collector", "area", "year")` para reordenar os registros recuperados com base nas colunas especificadas. Por padrão, os dados serão reordenados de acordo com este vetor, ou seja, o conjunto de dados retornado será reordenado especificamente com base nas colunas `'herbarium'`, `'family'`, `'genus'`, `'specificEpithet'`, `'recordedBy'`, `'recordNumber'`, `'country'`, `'stateProvince'`, `'municipality'` e `'year'`. Você pode modificar a ordem do vetor ou fornecer um subconjunto dessas colunas para personalizar a reordenação dos dados. |
+| path | Opcional; um caminho para o diretório do computador onde estão as pastas dwca baixadas do JABOT. Se você não fornecer um caminho, a função baixará a versão mais atualizada dos arquivos dwca do JABOT. |
+| updates | Lógico; se `FALSE`, a busca não verificará a versão mais atualizada dos arquivos dwca do JABOT. Esse argumento costuma ser usado quando você já definiu um caminho específico para arquivos dwca do JABOT previamente baixados, manualmente ou com a função `jabot_download`. |
+| verbose | Lógico; se `FALSE`, uma mensagem mostrando as etapas ao resumir os registros de espécimes não será impressa por completo no console. |
+| save | Lógico; se `TRUE`, os resultados da busca serão salvos em disco. |
+| dir | Caminho para o diretório do computador onde o resumo em formato de tabela será salvo. O padrão é criar um diretório chamado `jabot_records`. |
+| filename | Nome do arquivo de saída a ser salvo. O padrão é criar um arquivo chamado `jabot_records_search.csv`. |
+
+### Valor
+
+Um `data.frame` contendo registros de ocorrência para o táxon e critérios
+selecionados dos herbários do JABOT escolhidos. Se `save = TRUE`, a função
+gravará os resultados em um arquivo CSV dentro do diretório `dir`, e também
+gerará ou acrescentará um arquivo `log.txt` que resume a sessão de download,
+incluindo o total de registros e detalhamentos por herbário, família, gênero,
+país e estado.
+
+### Exemplos
+
+```r
+fam_taxa <- c("Fabaceae", "Ochnaceae")
+jabot_records(herbarium = c("AFR", "R", "RB"),
+              taxon = fam_taxa,
+              verbose = TRUE,
+              save = TRUE,
+              dir = "jabot_records",
+              filename = "jabot_records_search")
+```
+

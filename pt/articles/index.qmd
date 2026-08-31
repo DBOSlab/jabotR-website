@@ -1,0 +1,50 @@
+---
+title: "Artigos de Como Fazer"
+format: html
+sidebar: pt-articles
+---
+
+<style>
+  body {
+    position: relative;
+  }
+
+  .watermark {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    opacity: 0.15;
+    z-index: -1;
+    width: 400px;
+  }
+</style>
+
+<img src="/figures/jabot_original_logo.png" class="watermark" alt="marca d'água do logo jabot">
+
+::: {layout-ncol="2"}
+
+::: {style="display: block;"}
+### Resumir coleções do JABOT
+- [Resumir coleções](/pt/articles/summarize_jabot_collections.qmd)
+:::
+
+::: {style="display: block;"}
+### Baixar e analisar registros do JABOT
+- [Baixar registros de espécimes](/pt/articles/download_jabot_collections.qmd)
+- [Analisar arquivos Darwin Core do JABOT](/pt/articles/parse_jabot_dwca.qmd)
+:::
+
+::: {style="display: block;"}
+### Filtrar registros do JABOT
+- [Recuperar espécimes por táxon](/pt/articles/filter_jabot_records.qmd)
+- [Filtrar espécimes indeterminados](/pt/articles/filter_indeterminate_jabot_specimens.qmd)
+:::
+
+::: {style="display: block;"}
+### Avaliar lacunas e representatividade do herbário
+- [Identificar lacunas taxonômicas](/pt/articles/identify_jabot_gaps.qmd)
+- [Medir a representatividade do herbário](/pt/articles/measure_jabot_representativeness.qmd)
+- [Localizar espécies faltantes e prioridades de coleta](/pt/articles/locate_missing_jabot_species.qmd)
+:::
+
+:::

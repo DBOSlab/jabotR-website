@@ -1,0 +1,114 @@
+---
+title: "Identify taxonomic gaps against Flora e Funga do Brasil"
+format: html
+execute:
+  echo: true
+  eval: false
+  freeze: auto
+  cache: false
+  warning: false
+  message: false
+  include: true
+  inline: true
+---
+
+```{r setup, include=FALSE}
+library(jabotR)
+```
+
+This guide demonstrates how to use the `jabot_gaps()` function in the `jabotR` package to identify species listed in the [Flora e Funga do Brasil (FFB)](https://floradobrasil.jbrj.gov.br/consulta/) that are absent from a JABOT-hosted herbarium collection.
+
+## Function Overview
+
+`jabot_gaps()` compares the species held by a target herbarium against the full checklist of accepted species recognized by FFB. It downloads (or reads previously downloaded) FFB and JABOT data, standardizes synonym names, and produces a rich set of analyses and visualizations: summary statistics, missing taxa by taxonomic group/family/genus, genera entirely absent from the herbarium, missing taxa by phytogeographic domain, a choropleth map of missing taxa by Brazilian state, and an interactive searchable table of the missing species. A self-contained HTML report is always generated.
+
+This tool is ideal for herbarium curators who want a quick, reproducible snapshot of which parts of the Brazilian flora/fungi are still unrepresented in their collection, and where the taxonomic effort should be prioritized.
+
+## Arguments
+
+| Argument | Description |
+|---|---|
+| `herbarium` | Herbarium acronym in uppercase (e.g. `"RB"`). |
+| `jabot_path` | Path to a directory with previously downloaded JABOT DwC-A files. `NULL` downloads automatically. |
+| `priority_map` | If `TRUE`, additionally downloads pooled JABOT network records and adds a nationwide municipality-level heat map ranking collecting priority for the herbarium's missing species. |
+| `network_herbaria` | Herbarium acronyms to restrict the pooled network sample to, when `priority_map = TRUE`. `NULL` uses all JABOT-hosted herbaria. |
+| `format` | Static formats to save individual figures: `"pdf"`, `"png"`, or both. The HTML report is always generated regardless. |
+| `fig_width`, `fig_height` | Dimensions (in inches) of saved figures. |
+| `open_report` | If `TRUE`, opens the HTML report in the default browser after rendering. |
+| `verbose` | If `TRUE`, prints progress messages. |
+| `dir` | Output directory. Defaults to `"<herbarium>_gap_analysis"`. |
+
+## Basic Use Case
+
+```{r}
+gap_analysis <- jabot_gaps(herbarium = "RB",
+                           verbose = TRUE,
+                           open_report = TRUE,
+                           dir = "RB_gap_analysis")
+```
+
+## Exporting Individual Figures
+
+Setting `format` additionally saves each figure as a static PDF and/or PNG file inside `<dir>/figures/`, on top of the interactive HTML report.
+
+```{r}
+gap_analysis <- jabot_gaps(herbarium = "RB",
+                           format = c("pdf", "png"),
+                           verbose = TRUE,
+                           open_report = TRUE,
+                           dir = "RB_gap_analysis")
+```
+
+## Adding a Nationwide Collecting-Priority Map
+
+Setting `priority_map = TRUE` downloads pooled JABOT network records (optionally restricted with `network_herbaria`) and ranks Brazilian municipalities by how many of the herbarium's missing species already have a known voucher there, collected by another herbarium in the network — a nationwide guide to where new collecting expeditions could fill the most gaps.
+
+```{r}
+gap_analysis <- jabot_gaps(herbarium = "RB",
+                           priority_map = TRUE,
+                           network_herbaria = c("ALCB", "HUEFS", "CEPEC"),
+                           verbose = TRUE,
+                           open_report = TRUE,
+                           dir = "RB_gap_analysis")
+```
+
+## Reusing a Previously Downloaded Dataset
+
+```{r}
+gap_analysis <- jabot_gaps(herbarium = "RB",
+                           jabot_path = "jabot_download",
+                           format = "pdf",
+                           verbose = TRUE,
+                           open_report = TRUE,
+                           dir = "RB_gap_analysis")
+```
+
+## Example Output
+
+`jabot_gaps()` always writes a self-contained, interactive HTML report. The snapshot below shows the summary KPI boxes, the top-missing-families chart, and the choropleth map of missing taxa by Brazilian state:
+
+![Overview and KPI summary of the `jabot_gaps()` HTML report](/figures/jabot_gaps_report_overview.png){.lightbox}
+
+![Choropleth map of missing taxa by Brazilian state](/figures/jabot_gaps_report_state_map.png){.lightbox}
+
+The function also returns (invisibly) a named list with every computed data frame and ggplot2 object, so results can be explored directly in R:
+
+```{r}
+#| eval: false
+#| echo: true
+names(gap_analysis)
+head(gap_analysis$family_gap)
+```
+
+## Tips
+
+- Run `jabot_summary()` first to confirm the herbarium acronym exists in JABOT.
+- Supply `jabot_path` on repeated runs to avoid re-downloading FFB and JABOT data.
+- Use `priority_map = TRUE` sparingly — it downloads the pooled JABOT network sample, which can be slow on the first run; reuse `jabot_path` afterwards.
+- For a *region-scoped* version of the same idea (missing species expected in a specific state/municipality, with a map of candidate collecting localities), see [`jabot_missing()`](/articles/locate_missing_jabot_species.qmd).
+
+## See Also
+
+- [`jabot_records()`](/articles/filter_jabot_records.qmd): Retrieve taxon-specific specimens
+- [Measure herbarium representativeness](/articles/measure_jabot_representativeness.qmd): `jabot_coverage()`
+- [Locate missing species and collecting priorities](/articles/locate_missing_jabot_species.qmd): `jabot_missing()`

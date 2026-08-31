@@ -21,7 +21,7 @@ folder at [JABOT](https://ipt.jbrj.gov.br/jabot) hosted by the
 
 | Argument | Description |
 |---|---|
-| path | Pathway to the computer's directory, where the REFLORA-downloaded dwca folders are. |
+| path | Pathway to the computer's directory, where the JABOT-downloaded dwca folders are. |
 | herbarium | A vector of specific herbarium acronyms (collection code) in uppercase letters or leave it as `NULL` to parse specimen records for all herbarim dcwa folders in the defined path directory. |
 | verbose | Logical, if `FALSE`, a message showing steps when summarizing specimen records will not be printed in the console in full. |
 

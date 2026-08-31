@@ -1,0 +1,99 @@
+---
+title: "Measure herbarium representativeness"
+format: html
+execute:
+  echo: true
+  eval: false
+  freeze: auto
+  cache: false
+  warning: false
+  message: false
+  include: true
+  inline: true
+---
+
+```{r setup, include=FALSE}
+library(jabotR)
+```
+
+This guide demonstrates how to use the `jabot_coverage()` function in the `jabotR` package to measure how well a JABOT-hosted herbarium represents the species diversity recognized by the [Flora e Funga do Brasil (FFB)](https://floradobrasil.jbrj.gov.br/consulta/).
+
+## Function Overview
+
+Unlike [`jabot_gaps()`](/articles/identify_jabot_gaps.qmd), which focuses on species that are *missing* from a collection, `jabot_coverage()` characterizes the species that are *represented*. Overall coverage is the number of FFB species held by the herbarium divided by the total number of FFB species, multiplied by 100.
+
+The analysis includes overall FFB species coverage, coverage by taxonomic group/family/phytogeographic domain/Brazilian state, coverage of endemic versus non-endemic species, representation of type material, graphical summaries, and a self-contained HTML report.
+
+This tool is ideal for reporting collection strengths — e.g. for institutional assessments, grant applications, or deciding which taxonomic groups a herbarium already represents well.
+
+## Arguments
+
+| Argument | Description |
+|---|---|
+| `herbarium` | Herbarium acronym in uppercase (e.g. `"RB"`). |
+| `jabot_path` | Path to a directory with previously downloaded JABOT DwC-A files. `NULL` downloads automatically. |
+| `format` | Static formats to save individual figures: `"pdf"`, `"png"`, or both. The HTML report is always generated regardless. |
+| `fig_width`, `fig_height` | Dimensions (in inches) of saved figures. |
+| `open_report` | If `TRUE`, opens the HTML report in the default browser after rendering. |
+| `verbose` | If `TRUE`, prints progress messages. |
+| `dir` | Output directory. Defaults to `"<herbarium>_representativeness"`. |
+
+## Basic Use Case
+
+```{r}
+coverage_analysis <- jabot_coverage(herbarium = "RB",
+                                    verbose = TRUE,
+                                    open_report = TRUE,
+                                    dir = "RB_representativeness")
+```
+
+## Exporting Individual Figures
+
+```{r}
+coverage_analysis <- jabot_coverage(herbarium = "RB",
+                                    format = c("pdf", "png"),
+                                    verbose = TRUE,
+                                    open_report = TRUE,
+                                    dir = "RB_representativeness")
+```
+
+## Reusing a Previously Downloaded Dataset
+
+```{r}
+coverage_analysis <- jabot_coverage(herbarium = "RB",
+                                    jabot_path = "jabot_download",
+                                    format = "pdf",
+                                    verbose = TRUE,
+                                    open_report = TRUE,
+                                    dir = "RB_representativeness")
+```
+
+## Example Output
+
+The HTML report ranks families by how well they are covered, and maps overall coverage percentage by Brazilian state:
+
+![Best- and worst-covered families in the `jabot_coverage()` HTML report](/figures/jabot_coverage_report_families.png){.lightbox}
+
+![Choropleth map of herbarium coverage by Brazilian state](/figures/jabot_coverage_report_state_map.png){.lightbox}
+
+The function also returns (invisibly) a named list with every computed data frame, so summary numbers can be pulled directly into other analyses:
+
+```{r}
+#| eval: false
+#| echo: true
+coverage_analysis$coverage_pct
+coverage_analysis$endemic_coverage_pct
+head(coverage_analysis$family_rep)
+```
+
+## Tips
+
+- Coverage and gaps are two views of the same comparison — run `jabot_coverage()` alongside [`jabot_gaps()`](/articles/identify_jabot_gaps.qmd) for a complete picture of a herbarium's standing against FFB.
+- `endemic_coverage_pct` is often lower than overall coverage; it highlights Brazilian endemics that are especially valuable to prioritize for future collecting.
+- Supply `jabot_path` on repeated runs to avoid re-downloading FFB and JABOT data.
+
+## See Also
+
+- [Identify taxonomic gaps](/articles/identify_jabot_gaps.qmd): `jabot_gaps()`
+- [Locate missing species and collecting priorities](/articles/locate_missing_jabot_species.qmd): `jabot_missing()`
+- [`jabot_records()`](/articles/filter_jabot_records.qmd): Retrieve taxon-specific specimens

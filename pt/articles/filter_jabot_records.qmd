@@ -1,0 +1,145 @@
+---
+title: "Filtrar registros de espécimes do JABOT"
+format: html
+sidebar: pt-articles
+execute:
+  echo: false
+  eval: true
+  freeze: auto
+  cache: false
+  warning: false
+  message: false
+  include: true
+  inline: true
+---
+
+```{r setup, include=FALSE}
+library(jabotR)
+```
+
+Este guia demonstra como usar a função `jabot_records()` do pacote `jabotR` para recuperar registros de ocorrência de espécimes para táxons específicos no sistema de gerenciamento de coleções de herbário online do Jardim Botânico do Rio de Janeiro, o JABOT.
+
+## Visão Geral da Função
+
+A função `jabot_records()` recupera registros filtrados de espécimes botânicos das coleções do JABOT com base em critérios de táxon, herbário, localização e data. Ela lida com o download, análise, filtragem e, opcionalmente, o salvamento dos dados de ocorrência.
+
+Essa ferramenta é ideal para pesquisas florísticas, taxonômicas ou biogeográficas, especialmente ao trabalhar com grandes conjuntos de dados para um determinado grupo de plantas.
+
+## Argumentos
+
+| Argumento      | Descrição |
+|---------------|-------------|
+| `herbarium`   | Vetor de siglas de herbário (ex.: `"RB"`, `"SP"`). Use `NULL` para todas as coleções. |
+| `repatriated` | Lógico. Se `FALSE`, ignora herbários repatriados. |
+| `taxon`       | Um ou múltiplos nomes de família, gênero ou espécie para filtrar. |
+| `state`       | Vetor de estados brasileiros (ex.: `"BA"`, `"SP"`). |
+| `recordYear`  | Um ano específico (ex.: `"2001"`) ou intervalo (ex.: `c("1990", "2024")`). |
+| `indets`      | Se `FALSE`, filtra registros não identificados até o nível de espécie. |
+| `reorder`     | Controla a ordem das colunas do resultado final (ex.: por herbário, táxon, ano). |
+| `path`        | Diretório opcional contendo arquivos DwC-A do JABOT já existentes. |
+| `updates`     | Se `TRUE`, verifica se há versões atualizadas dos dados no IPT. |
+| `verbose`     | Se `TRUE`, exibe mensagens de progresso. |
+| `save`        | Se `TRUE`, salva os resultados como arquivos CSV e de log. |
+| `dir`         | Pasta onde a saída será salva. |
+| `filename`    | Nome dos arquivos CSV e de log resultantes. |
+
+## Caso de Uso Básico
+
+```r
+jabot_records(
+  taxon = c("Fabaceae", "Ochnaceae"),
+  verbose = TRUE,
+  save = TRUE,
+  dir = "jabot_records",
+  filename = "fabaceae_ochnaceae_records"
+)
+```
+
+## Filtrar por Herbário e Intervalo de Anos
+
+```r
+jabot_records(
+  taxon = "Fabaceae",
+  herbarium = c("R", "RB"),
+  recordYear = c("1995", "2023"),
+  verbose = TRUE,
+  save = FALSE
+)
+```
+
+## Filtrar por Estado e Remover Registros Indeterminados
+
+```r
+jabot_records(
+  taxon = "Malpighiaceae",
+  state = c("BA", "PE"),
+  indets = FALSE,
+  save = TRUE,
+  dir = "malpighiaceae_ba_pe"
+)
+```
+
+## Usando um Conjunto de Dados Pré-Baixado
+
+```r
+jabot_records(
+  path = "jabot_download",
+  taxon = "Myrtaceae",
+  updates = FALSE,
+  save = FALSE
+)
+```
+
+## Visualizando Espécimes por Ano
+
+```r
+library(dplyr)
+library(ggplot2)
+
+records <- jabot_records(taxon = "Fabaceae",
+                          herbarium = "RB",
+                          recordYear = c("2000", "2025"),
+                          save = FALSE)
+
+records %>%
+  count(year) %>%
+  ggplot(aes(x = year, y = n)) +
+  geom_col(fill = "steelblue") +
+  labs(title = "Registros de Fabaceae por Ano (Herbário RB)",
+       x = "",
+       y = "Número de Registros")
+```
+
+```{r}
+#| echo: false
+library(dplyr)
+library(ggplot2)
+
+records <- jabot_records(taxon = "Fabaceae",
+                         herbarium = "RB",
+                         recordYear = c("2000", "2025"),
+                         verbose = FALSE,
+                         save = FALSE)
+
+records %>%
+  count(year) %>%
+  ggplot(aes(x = year, y = n)) +
+  geom_col(fill = "#81ae7a") +
+  labs(title = "Registros de Fabaceae por Ano (Herbário RB)",
+       x = "",
+       y = "Número de Registros") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+```
+
+## Dicas
+
+- Use `recordYear = c("AAAA", "AAAA")` para analisar registros ao longo de um período.
+- Use `jabot_summary()` previamente para verificar a disponibilidade do herbário.
+- Defina `save = TRUE` para obter resultados e logs reprodutíveis.
+
+## Veja Também
+
+- [`jabot_download()`](/pt/articles/download_jabot_collections.qmd): Baixar registros de espécimes do JABOT
+- [`jabot_parse()`](/pt/articles/parse_jabot_dwca.qmd): Analisar arquivos do JABOT
+- [`jabot_summary()`](/pt/articles/summarize_jabot_collections.qmd): Resumir coleções do JABOT
+- [`jabot_indets()`](/pt/articles/filter_indeterminate_jabot_specimens.qmd): Extrair registros indeterminados

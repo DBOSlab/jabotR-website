@@ -1,0 +1,107 @@
+---
+title: "Localizar espécies faltantes e prioridades de coleta"
+format: html
+sidebar: pt-articles
+execute:
+  echo: true
+  eval: false
+  freeze: auto
+  cache: false
+  warning: false
+  message: false
+  include: true
+  inline: true
+---
+
+```{r setup, include=FALSE}
+library(jabotR)
+```
+
+Este guia demonstra como usar a função `jabot_missing()` do pacote `jabotR` para descobrir quais espécies esperadas em uma região brasileira específica ainda estão faltando em um herbário local — e onde uma expedição de coleta teria mais chances de encontrá-las.
+
+## Visão Geral da Função
+
+A `jabot_missing()` identifica espécies listadas na [Flora e Funga do Brasil (FFB)](https://floradobrasil.jbrj.gov.br/consulta/) que são esperadas em um estado e/ou município brasileiro alvo (`geo`), mas estão ausentes em um determinado herbário associado ao JABOT (`herbarium`), independentemente de onde no Brasil os espécimes desse herbário foram coletados. Diferente da [`jabot_gaps()`](/pt/articles/identify_jabot_gaps.qmd), que compara um herbário com todo o Brasil, a `jabot_missing()` restringe a comparação a uma região específica e busca nos registros de ocorrência agrupados da rede JABOT (todos os herbários, ou um subconjunto definido por `network_herbaria`) vouchers já existentes das espécies faltantes coletados dentro dessa região — ajudando a priorizar onde novas expedições de coleta poderiam encontrá-las.
+
+A análise inclui estatísticas resumidas, uma tabela classificada de espécies faltantes com vouchers de rede e municípios já conhecidos, espécies faltantes por família, um mapa interativo de localidades candidatas para coleta, um mapa de calor em nível de município classificando a prioridade de coleta, e uma tabela completa em nível de registro de cada voucher individual da rede — cada um com um link para o espécime físico (imagem/página de visualização) quando o herbário de origem disponibiliza essa informação.
+
+## Argumentos
+
+| Argumento | Descrição |
+|---|---|
+| `herbarium` | Sigla do herbário local/alvo cujas lacunas estão sendo avaliadas (ex.: `"HUEFS"`). |
+| `geo` | Um ou mais nomes/siglas de estado brasileiro e/ou nomes de município delimitando a região de interesse (ex.: `"Bahia"`, `"BA"`, ou `c("Feira de Santana", "Ilhéus")`). |
+| `network_herbaria` | Siglas de herbário para restringir a amostra agrupada da rede usada na busca por localidades candidatas para coleta. `NULL` usa todos os herbários associados ao JABOT. |
+| `jabot_path` | Caminho para um diretório com arquivos DwC-A do JABOT previamente baixados, compartilhado tanto pelo herbário-alvo quanto pela amostra da rede. `NULL` baixa automaticamente. |
+| `format` | Formatos estáticos para salvar as figuras individuais: `"pdf"`, `"png"`, ou ambos. O relatório HTML é sempre gerado, independentemente disso. |
+| `fig_width`, `fig_height` | Dimensões (em polegadas) das figuras salvas. |
+| `open_report` | Se `TRUE`, abre o relatório HTML no navegador padrão após a renderização. |
+| `verbose` | Se `TRUE`, exibe mensagens de progresso. |
+| `dir` | Diretório de saída. O padrão é `"<herbarium>_missing_<geo>"`. |
+
+## Caso de Uso Básico
+
+```{r}
+missing_analysis <- jabot_missing(herbarium = "HUEFS",
+                                  geo = "Bahia",
+                                  verbose = TRUE,
+                                  open_report = TRUE,
+                                  dir = "HUEFS_missing_Bahia")
+```
+
+## Restringindo a Busca a Municípios Específicos
+
+A lista de espécies esperadas da FFB é sempre resolvida a partir do(s) estado(s) que intersectam `geo`, enquanto o mapa de localidades candidatas para coleta permanece restrito aos municípios fornecidos.
+
+```{r}
+missing_analysis <- jabot_missing(herbarium = "HUEFS",
+                                  geo = c("Feira de Santana", "Ilhéus"),
+                                  verbose = TRUE,
+                                  open_report = TRUE)
+```
+
+## Restringindo a Amostra da Rede
+
+Por padrão, a amostra agrupada da rede inclui todos os herbários associados ao JABOT. `network_herbaria` restringe a busca por localidades candidatas de coleta a um subconjunto específico, figuras individuais podem ser exportadas em PDF/PNG, e `jabot_path` reutiliza dados já baixados.
+
+```{r}
+missing_analysis <- jabot_missing(herbarium = "HUEFS",
+                                  geo = "Bahia",
+                                  network_herbaria = c("ALCB", "CEPEC"),
+                                  jabot_path = "jabot_download",
+                                  format = "pdf",
+                                  verbose = TRUE,
+                                  open_report = TRUE)
+```
+
+## Exemplo de Saída
+
+O relatório HTML classifica os municípios por prioridade de coleta e lista cada voucher individual da rede para as espécies faltantes, cada um com um link direto para o espécime físico quando disponível:
+
+![Mapa de calor de prioridade por município no relatório HTML do `jabot_missing()`](/figures/jabot_missing_report_priority_map.png){.lightbox}
+
+![Localidades candidatas para coleta e tabela completa de vouchers em nível de registro](/figures/jabot_missing_report_records_table.png){.lightbox}
+
+A função também retorna (de forma invisível) uma lista nomeada com todos os data frames calculados:
+
+```{r}
+#| eval: false
+#| echo: true
+missing_analysis$n_missing
+missing_analysis$pct_missing
+head(missing_analysis$taxon_missing)
+head(missing_analysis$municipality_priority)
+```
+
+## Dicas
+
+- Espécies com `locatable = TRUE` em `taxon_missing` já possuem um voucher conhecido na rede dentro da região — geralmente são os alvos mais fáceis para uma primeira expedição de coleta.
+- `missing_pool_records` lista cada espécime individual (não agregado por espécie); sua coluna `specimenLink` traz um link para a imagem/página de visualização do espécime físico sempre que o arquivo Darwin Core Archive do herbário de origem disponibiliza essa informação.
+- Baixar toda a rede JABOT (`network_herbaria = NULL`) pode ser lento na primeira execução — forneça `jabot_path` posteriormente, e considere restringir `network_herbaria` para explorações rápidas e repetidas.
+- Para uma versão nacional (em vez de restrita a uma região) da mesma ideia de prioridade de coleta, veja `priority_map = TRUE` em [`jabot_gaps()`](/pt/articles/identify_jabot_gaps.qmd).
+
+## Veja Também
+
+- [Identificar lacunas taxonômicas](/pt/articles/identify_jabot_gaps.qmd): `jabot_gaps()`
+- [Medir a representatividade do herbário](/pt/articles/measure_jabot_representativeness.qmd): `jabot_coverage()`
+- [`jabot_records()`](/pt/articles/filter_jabot_records.qmd): Recuperar espécimes por táxon

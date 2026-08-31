@@ -58,7 +58,7 @@ While `jabotR` itself does not generate formatted documents, it is designed for 
 Development is sponsored by [JBRJ](https://www.gov.br/jbrj/pt-br), [FINEP](http://www.finep.gov.br), and [CNPq](https://www.gov.br/cnpq/pt-br). Main developers:
 
 - Domingos Cardoso ([\@DBOSlab](https://github.com/DBOSlab))
-- Carlos Calderón ([\@caldecid](https://github.com/caldecid))
+- Giulia C. Ottino
 
 View the code and contribute on GitHub: [https://github.com/DBOSlab/jabotR](https://github.com/DBOSlab/jabotR)
 

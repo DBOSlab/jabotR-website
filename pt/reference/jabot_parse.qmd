@@ -1,0 +1,42 @@
+---
+title: 'jabot_parse'
+description: 'Analisar arquivos Darwin Core Archive'
+toc: true
+toc-depth: 3
+---
+
+
+```{r}
+#| eval: false
+jabotR::jabot_parse()
+```
+
+### Descrição
+
+Lê arquivos Darwin Core Archive (DwC-A) de qualquer pasta dwca baixada do
+[JABOT](https://ipt.jbrj.gov.br/jabot), hospedado pelo
+[Jardim Botânico do Rio de Janeiro](https://www.gov.br/jbrj/pt-br).
+
+### Argumentos
+
+| Argumento | Descrição |
+|---|---|
+| path | Caminho para o diretório do computador onde estão as pastas dwca baixadas do JABOT. |
+| herbarium | Um vetor de siglas de herbário específicas (código da coleção) em letras maiúsculas, ou deixe como `NULL` para analisar os registros de espécimes de todas as pastas dwca de herbário no diretório definido em `path`. |
+| verbose | Lógico; se `FALSE`, uma mensagem mostrando as etapas ao resumir os registros de espécimes não será impressa por completo no console. |
+
+### Valor
+
+Uma lista de arquivos dwca, incluindo dados e metadados associados.
+
+### Exemplos
+
+```r
+jabot_download(herbarium = c("ALCB", "HUEFS", "K", "RB"),
+               verbose = TRUE,
+               dir = "jabot_download")
+
+dwca <- jabot_parse(path = "jabot_download",
+                    verbose = TRUE)
+```
+

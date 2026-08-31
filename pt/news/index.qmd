@@ -1,0 +1,52 @@
+---
+title: "Novidades"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+<style>
+  body {
+    position: relative;
+  }
+
+  .watermark {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    opacity: 0.15;
+    z-index: -1;
+    width: 400px;
+  }
+</style>
+
+<img src="/figures/jabot_original_logo.png" class="watermark" alt="marca d'água do logo jabot">
+
+
+# jabotR 1.0.0
+
+## Lançamento Inicial
+
+O primeiro lançamento oficial do pacote R `jabotR`, projetado para facilitar o acesso a dados de espécimes botânicos das [coleções de herbário online do JABOT](https://jabot.jbrj.gov.br/v3/consulta.php), hospedadas pelo [Jardim Botânico do Rio de Janeiro](https://www.gov.br/jbrj/pt-br).
+
+### Funcionalidades
+
+- `jabot_summary()`: Recupera metadados e informações resumidas de todos ou de herbários específicos do JABOT.
+- `jabot_download()`: Baixa dados originais de espécimes no formato Darwin Core Archive (DwC-A).
+- `jabot_records()`: Analisa, filtra e organiza registros do JABOT com base em táxon, herbário, região e ano.
+- `jabot_indets()`: Recupera espécimes indeterminados (por exemplo, identificados apenas até família ou gênero).
+- Filtros opcionais por `taxon`, `herbarium`, `state`, `recordYear` e `level`.
+- Suporte à integração com fluxos de trabalho do tidyverse para análises subsequentes.
+- Cobertura de testes acima de 95%, com integração contínua via GitHub Actions.
+
+### Infraestrutura
+
+- Licença MIT.
+- GitHub Actions: R-CMD-check e cobertura de testes.
+- Documentação hospedada: [jabotR-website](https://dboslab.github.io/jabotR-website/)
+
+### Feedback
+
+Relate bugs ou problemas em:
+<https://github.com/DBOSlab/jabotR/issues>

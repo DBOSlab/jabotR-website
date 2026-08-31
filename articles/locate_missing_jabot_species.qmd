@@ -1,0 +1,106 @@
+---
+title: "Locate missing species and collecting priorities"
+format: html
+execute:
+  echo: true
+  eval: false
+  freeze: auto
+  cache: false
+  warning: false
+  message: false
+  include: true
+  inline: true
+---
+
+```{r setup, include=FALSE}
+library(jabotR)
+```
+
+This guide demonstrates how to use the `jabot_missing()` function in the `jabotR` package to find which species expected in a specific Brazilian region are still missing from a local herbarium — and where a collecting expedition could most easily find them.
+
+## Function Overview
+
+`jabot_missing()` identifies species listed in the [Flora e Funga do Brasil (FFB)](https://floradobrasil.jbrj.gov.br/consulta/) that are expected to occur in a target Brazilian state and/or municipality (`geo`) but are absent from a given JABOT-hosted herbarium (`herbarium`), regardless of where in Brazil that herbarium's own specimens were collected. Unlike [`jabot_gaps()`](/articles/identify_jabot_gaps.qmd), which compares a herbarium against the whole of Brazil, `jabot_missing()` narrows the comparison to a specific region and searches the pooled occurrence records of the JABOT network (all herbaria, or a subset given by `network_herbaria`) for existing vouchers of the missing species collected within that region — helping prioritize where new collecting expeditions could target them.
+
+The analysis includes summary statistics, a ranked table of missing species with known network vouchers and municipalities, missing species by family, an interactive map of candidate collecting localities, a municipality-level heat map ranking collecting priority, and a full record-level table of every individual network voucher — each linking out to the physical specimen (image/viewer page) when the source herbarium provides one.
+
+## Arguments
+
+| Argument | Description |
+|---|---|
+| `herbarium` | Acronym of the target/local herbarium whose gaps are being assessed (e.g. `"HUEFS"`). |
+| `geo` | One or more Brazilian state names/acronyms and/or municipality names delimiting the region of interest (e.g. `"Bahia"`, `"BA"`, or `c("Feira de Santana", "Ilhéus")`). |
+| `network_herbaria` | Herbarium acronyms to restrict the pooled network sample used to search for candidate collecting points. `NULL` uses all JABOT-hosted herbaria. |
+| `jabot_path` | Path to a directory with previously downloaded JABOT DwC-A files, shared by both the target herbarium and the network pool. `NULL` downloads automatically. |
+| `format` | Static formats to save individual figures: `"pdf"`, `"png"`, or both. The HTML report is always generated regardless. |
+| `fig_width`, `fig_height` | Dimensions (in inches) of saved figures. |
+| `open_report` | If `TRUE`, opens the HTML report in the default browser after rendering. |
+| `verbose` | If `TRUE`, prints progress messages. |
+| `dir` | Output directory. Defaults to `"<herbarium>_missing_<geo>"`. |
+
+## Basic Use Case
+
+```{r}
+missing_analysis <- jabot_missing(herbarium = "HUEFS",
+                                  geo = "Bahia",
+                                  verbose = TRUE,
+                                  open_report = TRUE,
+                                  dir = "HUEFS_missing_Bahia")
+```
+
+## Narrowing the Search to Specific Municipalities
+
+FFB's state-level checklist is always resolved from the state(s) intersecting `geo`, while the candidate collecting map stays restricted to the municipalities supplied.
+
+```{r}
+missing_analysis <- jabot_missing(herbarium = "HUEFS",
+                                  geo = c("Feira de Santana", "Ilhéus"),
+                                  verbose = TRUE,
+                                  open_report = TRUE)
+```
+
+## Restricting the Network Pool
+
+By default, the pooled network sample includes all JABOT-hosted herbaria. `network_herbaria` restricts the candidate collecting-locality search to a specific subset, individual figures can be exported as PDF/PNG, and `jabot_path` reuses previously downloaded data.
+
+```{r}
+missing_analysis <- jabot_missing(herbarium = "HUEFS",
+                                  geo = "Bahia",
+                                  network_herbaria = c("ALCB", "CEPEC"),
+                                  jabot_path = "jabot_download",
+                                  format = "pdf",
+                                  verbose = TRUE,
+                                  open_report = TRUE)
+```
+
+## Example Output
+
+The HTML report ranks municipalities by collecting priority and lists every individual network voucher of the missing species, each with a direct link to the physical specimen when available:
+
+![Priority-municipality heat map in the `jabot_missing()` HTML report](/figures/jabot_missing_report_priority_map.png){.lightbox}
+
+![Candidate collecting localities and full record-level voucher table](/figures/jabot_missing_report_records_table.png){.lightbox}
+
+The function also returns (invisibly) a named list with every computed data frame:
+
+```{r}
+#| eval: false
+#| echo: true
+missing_analysis$n_missing
+missing_analysis$pct_missing
+head(missing_analysis$taxon_missing)
+head(missing_analysis$municipality_priority)
+```
+
+## Tips
+
+- Species with `locatable = TRUE` in `taxon_missing` already have a known network voucher in the region — these are usually the easiest targets for a first collecting trip.
+- `missing_pool_records` lists every individual specimen (not aggregated by species); its `specimenLink` column links to the physical specimen image/viewer page whenever the source herbarium's Darwin Core Archive provides one.
+- Downloading the full JABOT network (`network_herbaria = NULL`) can be slow on the first run — supply `jabot_path` afterwards, and consider restricting `network_herbaria` for quick, repeated exploration.
+- For a nationwide (rather than region-scoped) version of the same collecting-priority idea, see `priority_map = TRUE` in [`jabot_gaps()`](/articles/identify_jabot_gaps.qmd).
+
+## See Also
+
+- [Identify taxonomic gaps](/articles/identify_jabot_gaps.qmd): `jabot_gaps()`
+- [Measure herbarium representativeness](/articles/measure_jabot_representativeness.qmd): `jabot_coverage()`
+- [`jabot_records()`](/articles/filter_jabot_records.qmd): Retrieve taxon-specific specimens

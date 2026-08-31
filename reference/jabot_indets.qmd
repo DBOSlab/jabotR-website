@@ -27,9 +27,9 @@ files directly from the JABOT repository. It allows for flexible filtering
 by taxon, herbarium, locality (Brazilian states), and collection year(s). The
 `level` parameter enables filtering for indeterminate records such as those
 identified only to FAMILY or GENUS rank. The function uses helper functions
-like `.arg_check_herbarium()` and `.filter_occur_df()` to validate inputs and
-refine the occurrence records. If `path` is not provided, the function will
-automatically manage downloading and storing fresh DwC-A archives.
+like `.arg_check_herbarium()` and `.filter_occur_df()` to validate
+inputs and refine the occurrence records. If `path` is not provided, the
+function will automatically manage downloading and storing fresh DwC-A archives.
 
 ### Arguments
 
@@ -52,10 +52,10 @@ automatically manage downloading and storing fresh DwC-A archives.
 
 A `data.frame` containing filtered specimen records for the selected
 indeterminate specimens and criteria. If `save = TRUE`, a CSV file with the
-results will be written to the specified `dir`, and a `log.txt` file will be
-created or appended in the same directory summarizing the download session and
-key statistics (total records, breakdowns by herbarium, family, genus, country,
-and state).
+results will be written to the specified `dir`, and a `log.txt` file
+will be created or appended in the same directory summarizing the download
+session and key statistics (total records, breakdowns by herbarium, family,
+genus, country, and state).
 
 ### Examples
 

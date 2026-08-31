@@ -1,0 +1,63 @@
+---
+title: "Instalação"
+format:
+  html:
+    toc: true
+---
+
+<style>
+  body {
+    position: relative;
+  }
+
+  .watermark {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    opacity: 0.15;
+    z-index: -1;
+    width: 400px;
+  }
+</style>
+
+<img src="/figures/jabot_original_logo.png" class="watermark" alt="marca d'água do logo jabot">
+
+
+## Instale o pacote
+
+Você pode instalar a versão de desenvolvimento mais recente do pacote `jabotR` a partir do [GitHub](https://github.com/DBOSlab/jabotR) da seguinte forma:
+
+
+```{r}
+#| eval: false
+
+if (!requireNamespace("BiocManager", quietly = TRUE)) 
+install.packages("BiocManager") 
+
+# Instale a versão de desenvolvimento do jabotR a partir do GitHub,
+# juntamente com as dependências necessárias
+BiocManager::install("DBOSlab/jabotR", dependencies = TRUE)
+```
+
+:::{.callout-caution}
+O `jabotR` requer R (>= 4.1.0). Se você já possui uma instalação recente do R, pode ir direto para o passo de instalação acima.
+:::
+
+```{r}
+#| eval: false
+
+library(jabotR)
+```
+
+## Primeiros Passos
+
+Depois de instalado, um bom primeiro passo é verificar quais coleções de herbário estão atualmente publicadas no JABOT:
+
+```{r}
+#| eval: false
+
+jabot_summary(verbose = TRUE,
+              save = FALSE)
+```
+
+A partir daí, navegue pelos [Artigos de Como Fazer](/pt/articles/index.qmd) para aprender a baixar e filtrar registros de espécimes, e como avaliar as lacunas taxonômicas e a representatividade de um herbário em relação à Flora e Funga do Brasil.

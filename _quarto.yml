@@ -61,7 +61,7 @@ website:
         href: https://github.com/DBOSlab/jabotR
         text: jabotR GitHub
         
-  sidebar:                
+  sidebar:
     - id: articles
       title: Articles
       collapse-level: 3
@@ -71,20 +71,60 @@ website:
           href: articles/index.qmd
         - section: Summarize JABOT collections
           contents:
-          - text: Summarize herbarium collections 
-            href: articles/summarize_jabot_collections.qmd  
+          - text: Summarize herbarium collections
+            href: articles/summarize_jabot_collections.qmd
         - section: Download and parse JABOT records
           contents:
-          - text: Download specimen records 
+          - text: Download specimen records
             href: articles/download_jabot_collections.qmd
-          - text: Parse JABOT Darwin Core Archives 
+          - text: Parse JABOT Darwin Core Archives
             href: articles/parse_jabot_dwca.qmd
         - section: Filter JABOT records
           contents:
-          - text: Retrieve taxon-specific specimens 
+          - text: Retrieve taxon-specific specimens
             href: articles/filter_jabot_records.qmd
-          - text: Filter indeterminate specimens 
+          - text: Filter indeterminate specimens
             href: articles/filter_indeterminate_jabot_specimens.qmd
+        - section: Assess herbarium gaps and representativeness
+          contents:
+          - text: Identify taxonomic gaps
+            href: articles/identify_jabot_gaps.qmd
+          - text: Measure herbarium representativeness
+            href: articles/measure_jabot_representativeness.qmd
+          - text: Locate missing species and collecting priorities
+            href: articles/locate_missing_jabot_species.qmd
+
+    - id: pt-articles
+      title: Artigos
+      collapse-level: 3
+      align: left
+      contents:
+        - text: Visão Geral
+          href: pt/articles/index.qmd
+        - section: Resumir coleções do JABOT
+          contents:
+          - text: Resumir coleções de herbário
+            href: pt/articles/summarize_jabot_collections.qmd
+        - section: Baixar e analisar registros do JABOT
+          contents:
+          - text: Baixar registros de espécimes
+            href: pt/articles/download_jabot_collections.qmd
+          - text: Analisar arquivos Darwin Core do JABOT
+            href: pt/articles/parse_jabot_dwca.qmd
+        - section: Filtrar registros do JABOT
+          contents:
+          - text: Recuperar espécimes por táxon
+            href: pt/articles/filter_jabot_records.qmd
+          - text: Filtrar espécimes indeterminados
+            href: pt/articles/filter_indeterminate_jabot_specimens.qmd
+        - section: Avaliar lacunas e representatividade do herbário
+          contents:
+          - text: Identificar lacunas taxonômicas
+            href: pt/articles/identify_jabot_gaps.qmd
+          - text: Medir a representatividade do herbário
+            href: pt/articles/measure_jabot_representativeness.qmd
+          - text: Localizar espécies faltantes e prioridades de coleta
+            href: pt/articles/locate_missing_jabot_species.qmd
 
 format:
   html:
@@ -95,8 +135,11 @@ format:
     code-tools: true
     css: styles.css
     eval: false
+    lightbox: true
     theme:
       light: [spacelab, theme.scss]
       dark: [spacelab, theme-dark.scss]
-    include-in-header: gtm-head.html
+    include-in-header:
+      - gtm-head.html
+      - lang-switcher.html
     include-before-body: gtm-body.html

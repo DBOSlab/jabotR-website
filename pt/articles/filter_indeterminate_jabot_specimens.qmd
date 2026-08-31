@@ -1,0 +1,153 @@
+---
+title: "Filtrar espécimes indeterminados do JABOT"
+format: html
+sidebar: pt-articles
+execute:
+  echo: false
+  eval: true
+  freeze: auto
+  cache: false
+  warning: false
+  message: false
+  include: true
+  inline: true
+---
+
+```{r setup, include=FALSE}
+library(jabotR)
+```
+
+Este guia explica como usar a função `jabot_indets()` do pacote `jabotR` para recuperar registros de ocorrência de espécimes indeterminados (por exemplo, identificados apenas até família ou gênero) no sistema de gerenciamento de coleções de herbário online do Jardim Botânico do Rio de Janeiro, o JABOT.
+
+## Visão Geral da Função
+
+A `jabot_indets()` foi projetada para identificar e extrair registros de espécimes botânicos das coleções do JABOT que não foram determinados até o nível de espécie. Ela permite filtrar por herbário, táxon, localidade (estado brasileiro), ano e categoria taxonômica.
+
+Essa função é especialmente útil para identificar possíveis lacunas de conhecimento taxonômico (*shortfalls* lineanos), resumindo a quantidade de táxons indeterminados entre diferentes herbários ou dentro de uma determinada família de plantas. Ela ajuda pesquisadores a identificar lacunas de dados na identificação de plantas dentro do JABOT.
+
+## Argumentos
+
+| Argumento     | Descrição |
+|---------------|-------------|
+| `level`       | Categoria taxonômica para filtrar indeterminados (ex.: `"FAMILY"`, `"GENUS"`). |
+| `herbarium`   | Siglas de herbário (ex.: `"RB"`, `"SP"`). Use `NULL` para todas as coleções. |
+| `repatriated` | Lógico. Se `FALSE`, ignora coleções repatriadas. |
+| `taxon`       | Vetor de nomes de família ou gênero para filtrar. |
+| `state`       | Siglas de estado brasileiro para filtrar a localidade. |
+| `recordYear`  | Ano ou intervalo de anos para filtrar (ex.: `"2001"`, `c("2000", "2022")`). |
+| `reorder`     | Reordena as colunas na saída final. O padrão é por herbário, táxon, etc. |
+| `path`        | **Diretório contendo dados do JABOT previamente baixados.** Se fornecido, evita novos downloads e permite análises offline ou reprodutíveis. Especialmente importante ao analisar um conjunto de dados fixo ou um repositório compartilhado. |
+| `updates`     | Lógico. Se `TRUE`, atualiza os arquivos DwC-A do JABOT se as versões estiverem desatualizadas. |
+| `verbose`     | Lógico. Se `TRUE`, exibe mensagens de progresso. |
+| `save`        | Lógico. Se `TRUE`, salva o resultado como um arquivo CSV. |
+| `dir`         | Diretório para armazenar a saída CSV. |
+| `filename`    | Nome do arquivo de saída para resultados e logs. |
+
+## Caso de Uso: Recuperar Todos os Indeterminados por Família
+
+```r
+jabot_indets(
+  level = "FAMILY",
+  verbose = TRUE,
+  save = TRUE,
+  dir = "jabot_indets",
+  filename = "family_level_indets"
+)
+```
+
+## Filtrar por Herbário e Estado
+
+```r
+jabot_indets(
+  taxon = "Fabaceae",
+  herbarium = "RB",
+  state = c("BA", "MG"),
+  recordYear = c("1990", "2022")
+)
+```
+
+## Filtrar por Categoria Taxonômica e Ano
+
+```r
+jabot_indets(
+  level = "GENUS",
+  recordYear = "2020",
+  save = FALSE
+)
+```
+
+## Analisando um Conjunto de Dados Específico
+
+Você pode reutilizar dados do JABOT previamente baixados definindo o argumento `path`:
+
+```r
+jabot_indets(
+  path = "my_jabot_data",
+  updates = FALSE,
+  verbose = TRUE
+)
+```
+
+### Por Que Usar `path`?
+- Permite trabalhar **offline** com arquivos do JABOT já baixados.
+- Evita **downloads redundantes**, agilizando a análise.
+- Melhora a **reprodutibilidade** ao analisar um conjunto de dados estático específico.
+- Defina `updates = FALSE` para evitar modificar seus dados locais.
+- É ideal ao trabalhar com uma **pasta compartilhada** ou preservar **conjuntos de dados fixos**.
+
+## Caso de Uso: Diagnóstico de Lacunas de Conhecimento Taxonômico
+
+Ao resumir registros não determinados entre herbários ou dentro de um táxon, a `jabot_indets()` funciona como uma poderosa ferramenta de diagnóstico para destacar lacunas de dados no conhecimento florístico. Ela pode ajudar pesquisadores a:
+
+- Visualizar quantos espécimes estão não identificados entre coleções.
+- Priorizar o trabalho taxonômico em grupos pouco determinados.
+- Destacar herbários com maior volume de material não identificado.
+
+## Visualizando Indeterminados por Herbário
+
+```r
+library(dplyr)
+library(ggplot2)
+
+results <- jabot_indets(level = "FAMILY",
+                          herbarium = c("AFR", "R", "RB"),
+                          save = FALSE)
+
+results %>%
+  count(collectionCode) %>%
+  ggplot(aes(x = reorder(collectionCode, n), y = n)) +
+  geom_col() +
+  coord_flip() +
+  labs(x = "Herbário",
+       y = "Número de Espécimes Indeterminados em Nível de Família")
+```
+
+```{r}
+#| echo: false
+library(dplyr)
+library(ggplot2)
+
+results <- jabot_indets(level = "FAMILY",
+                        herbarium = c("AFR", "R", "RB"),
+                        save = FALSE)
+
+results %>%
+  count(collectionCode) %>%
+  ggplot(aes(x = reorder(collectionCode, n), y = n)) +
+  geom_col(fill = "#81ae7a") +
+  coord_flip() +
+  labs(x = "Herbário",
+       y = "Número de Espécimes Indeterminados em Nível de Família")
+```
+
+## Dicas
+
+- Use `jabot_summary()` para inspecionar as coleções disponíveis.
+- Para reprodutibilidade, documente seus parâmetros de entrada.
+- Logs e arquivos CSV são salvos automaticamente se `save = TRUE`.
+
+## Veja Também
+
+- [`jabot_download()`](/pt/articles/download_jabot_collections.qmd): Baixar registros de espécimes do JABOT
+- [`jabot_parse()`](/pt/articles/parse_jabot_dwca.qmd): Analisar arquivos do JABOT
+- [`jabot_summary()`](/pt/articles/summarize_jabot_collections.qmd): Resumir coleções do JABOT

@@ -22,12 +22,12 @@ saving of the occurrence data.
 ### Details
 
 This function processes Darwin Core Archive (DwC-A) files from JABOT. You
-may supply a specific path to previously downloaded files using `path`, or let
-the function handle the download automatically. Filters can be applied by taxon
-name, herbarium code, state, and year. The `reorder` argument allows you to
-customize the structure of the returned data. Use `verbose = TRUE` to see
-status updates. Use `save = TRUE` to save results to disk as a CSV file in the
-specified directory.
+may supply a specific path to previously downloaded files using `path`,
+or let the function handle the download automatically. Filters can be applied
+by taxon name, herbarium code, state, and year. The `reorder` argument
+allows you to customize the structure of the returned data. Use
+`verbose = TRUE` to see status updates. Use `save = TRUE` to save
+results to disk as a CSV file in the specified directory.
 
 ### Arguments
 

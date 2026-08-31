@@ -1,0 +1,92 @@
+---
+title: 'jabot_gaps'
+description: 'Análise de lacunas do herbário em relação à Flora e Funga do Brasil'
+toc: true
+toc-depth: 3
+---
+
+
+```{r}
+#| eval: false
+jabotR::jabot_gaps()
+```
+
+### Descrição
+
+Identifica táxons listados na [Flora e Funga do Brasil (FFB)](https://floradobrasil.jbrj.gov.br/consulta/)
+que estão ausentes em uma determinada coleção de herbário associada ao JABOT. A função
+baixa ou lê dados já baixados da FFB e do JABOT, padroniza sinônimos,
+e produz um rico conjunto de análises e visualizações:
+
+- Estatísticas resumidas (total de táxons da FFB, táxons no herbário, faltantes, % de cobertura)
+
+- Táxons faltantes detalhados por grupo, família, gênero e domínio fitogeográfico
+
+- Identificação de gêneros totalmente ausentes do herbário
+
+- Mapa coroplético de táxons faltantes por estado brasileiro
+
+- Tabela interativa e pesquisável das principais espécies faltantes
+
+- Opcionalmente, um mapa de calor em nível de município classificando a
+  prioridade de coleta em âmbito nacional (veja `priority_map`)
+
+- Um relatório HTML (sempre gerado) e exportações opcionais em PDF / PNG
+  de cada figura individual
+
+### Detalhes
+
+Fluxo de trabalho
+
+1. As espécies aceitas da FFB são extraídas da tabela de táxons do DwC-A.
+
+2. Os registros do JABOT para o herbário-alvo são recuperados e filtrados
+   para espécimes determinados.
+
+3. Nomes de táxons que aparecem como sinônimos na FFB são resolvidos para
+   seus nomes aceitos via `floraR::flora_search`.
+
+4. A interseção (`taxon_in_herb`) e a diferença (`taxon_not_in_herb`)
+   entre os dois conjuntos são calculadas.
+
+5. Os táxons faltantes são unidos à tabela de distribuição da FFB para obter
+   detalhamentos por estado e domínio.
+
+6. Todas as análises são serializadas em um arquivo `.rds` temporário, que é
+   lido pelo modelo Rmd incluso durante a renderização.
+
+### Argumentos
+
+| Argumento | Descrição |
+|---|---|
+| herbarium | Caractere. Sigla do herbário em maiúsculas (ex.: `"RB"`). |
+| jabot_path | Caractere ou `NULL`. Caminho para um diretório com arquivos DwC-A do JABOT previamente baixados (criados por `jabot_download`). Quando `NULL` (padrão), os registros são baixados automaticamente. |
+| priority_map | Lógico. Se `TRUE`, baixa adicionalmente registros de ocorrência agrupados da rede JABOT (veja `network_herbaria`) e constrói um mapa de calor nacional em nível de município classificando a prioridade de coleta, ou seja, quais municípios já possuem os vouchers mais conhecidos de espécies ainda faltantes em `herbarium` (veja `jabot_missing` para a versão dessa análise restrita a uma região). O padrão é `FALSE`, pois requer o download de toda a amostra da rede. |
+| network_herbaria | Vetor de caracteres ou `NULL`. Usado apenas quando `priority_map = TRUE`; restringe a amostra agrupada da rede a essas siglas de herbário. `NULL` (padrão) usa todos os herbários associados ao JABOT. |
+| format | Vetor de caracteres. Quais formatos estáticos usar para salvar as figuras individuais. Qualquer combinação de `"pdf"` e `"png"` é aceita. O relatório HTML é sempre gerado, independentemente deste argumento. |
+| fig_width | Numérico. Largura das figuras salvas em polegadas. Padrão `10`. |
+| fig_height | Numérico. Altura das figuras salvas em polegadas. Padrão `6`. |
+| open_report | Lógico. Se `TRUE` (padrão), o relatório HTML é aberto no navegador padrão após a renderização. |
+| verbose | Lógico. Se `TRUE` (padrão), mensagens de progresso são impressas. |
+| dir | Caractere. Diretório de saída. O padrão é `"<herbarium>_gap_analysis"`. |
+
+### Valor
+
+Retorna, de forma invisível, uma lista nomeada com todos os data frames e
+  objetos ggplot2 calculados. O relatório HTML (e as figuras opcionais em PDF/PNG)
+  são gravados em `dir`.
+
+### Exemplos
+
+```r
+# Execução completa (baixa tudo) - renderiza o HTML e salva figuras em PDF
+jabot_gaps(herbarium = "RB",
+           format = c("pdf", "png"),
+           dir = "RB_gap_analysis")
+
+# Reexecução usando dados em cache para evitar novo download
+jabot_gaps(herbarium = "RB",
+           jabot_path = "jabot_download",
+           format = "pdf")
+```
+

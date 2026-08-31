@@ -1,0 +1,100 @@
+---
+title: "Medir a representatividade do herbário"
+format: html
+sidebar: pt-articles
+execute:
+  echo: true
+  eval: false
+  freeze: auto
+  cache: false
+  warning: false
+  message: false
+  include: true
+  inline: true
+---
+
+```{r setup, include=FALSE}
+library(jabotR)
+```
+
+Este guia demonstra como usar a função `jabot_coverage()` do pacote `jabotR` para medir o quão bem um herbário associado ao JABOT representa a diversidade de espécies reconhecida pela [Flora e Funga do Brasil (FFB)](https://floradobrasil.jbrj.gov.br/consulta/).
+
+## Visão Geral da Função
+
+Diferente da [`jabot_gaps()`](/pt/articles/identify_jabot_gaps.qmd), que foca nas espécies que estão *faltando* em uma coleção, a `jabot_coverage()` caracteriza as espécies que estão *representadas*. A representatividade geral é o número de espécies da FFB presentes no herbário dividido pelo número total de espécies da FFB, multiplicado por 100.
+
+A análise inclui a representatividade geral das espécies da FFB, representatividade por grupo taxonômico/família/domínio fitogeográfico/estado brasileiro, representatividade de espécies endêmicas versus não endêmicas, representação de material-tipo, resumos gráficos e um relatório HTML autocontido.
+
+Essa ferramenta é ideal para relatar os pontos fortes de uma coleção — por exemplo, para avaliações institucionais, solicitações de financiamento, ou para decidir quais grupos taxonômicos um herbário já representa bem.
+
+## Argumentos
+
+| Argumento | Descrição |
+|---|---|
+| `herbarium` | Sigla do herbário em maiúsculas (ex.: `"RB"`). |
+| `jabot_path` | Caminho para um diretório com arquivos DwC-A do JABOT previamente baixados. `NULL` baixa automaticamente. |
+| `format` | Formatos estáticos para salvar as figuras individuais: `"pdf"`, `"png"`, ou ambos. O relatório HTML é sempre gerado, independentemente disso. |
+| `fig_width`, `fig_height` | Dimensões (em polegadas) das figuras salvas. |
+| `open_report` | Se `TRUE`, abre o relatório HTML no navegador padrão após a renderização. |
+| `verbose` | Se `TRUE`, exibe mensagens de progresso. |
+| `dir` | Diretório de saída. O padrão é `"<herbarium>_representativeness"`. |
+
+## Caso de Uso Básico
+
+```{r}
+coverage_analysis <- jabot_coverage(herbarium = "RB",
+                                    verbose = TRUE,
+                                    open_report = TRUE,
+                                    dir = "RB_representativeness")
+```
+
+## Exportando Figuras Individuais
+
+```{r}
+coverage_analysis <- jabot_coverage(herbarium = "RB",
+                                    format = c("pdf", "png"),
+                                    verbose = TRUE,
+                                    open_report = TRUE,
+                                    dir = "RB_representativeness")
+```
+
+## Reutilizando um Conjunto de Dados Já Baixado
+
+```{r}
+coverage_analysis <- jabot_coverage(herbarium = "RB",
+                                    jabot_path = "jabot_download",
+                                    format = "pdf",
+                                    verbose = TRUE,
+                                    open_report = TRUE,
+                                    dir = "RB_representativeness")
+```
+
+## Exemplo de Saída
+
+O relatório HTML classifica as famílias de acordo com o quão bem são representadas, e mapeia o percentual de representatividade geral por estado brasileiro:
+
+![Famílias mais e menos representadas no relatório HTML do `jabot_coverage()`](/figures/jabot_coverage_report_families.png){.lightbox}
+
+![Mapa coroplético da representatividade do herbário por estado brasileiro](/figures/jabot_coverage_report_state_map.png){.lightbox}
+
+A função também retorna (de forma invisível) uma lista nomeada com todos os data frames calculados, de modo que os números-resumo podem ser usados diretamente em outras análises:
+
+```{r}
+#| eval: false
+#| echo: true
+coverage_analysis$coverage_pct
+coverage_analysis$endemic_coverage_pct
+head(coverage_analysis$family_rep)
+```
+
+## Dicas
+
+- Representatividade e lacunas são duas visões da mesma comparação — execute `jabot_coverage()` junto com [`jabot_gaps()`](/pt/articles/identify_jabot_gaps.qmd) para obter um panorama completo da situação de um herbário em relação à FFB.
+- `endemic_coverage_pct` costuma ser menor que a representatividade geral; ela destaca endemismos brasileiros especialmente valiosos para priorizar em futuras coletas.
+- Forneça `jabot_path` em execuções repetidas para evitar baixar novamente os dados da FFB e do JABOT.
+
+## Veja Também
+
+- [Identificar lacunas taxonômicas](/pt/articles/identify_jabot_gaps.qmd): `jabot_gaps()`
+- [Localizar espécies faltantes e prioridades de coleta](/pt/articles/locate_missing_jabot_species.qmd): `jabot_missing()`
+- [`jabot_records()`](/pt/articles/filter_jabot_records.qmd): Recuperar espécimes por táxon

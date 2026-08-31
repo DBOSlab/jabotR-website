@@ -1,0 +1,42 @@
+---
+title: "Referência de Funções"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+<style>
+  body {
+    position: relative;
+  }
+  .watermark {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    opacity: 0.15;
+    z-index: -1;
+    width: 400px;
+  }
+</style>
+
+<img src="/figures/jabot_original_logo.png" class="watermark" alt="marca d'água do logo jabot">
+
+## jabotR
+
+- [`jabot_coverage()`](/pt/reference/jabot_coverage.qmd)
+
+- [`jabot_download()`](/pt/reference/jabot_download.qmd)
+
+- [`jabot_gaps()`](/pt/reference/jabot_gaps.qmd)
+
+- [`jabot_indets()`](/pt/reference/jabot_indets.qmd)
+
+- [`jabot_missing()`](/pt/reference/jabot_missing.qmd)
+
+- [`jabot_parse()`](/pt/reference/jabot_parse.qmd)
+
+- [`jabot_records()`](/pt/reference/jabot_records.qmd)
+
+- [`jabot_summary()`](/pt/reference/jabot_summary.qmd)
+

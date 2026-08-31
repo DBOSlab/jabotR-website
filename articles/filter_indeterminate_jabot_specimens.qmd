@@ -16,7 +16,7 @@ execute:
 library(jabotR)
 ```
 
-This guide explains how to use the `jabot_indets()` function in the `jabotR` package to retrieve occurrence records of indeterminate specimens (e.g., identified only to family or genus level) from the Rio de Janeiro Botanical Garden's JABOT online managing herbarium collection system..
+This guide explains how to use the `jabot_indets()` function in the `jabotR` package to retrieve occurrence records of indeterminate specimens (e.g., identified only to family or genus level) from the Rio de Janeiro Botanical Garden's JABOT online managing herbarium collection system.
 
 ## Function Overview
 

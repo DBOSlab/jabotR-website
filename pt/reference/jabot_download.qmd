@@ -1,0 +1,39 @@
+---
+title: 'jabot_download'
+description: 'Baixar registros de espécimes botânicos do JABOT'
+toc: true
+toc-depth: 3
+---
+
+
+```{r}
+#| eval: false
+jabotR::jabot_download()
+```
+
+### Descrição
+
+Baixa registros de espécimes botânicos no formato Darwin Core de qualquer
+coleção de herbário no [JABOT](https://ipt.jbrj.gov.br/jabot),
+hospedado pelo [Jardim Botânico do Rio de Janeiro](https://www.gov.br/jbrj/pt-br).
+
+### Argumentos
+
+| Argumento | Descrição |
+|---|---|
+| herbarium | Um vetor de siglas de herbário específicas (código da coleção) em letras maiúsculas, ou deixe como NULL para baixar registros de todos os herbários do JABOT. |
+| verbose | Lógico; se `FALSE`, uma mensagem mostrando as etapas ao baixar registros de espécimes de herbário não será impressa por completo no console. |
+| dir | Caminho para o diretório do computador onde o arquivo será salvo. O padrão é criar um diretório chamado `jabot_download`, e os resultados serão salvos em uma subpasta nomeada de acordo com cada coleção de herbário associada ao JABOT pesquisada. |
+
+### Valor
+
+Pasta com arquivos DwC-A para um herbário específico ou para todos os herbários associados ao JABOT.
+
+### Exemplos
+
+```r
+jabot_download(herbarium = c("AFR", "RB"),
+               verbose = TRUE,
+               dir = "jabot_download")
+```
+

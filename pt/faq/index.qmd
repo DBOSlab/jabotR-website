@@ -1,0 +1,83 @@
+---
+title: "Perguntas Frequentes"
+format:
+  html:
+    toc: true
+---
+
+<style>
+  body {
+    position: relative;
+  }
+
+  .watermark {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    opacity: 0.15;
+    z-index: -1;
+    width: 400px;
+  }
+
+  .background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: -1;
+  }
+</style>
+
+<img src='/figures/jabot_original_logo.png' class='watermark' alt='marca d\'água do logo jabot'>
+
+
+### O que é o JABOT?
+
+O JABOT é um sistema online para gerenciamento de coleções científicas mantidas em herbários, redes de laboratórios de pesquisa em instituições botânicas e coleções vivas em jardins botânicos. Do ponto de vista da gestão, oferece a curadores, subcuradores e equipes de herbário uma variedade de ferramentas para administração, monitoramento de produtividade e geração de relatórios. A plataforma permite que os usuários insiram e publiquem dados e imagens de espécimes, com recursos integrados para analisar e melhorar a qualidade dos dados.
+
+### Para que posso usar o jabotR?
+
+O pacote `jabotR` permite que pesquisadores e taxonomistas baixem, filtrem e analisem dados de espécimes botânicos do [JABOT](https://jabot.jbrj.gov.br/v3/consulta.php). Com funções dedicadas, os usuários podem acessar grandes conjuntos de dados no formato Darwin Core, explorar distribuições taxonômicas e geográficas, e resumir coleções de forma eficiente.
+
+### Como instalo o jabotR?
+
+Visite o [guia de Primeiros Passos](/pt/get-started/index.qmd) para instruções de instalação a partir do GitHub.
+
+### O jabotR é gratuito?
+
+Sim. O `jabotR` é de código aberto, licenciado sob a [Licença MIT](https://opensource.org/license/mit/).
+
+### Que tipo de saída o jabotR pode gerar?
+
+O `jabotR` em si não gera documentos formatados, sendo voltado para a recuperação e análise de dados. No entanto, ele se integra bem com ferramentas como Quarto e RMarkdown para produzir documentos, páginas HTML e aplicativos interativos a partir dos dados filtrados de espécimes.
+
+### Quem são os desenvolvedores do jabotR?
+
+O desenvolvimento é patrocinado pelo [JBRJ](https://www.gov.br/jbrj/pt-br), pela [FINEP](http://www.finep.gov.br) e pelo [CNPq](https://www.gov.br/cnpq/pt-br). Principais desenvolvedores:
+
+- Domingos Cardoso ([\@DBOSlab](https://github.com/DBOSlab))
+- Giulia C. Ottino
+
+Veja o código e contribua no GitHub: [https://github.com/DBOSlab/jabotR](https://github.com/DBOSlab/jabotR)
+
+### Por que o nome jabotR?
+
+O nome presta homenagem ao sistema JABOT do Jardim Botânico do Rio de Janeiro para gestão de coleções de herbário, ao mesmo tempo em que faz uma referência à linguagem de programação R. Ele reflete a liderança nacional do JBRJ em pesquisa botânica, agora fortalecida por fluxos de trabalho reprodutíveis e transparentes.
+
+### Onde posso relatar bugs ou solicitar novas funcionalidades?
+
+Envie issues no GitHub: [Issues do jabotR](https://github.com/DBOSlab/jabotR/issues).
+
+### Onde posso tirar dúvidas e discutir sobre o jabotR?
+
+Participe da nossa comunidade através das [GitHub Discussions](https://github.com/DBOSlab/jabotR/discussions) para tirar dúvidas, sugerir ideias ou ajudar outras pessoas.
+
+### Como o jabotR se relaciona com o JABOT?
+
+O pacote `jabotR` atua como uma interface programática para consultar, recuperar e explorar dados do JABOT e de suas coleções parceiras. Ele amplia o acesso, incentiva a reprodutibilidade e apoia estudos taxonômicos e biogeográficos em larga escala.
+
+### Meu herbário pode participar do JABOT?
+
+Sim. Curadores de herbário podem entrar em contato com **Luís Alexandre Estevão da Silva <estevao@jbrj.gov.br>** para iniciar a contribuição de dados e imagens. Os herbários participantes recebem apoio para digitalizar e publicar suas coleções.

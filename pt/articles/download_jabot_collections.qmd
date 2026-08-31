@@ -1,0 +1,75 @@
+---
+title: "Baixar registros de espécimes do JABOT"
+format: html
+sidebar: pt-articles
+---
+
+Este guia apresenta um roteiro completo para a função `jabot_download()` do pacote `jabotR`. Essa função permite que os usuários recuperem registros de espécimes botânicos no formato Darwin Core a partir do sistema de gerenciamento de coleções de herbário online do Jardim Botânico do Rio de Janeiro, o JABOT.
+
+## Visão Geral da Função
+
+A função `jabot_download()` baixa dados de espécimes para todas ou específicas coleções de herbário associadas ao JABOT. Ela oferece flexibilidade por meio de diversos argumentos.
+
+## Argumentos
+
+| Argumento   | Descrição |
+|-------------|-------------|
+| `herbarium` | Vetor de siglas de herbário (ex.: `"RB"`, `"K"`). Use `NULL` para baixar todas as coleções. |
+| `repatriated` | Lógico. Se `FALSE`, herbários repatriados serão ignorados. Use `jabot_summary()` para identificá-los. |
+| `verbose`   | Lógico. Se `TRUE`, mensagens descrevendo o progresso do download serão exibidas. |
+| `dir`       | Caminho do diretório para salvar os arquivos. O padrão é `"jabot_download"`. |
+
+## Baixar Todos os Registros de Espécimes do JABOT
+
+Use a função com as configurações padrão para baixar todos os dados do JABOT.
+
+```r
+jabot_download(
+  verbose = TRUE,
+  dir = "jabot_download"
+)
+```
+
+## Baixar Espécimes de Coleções Selecionadas
+
+Especifique as siglas das coleções com o argumento `herbarium`:
+
+```r
+jabot_download(
+  herbarium = c("AFR", "R", "RB"),
+  verbose = TRUE,
+  dir = "jabot_download"
+)
+```
+
+## Ignorando Coleções Repatriadas
+
+Para excluir coleções marcadas como repatriadas:
+
+```r
+jabot_download(
+  repatriated = FALSE,
+  verbose = TRUE,
+  dir = "jabot_download"
+)
+```
+
+## Exemplo: Diretório Personalizado Sem Mensagens Detalhadas
+
+```r
+jabot_download(
+  herbarium = "RB",
+  verbose = FALSE,
+  dir = "custom_directory"
+)
+```
+
+## Dicas Adicionais
+
+- Use `jabot_summary()` para inspecionar quais coleções estão disponíveis e se são repatriadas.
+- Garanta acesso à internet ao executar `jabot_download()`.
+- Revise o conteúdo da pasta baixada para verificar a presença de `occurrence.txt` e dos metadados.
+
+## Veja Também
+
+- [`jabot_summary()`](/pt/articles/summarize_jabot_collections.qmd): Obter um resumo das coleções do JABOT

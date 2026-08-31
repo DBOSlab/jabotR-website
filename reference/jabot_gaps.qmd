@@ -13,33 +13,45 @@ jabotR::jabot_gaps()
 
 ### Description
 
-Identifies taxa listed in the
-[Flora e Funga do Brasil (FFB)](https://floradobrasil.jbrj.gov.br/consulta/)
+Identifies taxa listed in the [Flora e Funga do Brasil (FFB)](https://floradobrasil.jbrj.gov.br/consulta/)
 that are absent from a given JABOT-hosted herbarium collection. The function
 downloads or reads pre-downloaded FFB and JABOT data, standardises synonyms,
 and produces a rich set of analyses and visualisations:
 
 - Summary statistics (total FFB taxa, taxa in herbarium, missing, % coverage)
-- Missing taxa broken down by **kingdom**, **family**, **genus**, and
-  **phytogeographic domain**
-- Identification of **genera entirely absent** from the herbarium
-- **Choropleth map** of missing taxa by Brazilian state
+
+- Missing taxa broken down by group, family, genus, and phytogeographic domain
+
+- Identification of genera entirely absent from the herbarium
+
+- Choropleth map of missing taxa by Brazilian state
+
 - Interactive searchable table of the top missing species
-- An **HTML report** (always generated) and optional **PDF** / **PNG** exports
+
+- Optionally, a municipality-level heat map ranking collecting
+  priority nationwide (see `priority_map`)
+
+- An HTML report (always generated) and optional PDF / PNG exports
   of every individual figure
 
 ### Details
 
-**Workflow**
+Workflow
+
 1. FFB accepted species are extracted from the DwC-A taxon table.
+
 2. JABOT records for the target herbarium are retrieved and filtered to
    determined specimens.
+
 3. Taxon names that appear as synonyms in FFB are resolved to their accepted
-   names via [floraR::flora_search()].
+   names via `floraR::flora_search`.
+
 4. The intersection (`taxon_in_herb`) and difference (`taxon_not_in_herb`)
    between the two sets are computed.
+
 5. The missing taxa are joined with the FFB distribution table to obtain
    state- and domain-level breakdowns.
+
 6. All analyses are serialised to a temporary `.rds` file, which is read by
    the bundled Rmd template during rendering.
 
@@ -48,14 +60,15 @@ and produces a rich set of analyses and visualisations:
 | Argument | Description |
 |---|---|
 | herbarium | Character. Herbarium acronym in uppercase (e.g. `"RB"`). |
-| ffb_path | Character or `NULL`. Path to a directory holding a previously downloaded FFB DwC-A dataset (created by [floraR::flora_download()]). When `NULL` (default) the dataset is downloaded automatically. |
-| jabot_path | Character or `NULL`. Path to a directory holding previously downloaded JABOT DwC-A files (created by [jabot_download()]). When `NULL` (default) the records are downloaded automatically. |
-| format | Character vector. Which static formats to save individual figures. Any combination of `"pdf"` and `"png"` is accepted. The HTML report is **always** generated regardless of this argument. |
+| jabot_path | Character or `NULL`. Path to a directory holding previously downloaded JABOT DwC-A files (created by `jabot_download`). When `NULL` (default) the records are downloaded automatically. |
+| priority_map | Logical. If `TRUE`, additionally downloads pooled occurrence records from the JABOT network (see `network_herbaria`) and builds a nationwide municipality-level heat map ranking collecting priority, i.e. which municipalities already hold the most known vouchers of species still missing from `herbarium` (see `jabot_missing` for the region-scoped version of this analysis). Default `FALSE`, since it requires downloading the full network sample. |
+| network_herbaria | Character vector or `NULL`. Only used when `priority_map = TRUE`; restricts the pooled network sample to these herbarium acronyms. `NULL` (default) uses `all` JABOT-hosted herbaria. |
+| format | Character vector. Which static formats to save individual figures. Any combination of `"pdf"` and `"png"` is accepted. The HTML report is always generated regardless of this argument. |
 | fig_width | Numeric. Width of saved figures in inches. Default `10`. |
 | fig_height | Numeric. Height of saved figures in inches. Default `6`. |
 | open_report | Logical. If `TRUE` (default), the HTML report is opened in the default browser after rendering. |
 | verbose | Logical. If `TRUE` (default), progress messages are printed. |
-| dir | Character. Output directory. Defaults to `"herbarium_gap_analysis"`. |
+| dir | Character. Output directory. Defaults to `"<herbarium>_gap_analysis"`. |
 
 ### Value
 
@@ -66,16 +79,15 @@ Invisibly returns a named list with all computed data frames and
 ### Examples
 
 ```r
-# Full run (downloads everything) — renders HTML and saves PDF figures
+# Full run (downloads everything) - renders HTML and saves PDF figures
 jabot_gaps(herbarium = "RB",
-                   format    = c("pdf", "png"),
-                   dir       = "RB_gap_analysis")
+           format = c("pdf", "png"),
+           dir = "RB_gap_analysis")
 
 # Re-run using cached data to avoid re-downloading
-jabot_gaps(herbarium  = "RB",
-                   ffb_path   = "flora_download",
-                   jabot_path = "jabot_download",
-                   format     = "pdf")
+jabot_gaps(herbarium = "RB",
+           jabot_path = "jabot_download",
+           format = "pdf")
 ```
 
 

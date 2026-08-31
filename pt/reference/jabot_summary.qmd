@@ -1,0 +1,42 @@
+---
+title: 'jabot_summary'
+description: 'Resumir os registros atuais de espécimes botânicos no JABOT'
+toc: true
+toc-depth: 3
+---
+
+
+```{r}
+#| eval: false
+jabotR::jabot_summary()
+```
+
+### Descrição
+
+Resume os registros de espécimes botânicos atualmente disponíveis no
+[JABOT](https://ipt.jbrj.gov.br/jabot), hospedado pelo
+[Jardim Botânico do Rio de Janeiro](https://www.gov.br/jbrj/pt-br).
+
+### Argumentos
+
+| Argumento | Descrição |
+|---|---|
+| herbarium | Um vetor de siglas de herbário específicas (código da coleção) em letras maiúsculas, ou deixe como `NULL` para resumir os registros de espécimes de todos os herbários associados ao JABOT. |
+| verbose | Lógico; se `FALSE`, uma mensagem mostrando as etapas ao resumir os registros de espécimes não será impressa por completo no console. |
+| save | Lógico; se `TRUE`, os resultados da busca serão salvos em disco. |
+| dir | Caminho para o diretório do computador onde o resumo em formato de tabela será salvo. O padrão é criar um diretório chamado `jabot_summary`. |
+
+### Valor
+
+Um dataframe resumindo os registros de espécimes botânicos atualmente
+disponíveis no JABOT.
+
+### Exemplos
+
+```r
+jabot_summary(herbarium = c("ALCB", "HUEFS", "K", "RB"),
+              verbose = TRUE,
+              save = TRUE,
+              dir = "jabot_summary")
+```
+

@@ -31,10 +31,33 @@ You can install the latest development version of `jabotR` package from [GitHub]
 ```{r}
 #| eval: false
 
-#install.packages("devtools")
-devtools::install_github("DBOSlab/jabotR")
+if (!requireNamespace("BiocManager", quietly = TRUE)) 
+install.packages("BiocManager") 
+
+# Install the development version of jabotR from GitHub, 
+# together with its required dependencies 
+BiocManager::install("DBOSlab/jabotR", dependencies = TRUE)
 ```
 
 :::{.callout-caution}
-The steps in this section are only needed if you need to run [...]. If you already have a running [...], then skip this section. 
+`jabotR` requires R (>= 4.1.0). If you already have a recent R installation, you can skip straight to the install step above.
 :::
+
+```{r}
+#| eval: false
+
+library(jabotR)
+```
+
+## Quick Start
+
+Once installed, a good first step is to check which herbarium collections are currently published on JABOT:
+
+```{r}
+#| eval: false
+
+jabot_summary(verbose = TRUE,
+              save = FALSE)
+```
+
+From there, browse the [How-To Articles](/articles/index.qmd) to learn how to download and filter specimen records, and how to assess a herbarium's taxonomic gaps and representativeness against the Flora e Funga do Brasil.

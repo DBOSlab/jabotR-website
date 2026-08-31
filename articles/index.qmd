@@ -34,9 +34,16 @@ format: html
 :::
 
 ::: {style="display: block;"}
-### Filter JABOT records   
+### Filter JABOT records
 - [Retrieve taxon-specific specimens](/articles/filter_jabot_records.qmd)
 - [Filter indeterminate specimens](/articles/filter_indeterminate_jabot_specimens.qmd)
+:::
+
+::: {style="display: block;"}
+### Assess herbarium gaps and representativeness
+- [Identify taxonomic gaps](/articles/identify_jabot_gaps.qmd)
+- [Measure herbarium representativeness](/articles/measure_jabot_representativeness.qmd)
+- [Locate missing species and collecting priorities](/articles/locate_missing_jabot_species.qmd)
 :::
 
 :::

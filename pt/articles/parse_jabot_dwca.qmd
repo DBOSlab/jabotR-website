@@ -1,0 +1,85 @@
+---
+title: "Analisar arquivos Darwin Core do JABOT"
+format: html
+sidebar: pt-articles
+---
+
+Este guia demonstra como usar a função `jabot_parse()` do pacote `jabotR`. Essa função lê e analisa arquivos Darwin Core Archive (DwC-A) previamente baixados com `jabot_download()`.
+
+## Visão Geral da Função
+
+A função `jabot_parse()` lê os dados DwC-A de todas ou de coleções específicas de herbário do JABOT. Ela também limpa e formata os dados de espécimes.
+
+## Argumentos
+
+| Argumento     | Descrição |
+|---------------|-------------|
+| `path`        | Diretório contendo as pastas DwC-A baixadas. |
+| `herbarium`   | Vetor de siglas de herbário (ex.: `"RB"`, `"K"`). Use `NULL` para analisar todas. |
+| `repatriated` | Lógico. Se `FALSE`, ignora herbários repatriados (veja `jabot_summary()`). |
+| `verbose`     | Lógico. Se `TRUE`, exibe mensagens de progresso. |
+
+## Analisar Todas as Coleções em um Diretório
+
+Use as configurações padrão para analisar todas as pastas DwC-A:
+
+```r
+dwca <- jabot_parse(
+  path = "jabot_download",
+  verbose = TRUE
+)
+```
+
+## Analisar Coleções de Herbário Específicas
+
+Você pode especificar quais coleções analisar:
+
+```r
+dwca <- jabot_parse(
+  path = "jabot_download",
+  herbarium = c("R", "RB"),
+  verbose = TRUE
+)
+```
+
+## Ignorando Coleções Repatriadas
+
+Para ignorar herbários repatriados:
+
+```r
+dwca <- jabot_parse(
+  path = "jabot_download",
+  repatriated = FALSE,
+  verbose = TRUE
+)
+```
+
+## Estrutura da Saída Analisada
+
+O retorno é uma **lista nomeada** em que cada elemento representa uma coleção e contém:
+
+- `occurrence.txt`: Um data frame com os registros de espécimes.
+- `eml.xml`: Metadados sobre a coleção.
+- Opcionalmente `summary_<COL>.csv`: Arquivo de resumo dos metadados.
+
+```r
+names(dwca)
+head(dwca[["ALCB"]][["data"]][["occurrence.txt"]])
+```
+
+## Limpeza de Dados e Padronização de Colunas
+
+- Converte campos taxonômicos para title case (iniciais maiúsculas).
+- Adiciona `taxonName` combinando `genus`, `specificEpithet` e `infraspecificEpithet`.
+- Substitui categorias taxonômicas ausentes por `"FAMILY"`.
+
+## Dicas
+
+- Certifique-se de ter baixado os dados com `jabot_download()` antes de analisá-los.
+- Use `jabot_summary()` para verificar quais herbários são repatriados.
+- Você pode combinar e analisar os dados analisados usando `dplyr::bind_rows()`.
+
+## Veja Também
+
+- [`jabot_download()`](/pt/articles/download_jabot_collections.qmd): Baixar registros de espécimes do JABOT
+- [`jabot_summary()`](/pt/articles/summarize_jabot_collections.qmd): Inspecionar coleções do JABOT

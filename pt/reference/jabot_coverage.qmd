@@ -1,0 +1,76 @@
+---
+title: 'jabot_coverage'
+description: 'Representatividade do herbário em relação à Flora e Funga do Brasil'
+toc: true
+toc-depth: 3
+---
+
+
+```{r}
+#| eval: false
+jabotR::jabot_coverage()
+```
+
+### Descrição
+
+Mede o quão bem um herbário associado ao JABOT representa a
+[Flora e Funga do Brasil (FFB)](https://floradobrasil.jbrj.gov.br/consulta/).
+Diferente da `jabot_gaps` (que foca no que está faltando), esta
+função caracteriza o que está presente, calculando taxas de cobertura em
+cada nível taxonômico e geográfico:
+
+- Representatividade geral (% das espécies da FFB presentes no herbário)
+
+- Cobertura por grupo, família e domínio fitogeográfico
+
+- Gráficos de barras em nível de família classificados por cobertura (mais e menos cobertas)
+
+- Mapa coroplético de % de cobertura por estado brasileiro
+
+- Tabela de estatísticas resumidas
+
+- Um relatório HTML (sempre gerado) e exportações opcionais em PDF / PNG
+  de cada figura individual
+
+### Detalhes
+
+A cobertura é definida como:
+\text{cobertura} = \frac{N_{\text{no herbário}}}{N_{\text{total FFB}}} \times 100
+
+A função segue o mesmo pipeline de preparação de dados da `jabot_gaps`:
+os dados da FFB são analisados, os registros do JABOT são obtidos, e os nomes
+de sinônimos são resolvidos antes da comparação.
+
+### Argumentos
+
+| Argumento | Descrição |
+|---|---|
+| herbarium | Caractere. Sigla do herbário em maiúsculas (ex.: `"RB"`). |
+| jabot_path | Caractere ou `NULL`. Caminho para um diretório com arquivos DwC-A do JABOT previamente baixados. Quando `NULL` (padrão), os registros são baixados automaticamente via `jabot_download`. |
+| format | Vetor de caracteres. Formatos estáticos para salvar as figuras individuais: `"pdf"`, `"png"`, ou ambos. O relatório HTML é sempre gerado. |
+| fig_width | Numérico. Largura das figuras salvas em polegadas. Padrão `10`. |
+| fig_height | Numérico. Altura das figuras salvas em polegadas. Padrão `6`. |
+| open_report | Lógico. Se `TRUE` (padrão), abre o relatório HTML no navegador padrão após a renderização. |
+| verbose | Lógico. Se `TRUE` (padrão), mensagens de progresso são impressas. |
+| dir | Caractere. Diretório de saída. O padrão é `"<herbarium>_representativeness"`. |
+
+### Valor
+
+Retorna, de forma invisível, uma lista nomeada com todos os data frames e
+  objetos ggplot2 calculados. O relatório HTML (e as figuras opcionais) são
+  gravados em `dir`.
+
+### Exemplos
+
+```r
+# Execução completa - renderiza o HTML e salva figuras em PDF
+jabot_coverage(herbarium = "RB",
+               format = "pdf",
+               dir = "RB_representativeness")
+
+# Reexecução usando dados em cache
+jabot_coverage(herbarium = "RB",
+               jabot_path = "jabot_download",
+               format = c("pdf", "png"))
+```
+

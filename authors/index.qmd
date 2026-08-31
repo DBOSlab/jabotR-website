@@ -60,7 +60,20 @@ resources:
         <a class="icon-link" href="https://orcid.org/0000-0001-7072-2656" target="_blank"><img src="/authors/images/orcid.png" alt="ORCID"/></a>
         <a class="icon-link" href="http://lattes.cnpq.br/2228981567893077" target="_blank"><img src="/authors/images/lattes.png" alt="Lattes"/></a>
       </p>
-      <p>Taxonomist and bioinformatician leading the jabotR package, responsible for designing and coding functions as well as developing the project website</p>
+      <p>Plant taxonomist and bioinformatician leading the jabotR package, responsible for designing and coding functions as well as developing the project website</p>
+    </div>
+  </div>
+  
+    <div class="author-card">
+    <img src="images/giulia.jpg" alt="Giulia Ottino" class="author-photo" />
+    <div class="author-info">
+      <h3 class="author-name">Giulia Ottino</h3>
+      <p>
+        <a class="icon-link" href="mailto:botgiuc@gmail.com"><img src="/authors/images/email.png" alt="Email"/></a>
+        <a class="icon-link" href="https://orcid.org/0009-0001-4352-1733" target="_blank"><img src="/authors/images/orcid.png" alt="ORCID"/></a>
+        <a class="icon-link" href=" http://lattes.cnpq.br/0819473317412079" target="_blank"><img src="/authors/images/lattes.png" alt="Lattes"/></a>
+      </p>
+      <p>Plant science student responsible for designing and coding some functions</p>
     </div>
   </div>
   

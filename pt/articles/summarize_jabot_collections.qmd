@@ -1,0 +1,79 @@
+---
+title: "Resumir coleções do JABOT"
+format: html
+sidebar: pt-articles
+---
+
+Este guia apresenta um roteiro completo para a função `jabot_summary()` do pacote `jabotR`. Essa função fornece estatísticas resumidas de registros de espécimes botânicos disponíveis no sistema de gerenciamento de coleções de herbário online do Jardim Botânico do Rio de Janeiro, o JABOT, publicado através do Integrated Publishing Toolkit [(IPT)](https://ipt.jbrj.gov.br/jabot).
+
+## Visão Geral da Função
+
+A função `jabot_summary()` recupera informações resumidas para uma ou mais coleções de herbário associadas ao JABOT. Ela permite filtrar coleções e, opcionalmente, salvar o resumo como um arquivo CSV. Também fornece metadados como número de registros, versão e data de publicação, e um link direto para a página do IPT de cada herbário.
+
+## Argumentos
+
+| Argumento   | Descrição |
+|-------------|-------------|
+| `herbarium` | Vetor de siglas de herbário (ex.: `"RB"`, `"K"`). Use `NULL` para resumir todas as coleções. |
+| `verbose`   | Lógico. Se `TRUE`, mensagens descrevendo o progresso do resumo serão exibidas. |
+| `save`      | Lógico. Se `TRUE`, o resumo será salvo como um arquivo CSV. |
+| `dir`       | Caminho do diretório para salvar o arquivo. O padrão é `"jabot_summary"`. |
+
+## Resumir Todas as Coleções do JABOT
+
+Use a função com as configurações padrão para obter um resumo de todas as coleções, incluindo a sigla do herbário, contato do curador, contagem de registros e link direto para o IPT:
+
+```r
+summary_df <- jabot_summary(
+  verbose = TRUE,
+  save = TRUE,
+  dir = "jabot_summary"
+)
+```
+
+## Resumir Coleções Específicas
+
+Especifique um ou mais herbários com o argumento `herbarium`:
+
+```r
+summary_some_df <- jabot_summary(
+  herbarium = c("AFR", "R", "RB"),
+  verbose = TRUE,
+  save = TRUE,
+  dir = "jabot_summary"
+)
+```
+
+## Salvar o Resumo em um Diretório Personalizado
+
+Você pode personalizar o diretório de saída do arquivo de resumo:
+
+```r
+jabot_summary(
+  herbarium = "RB",
+  verbose = TRUE,
+  save = TRUE,
+  dir = "custom_summary"
+)
+```
+
+## Desativar Mensagens Detalhadas
+
+Suprima as mensagens de progresso com `verbose = FALSE`:
+
+```r
+jabot_summary(
+  verbose = FALSE
+)
+```
+
+## Dicas Adicionais
+
+- O resumo inclui campos como sigla da coleção, contagem de registros, status de repatriação, informações de contato e um link para a entrada no IPT.
+- Use esse resumo para filtrar ou pré-visualizar coleções antes de baixar ou analisar registros.
+- Se `save = TRUE`, a função armazenará automaticamente os resultados em formato CSV.
+
+## Veja Também
+
+- [`jabot_download()`](/pt/articles/download_jabot_collections.qmd): Baixar registros de espécimes do JABOT
+- [`jabot_parse()`](/pt/articles/parse_jabot_dwca.qmd): Analisar e limpar registros baixados
