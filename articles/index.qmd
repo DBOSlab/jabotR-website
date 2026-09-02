@@ -46,4 +46,9 @@ format: html
 - [Locate missing species and collecting priorities](/articles/locate_missing_jabot_species.qmd)
 :::
 
+::: {style="display: block;"}
+### Organize new field data
+- [Organize field data with the jabotR field notebook](/articles/jabot_fieldbook.qmd)
+:::
+
 :::

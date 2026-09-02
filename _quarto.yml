@@ -93,6 +93,10 @@ website:
             href: articles/measure_jabot_representativeness.qmd
           - text: Locate missing species and collecting priorities
             href: articles/locate_missing_jabot_species.qmd
+        - section: Organize new field data
+          contents:
+          - text: Organize field data with the jabotR field notebook
+            href: articles/jabot_fieldbook.qmd
 
     - id: pt-articles
       title: Artigos
@@ -125,6 +129,10 @@ website:
             href: pt/articles/measure_jabot_representativeness.qmd
           - text: Localizar espécies faltantes e prioridades de coleta
             href: pt/articles/locate_missing_jabot_species.qmd
+        - section: Organizar novos dados de campo
+          contents:
+          - text: Organize dados de campo com o caderno de campo do jabotR
+            href: pt/articles/jabot_fieldbook.qmd
 
 format:
   html:

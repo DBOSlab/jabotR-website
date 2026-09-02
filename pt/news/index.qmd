@@ -34,17 +34,22 @@ O primeiro lançamento oficial do pacote R `jabotR`, projetado para facilitar o 
 
 - `jabot_summary()`: Recupera metadados e informações resumidas de todos ou de herbários específicos do JABOT.
 - `jabot_download()`: Baixa dados originais de espécimes no formato Darwin Core Archive (DwC-A).
-- `jabot_records()`: Analisa, filtra e organiza registros do JABOT com base em táxon, herbário, região e ano.
+- `jabot_parse()`: Lê e analisa arquivos Darwin Core Archive já baixados no R.
+- `jabot_records()`: Recupera, filtra e organiza registros de espécimes do JABOT por táxon, herbário, região e ano.
 - `jabot_indets()`: Recupera espécimes indeterminados (por exemplo, identificados apenas até família ou gênero).
+- `jabot_gaps()`: Identifica táxons ausentes de um herbário em relação à Flora e Funga do Brasil, com um mapa de calor nacional opcional, em nível de município, de prioridade de coleta (`priority_map`).
+- `jabot_coverage()`: Mede o quão bem um herbário representa a Flora e Funga do Brasil, por grupo taxonômico, família, domínio fitogeográfico e estado brasileiro.
+- `jabot_missing()`: Identifica espécies esperadas em um estado/município brasileiro alvo que estão faltando em um herbário local, com um mapa interativo de localidades candidatas para coleta e um mapa de calor em nível de município, obtidos a partir da rede agrupada do JABOT — incluindo links diretos para imagens de espécimes físicos quando disponíveis.
+- `jabot_gaps()`, `jabot_coverage()` e `jabot_missing()` geram, cada uma, um relatório HTML interativo e autocontido.
 - Filtros opcionais por `taxon`, `herbarium`, `state`, `recordYear` e `level`.
 - Suporte à integração com fluxos de trabalho do tidyverse para análises subsequentes.
-- Cobertura de testes acima de 95%, com integração contínua via GitHub Actions.
+- Suíte de testes abrangente com testthat, integração contínua via GitHub Actions.
 
 ### Infraestrutura
 
 - Licença MIT.
 - GitHub Actions: R-CMD-check e cobertura de testes.
-- Documentação hospedada: [jabotR-website](https://dboslab.github.io/jabotR-website/)
+- Documentação hospedada: [jabotR-website](https://dboslab.github.io/jabotR-website/), com artigos de Como Fazer para cada função e tradução completa para o português (alternador de idioma EN/PT).
 
 ### Feedback
 

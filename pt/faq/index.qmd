@@ -41,6 +41,10 @@ O JABOT é um sistema online para gerenciamento de coleções científicas manti
 
 O pacote `jabotR` permite que pesquisadores e taxonomistas baixem, filtrem e analisem dados de espécimes botânicos do [JABOT](https://jabot.jbrj.gov.br/v3/consulta.php). Com funções dedicadas, os usuários podem acessar grandes conjuntos de dados no formato Darwin Core, explorar distribuições taxonômicas e geográficas, e resumir coleções de forma eficiente.
 
+### O jabotR consegue avaliar a representatividade do meu herbário, ou encontrar espécies faltantes?
+
+Sim. Além de recuperar e filtrar registros, o `jabotR` inclui três funções analíticas que comparam qualquer herbário associado ao JABOT com a [Flora e Funga do Brasil (FFB)](https://floradobrasil.jbrj.gov.br/consulta/): a `jabot_gaps()` identifica táxons ausentes de uma coleção, a `jabot_coverage()` mede o quanto da lista de espécies da FFB um herbário já representa, e a `jabot_missing()` restringe essa comparação a um estado ou município específico e mapeia localidades candidatas para coleta a partir da rede agrupada do JABOT. Cada uma gera um relatório HTML interativo e autocontido. Veja os [Artigos de Como Fazer](/pt/articles/index.qmd) para tutoriais passo a passo.
+
 ### Como instalo o jabotR?
 
 Visite o [guia de Primeiros Passos](/pt/get-started/index.qmd) para instruções de instalação a partir do GitHub.
@@ -48,6 +52,10 @@ Visite o [guia de Primeiros Passos](/pt/get-started/index.qmd) para instruções
 ### O jabotR é gratuito?
 
 Sim. O `jabotR` é de código aberto, licenciado sob a [Licença MIT](https://opensource.org/license/mit/).
+
+### Este site está disponível em português?
+
+Sim. Toda página possui um botão de alternância EN/PT na barra de navegação. Assim que você troca de idioma, a escolha é lembrada pelo restante da sua visita — não é necessário trocar novamente ao navegar entre as páginas.
 
 ### Que tipo de saída o jabotR pode gerar?
 

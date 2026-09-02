@@ -1,0 +1,116 @@
+---
+title: "Organize dados de campo com o caderno de campo do jabotR"
+format: html
+sidebar: pt-articles
+execute:
+  echo: true
+  eval: false
+  freeze: auto
+  cache: false
+  warning: false
+  message: false
+  include: true
+  inline: true
+---
+
+```{r setup, include=FALSE}
+library(jabotR)
+```
+
+Este guia apresenta um roteiro completo para `jabot_fieldbook()`, o caderno de campo interativo distribuído com o pacote `jabotR`. Diferentemente das demais funções do `jabotR`, que consultam o serviço web do JABOT, o caderno de campo é uma ferramenta autocontida para organizar novos dados de coleta em campo e transformá-los em uma planilha pronta para submissão ao JABOT.
+
+## Visão Geral da Função
+
+`jabot_fieldbook()` abre o caderno de campo, construído em HTML, CSS e JavaScript puros, no navegador padrão do usuário. Ele funciona totalmente offline, não requer Shiny nem conexão com a internet, e realiza toda a geração da planilha localmente no navegador — nenhum dado sai do computador do usuário. A interface está disponível em português (padrão) e inglês, com um seletor de idioma no canto inferior esquerdo.
+
+## Argumentos
+
+| Argumento | Descrição |
+|-----------|-------------|
+| `browser` | Lógico. Se `TRUE` (padrão), abre o caderno de campo no navegador padrão. Se `FALSE`, o aplicativo não é aberto e apenas seu caminho local é retornado. |
+
+## Abrindo o Caderno de Campo
+
+```{r}
+jabot_fieldbook()
+```
+
+Para obter apenas o caminho local do aplicativo (por exemplo, para abri-lo manualmente ou incorporá-lo em outro lugar) sem abrir uma aba do navegador:
+
+```{r}
+app_path <- jabot_fieldbook(browser = FALSE)
+app_path
+```
+
+## Como os Dados São Organizados
+
+O caderno de campo é estruturado em torno de **eventos de coleta**. Um evento de coleta representa uma combinação única de data/localidade de coleta — equivalente a uma entrada do caderno de campo em papel — e reúne:
+
+- Um **cabeçalho** compartilhado, preenchido uma única vez e reaproveitado por todos os espécimes coletados naquele evento (data, país, estado, município, localidade, área protegida, habitat, coordenadas, altitude e informações dos coletores).
+- Um ou mais **espécimes**, cada um com seus próprios dados taxonômicos e de espécime (número de coleta, família, gênero, espécie, determinador, descrição da planta, entre outros campos).
+
+Um resumo no topo da página mostra, em tempo real, o número de eventos de coleta, o número de espécimes, o percentual de cabeçalhos preenchidos e o número fixo de colunas (58) do formato de planilha Jabot para o qual a ferramenta exporta.
+
+Clique em **Adicionar evento de coleta** para iniciar um novo evento, ou use **Repetir cabeçalho anterior** / **Duplicar cabeçalho** dentro de um evento existente para reaproveitar informações de localidade e data em eventos de coleta próximos, sem precisar redigitá-las.
+
+### Campos do cabeçalho
+
+| Campo | Descrição |
+|---|---|
+| Dia / Mês / Ano | Data da coleta. |
+| País, Estado, Município | Divisões político-administrativas onde a coleta ocorreu. |
+| Localidade | Localidade dentro do município (fazenda, rio, estrada, comunidade etc.). |
+| UC / TI / área protegida | Unidade de conservação, Terra Indígena ou outra área protegida. |
+| Habitat | Descrição do habitat do espécime. |
+| Latitude / Longitude | Coordenadas em formato decimal. |
+| Altitude | Altitude ou profundidade mínima. |
+| Coletor / Coletores adicionais | Coletor principal e coletores adicionais. |
+| Notas da localidade | Observações livres sobre a localidade de coleta. |
+
+Um painel de **Campos avançados do cabeçalho** expõe colunas adicionais, usadas com menor frequência: coordenadas decompostas em graus/minutos/segundos com hemisfério N/S e E/W, altitude máxima e sua unidade, sigla do herbário de origem, herbários de duplicatas e sua quantidade, e o projeto associado.
+
+### Campos dos espécimes
+
+Cada linha da tabela de espécimes cobre os campos necessários para uma primeira passada rápida — número de coleta, família, gênero, qualificador `cf.`, epíteto da espécie, determinador, data de determinação e uma descrição livre da planta. As larguras das colunas podem ser ajustadas diretamente na tabela.
+
+Ao abrir **Detalhes** de um espécime, é exibida a ficha completa, organizada em quatro grupos:
+
+| Grupo | Campos |
+|---|---|
+| Identificação taxonômica | Família, gênero, `cf.`, espécies 1–3 com autores e categorias infraespecíficas, nome vernacular, status de tipo |
+| Coleta e determinação | Número, determinador, data de determinação, número de tombo (`numtombo`), sufixo |
+| Descrição do indivíduo | Flores, frutos, fuste, altura e sua unidade, hábito |
+| Uso e observações complementares | Usos, uso específico, descrição da planta |
+
+Use **Adicionar espécime** para incluir uma nova linha, **Duplicar último** para copiar o espécime anterior como ponto de partida, ou **Seguir sequência numérica** para incrementar automaticamente o número de coleta de um novo espécime.
+
+## Revisão Antes da Exportação
+
+Um painel de validação verifica os dados à medida que são preenchidos e sinaliza, por evento de coleta, problemas como data de coleta incompleta, coletor não informado, evento sem nenhum espécime, ou espécime sem número de coleta ou sem qualquer informação taxonômica (ao menos família, gênero ou espécie). Revise os itens sinalizados antes de exportar; ainda assim é possível gerar a planilha com avisos pendentes, se necessário.
+
+## Salvando e Carregando Rascunhos
+
+- **Salvar rascunho** grava o estado atual do caderno no armazenamento local do navegador, para que o trabalho em andamento não se perca caso a aba seja fechada.
+- **Carregar rascunho** restaura o rascunho salvo mais recentemente.
+
+Os rascunhos ficam armazenados apenas no navegador utilizado e não são sincronizados entre dispositivos ou navegadores — salve o rascunho novamente após alterações importantes e evite limpar os dados de navegação do site antes de exportar.
+
+## Exportação
+
+Três opções de exportação estão disponíveis, no topo e ao final da página:
+
+- **Baixar planilha vazia**: gera uma planilha em branco com as 58 colunas do padrão Jabot e nenhum dado, útil como modelo ou para preenchimento direto em um aplicativo de planilha.
+- **Gerar planilha Jabot**: exporta todos os eventos de coleta e espécimes preenchidos em uma única planilha no leiaute de colunas padrão do Jabot, pronta para submissão.
+- **Gerar caderno de campo (PDF)**: renderiza um caderno de campo imprimível a partir dos dados preenchidos, útil como registro físico ou de arquivo da expedição de coleta.
+
+## Dicas Adicionais
+
+- Preencha primeiro o cabeçalho de um evento de coleta e só depois adicione seus espécimes — os campos compartilhados do cabeçalho são copiados automaticamente para cada espécime do evento no momento da geração da planilha.
+- Use **Repetir cabeçalho anterior** ao iniciar um novo evento na mesma localidade e data do evento anterior (por exemplo, vários espécimes coletados juntos, porém registrados como eventos separados).
+- Salve um rascunho periodicamente, especialmente durante sessões de campo longas, já que o caderno de campo não mantém nenhuma cópia dos dados em servidor.
+- O caderno de campo funciona totalmente offline, podendo ser usado diretamente em campo em um notebook sem sinal; apenas a exportação de planilhas/PDF não exige nenhuma etapa adicional ao retornar à conexão.
+
+## Veja Também
+
+- [`jabot_records()`](/pt/articles/filter_jabot_records.qmd): Recuperar e filtrar registros de espécimes já existentes no JABOT
+- [`jabot_summary()`](/pt/articles/summarize_jabot_collections.qmd): Obter um resumo das coleções do JABOT

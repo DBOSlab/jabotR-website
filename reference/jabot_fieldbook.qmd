@@ -1,0 +1,46 @@
+---
+title: 'jabot_fieldbook'
+description: 'Open the jabotR field notebook'
+toc: true
+toc-depth: 3
+---
+
+
+```{r}
+#| eval: false
+jabotR::jabot_fieldbook()
+```
+
+### Description
+
+Opens the interactive jabotR field notebook in the user's default web
+browser. The application is distributed with the package and works
+locally without an internet connection.
+
+The field notebook allows users to organize collection-event and
+specimen data, export a standardized JABOT spreadsheet, and generate
+a printable field notebook in PDF format.
+
+### Details
+
+The field notebook runs locally using HTML, CSS, and JavaScript files
+distributed with jabotR. It does not require Shiny or an internet
+connection. Spreadsheet generation is performed locally in the browser.
+
+### Arguments
+
+| Argument | Description |
+|---|---|
+| browser | Logical. If `TRUE`, opens the field notebook in the default web browser. If `FALSE`, only returns the local path to the application. |
+
+### Value
+
+Invisibly returns the local path to the field notebook `index.html`.
+
+### Examples
+
+```r
+jabot_fieldbook()
+```
+
+

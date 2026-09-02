@@ -4321,8 +4321,10 @@ height: 400px;
   <ul>
   <li><a href="#what-is-the-jabot" id="toc-what-is-the-jabot" class="nav-link active" data-scroll-target="#what-is-the-jabot">What is the JABOT?</a></li>
   <li><a href="#what-can-i-use-jabotr-for" id="toc-what-can-i-use-jabotr-for" class="nav-link" data-scroll-target="#what-can-i-use-jabotr-for">What can I use jabotR for?</a></li>
+  <li><a href="#can-jabotr-assess-how-well-my-herbarium-is-represented-or-find-missing-species" id="toc-can-jabotr-assess-how-well-my-herbarium-is-represented-or-find-missing-species" class="nav-link" data-scroll-target="#can-jabotr-assess-how-well-my-herbarium-is-represented-or-find-missing-species">Can jabotR assess how well my herbarium is represented, or find missing species?</a></li>
   <li><a href="#how-do-i-install-jabotr" id="toc-how-do-i-install-jabotr" class="nav-link" data-scroll-target="#how-do-i-install-jabotr">How do I install jabotR?</a></li>
   <li><a href="#is-jabotr-free-to-use" id="toc-is-jabotr-free-to-use" class="nav-link" data-scroll-target="#is-jabotr-free-to-use">Is jabotR free to use?</a></li>
+  <li><a href="#is-this-website-available-in-portuguese" id="toc-is-this-website-available-in-portuguese" class="nav-link" data-scroll-target="#is-this-website-available-in-portuguese">Is this website available in Portuguese?</a></li>
   <li><a href="#what-output-can-jabotr-generate" id="toc-what-output-can-jabotr-generate" class="nav-link" data-scroll-target="#what-output-can-jabotr-generate">What output can jabotR generate?</a></li>
   <li><a href="#who-are-the-developers-of-jabotr" id="toc-who-are-the-developers-of-jabotr" class="nav-link" data-scroll-target="#who-are-the-developers-of-jabotr">Who are the developers of jabotR?</a></li>
   <li><a href="#why-the-name-jabotr" id="toc-why-the-name-jabotr" class="nav-link" data-scroll-target="#why-the-name-jabotr">Why the name jabotR?</a></li>
@@ -4390,6 +4392,10 @@ z-index: -1;
 <h3 class="anchored" data-anchor-id="what-can-i-use-jabotr-for">What can I use jabotR for?</h3>
 <p>The <code>jabotR</code> package allows researchers and taxonomists to download, filter, and analyze plant specimen data from the <a href="https://jabot.jbrj.gov.br/v3/consulta.php">JABOT</a>. With dedicated functions, users can access large datasets in Darwin Core Format, explore taxonomic and geographic distributions, and summarize collections efficiently.</p>
 </section>
+<section id="can-jabotr-assess-how-well-my-herbarium-is-represented-or-find-missing-species" class="level3">
+<h3 class="anchored" data-anchor-id="can-jabotr-assess-how-well-my-herbarium-is-represented-or-find-missing-species">Can jabotR assess how well my herbarium is represented, or find missing species?</h3>
+<p>Yes. Beyond retrieving and filtering records, <code>jabotR</code> includes three analytical functions that compare any JABOT-hosted herbarium against the <a href="https://floradobrasil.jbrj.gov.br/consulta/">Flora e Funga do Brasil (FFB)</a>: <code>jabot_gaps()</code> identifies taxa missing from a collection, <code>jabot_coverage()</code> measures how much of the FFB checklist a herbarium already represents, and <code>jabot_missing()</code> narrows that comparison to a specific state or municipality and maps candidate collecting localities from the pooled JABOT network. Each produces a self-contained, interactive HTML report. See the <a href="../articles/index.html">How-To Articles</a> for step-by-step tutorials.</p>
+</section>
 <section id="how-do-i-install-jabotr" class="level3">
 <h3 class="anchored" data-anchor-id="how-do-i-install-jabotr">How do I install jabotR?</h3>
 <p>Visit the <a href="../get-started/index.html">Get Started guide</a> for installation instructions from GitHub.</p>
@@ -4397,6 +4403,10 @@ z-index: -1;
 <section id="is-jabotr-free-to-use" class="level3">
 <h3 class="anchored" data-anchor-id="is-jabotr-free-to-use">Is jabotR free to use?</h3>
 <p>Yes. <code>jabotR</code> is open source, licensed under the <a href="https://opensource.org/license/mit/">MIT License</a>.</p>
+</section>
+<section id="is-this-website-available-in-portuguese" class="level3">
+<h3 class="anchored" data-anchor-id="is-this-website-available-in-portuguese">Is this website available in Portuguese?</h3>
+<p>Yes. Every page has an EN/PT toggle in the navigation bar. Once you switch languages, the choice is remembered for the rest of your visit — you won’t need to switch again as you navigate between pages.</p>
 </section>
 <section id="what-output-can-jabotr-generate" class="level3">
 <h3 class="anchored" data-anchor-id="what-output-can-jabotr-generate">What output can jabotR generate?</h3>
@@ -4943,46 +4953,54 @@ z-index: -1;
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>The <span class="in">`jabotR`</span> package allows researchers and taxonomists to download, filter, and analyze plant specimen data from the <span class="co">[</span><span class="ot">JABOT</span><span class="co">](https://jabot.jbrj.gov.br/v3/consulta.php)</span>. With dedicated functions, users can access large datasets in Darwin Core Format, explore taxonomic and geographic distributions, and summarize collections efficiently.</span>
 <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">### How do I install jabotR?</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">### Can jabotR assess how well my herbarium is represented, or find missing species?</span></span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>Visit the <span class="co">[</span><span class="ot">Get Started guide</span><span class="co">](/get-started/index.qmd)</span> for installation instructions from GitHub.</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>Yes. Beyond retrieving and filtering records, <span class="in">`jabotR`</span> includes three analytical functions that compare any JABOT-hosted herbarium against the <span class="co">[</span><span class="ot">Flora e Funga do Brasil (FFB)</span><span class="co">](https://floradobrasil.jbrj.gov.br/consulta/)</span>: <span class="in">`jabot_gaps()`</span> identifies taxa missing from a collection, <span class="in">`jabot_coverage()`</span> measures how much of the FFB checklist a herbarium already represents, and <span class="in">`jabot_missing()`</span> narrows that comparison to a specific state or municipality and maps candidate collecting localities from the pooled JABOT network. Each produces a self-contained, interactive HTML report. See the <span class="co">[</span><span class="ot">How-To Articles</span><span class="co">](/articles/index.qmd)</span> for step-by-step tutorials.</span>
 <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="fu">### Is jabotR free to use?</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="fu">### How do I install jabotR?</span></span>
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>Yes. <span class="in">`jabotR`</span> is open source, licensed under the <span class="co">[</span><span class="ot">MIT License</span><span class="co">](https://opensource.org/license/mit/)</span>.</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>Visit the <span class="co">[</span><span class="ot">Get Started guide</span><span class="co">](/get-started/index.qmd)</span> for installation instructions from GitHub.</span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="fu">### What output can jabotR generate?</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="fu">### Is jabotR free to use?</span></span>
 <span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>While <span class="in">`jabotR`</span> itself does not generate formatted documents, it is designed for data retrieval and analysis. However, it integrates well with tools like Quarto and RMarkdown to produce documents, HTML pages, and interactive apps using filtered specimen data.</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>Yes. <span class="in">`jabotR`</span> is open source, licensed under the <span class="co">[</span><span class="ot">MIT License</span><span class="co">](https://opensource.org/license/mit/)</span>.</span>
 <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### Who are the developers of jabotR?</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### Is this website available in Portuguese?</span></span>
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>Development is sponsored by <span class="co">[</span><span class="ot">JBRJ</span><span class="co">](https://www.gov.br/jbrj/pt-br)</span>, <span class="co">[</span><span class="ot">FINEP</span><span class="co">](http://www.finep.gov.br)</span>, and <span class="co">[</span><span class="ot">CNPq</span><span class="co">](https://www.gov.br/cnpq/pt-br)</span>. Main developers:</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>Yes. Every page has an EN/PT toggle in the navigation bar. Once you switch languages, the choice is remembered for the rest of your visit — you won&#39;t need to switch again as you navigate between pages.</span>
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Domingos Cardoso (<span class="co">[</span><span class="ot">\@DBOSlab</span><span class="co">](https://github.com/DBOSlab)</span>)</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Giulia C. Ottino</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>View the code and contribute on GitHub: <span class="co">[</span><span class="ot">https://github.com/DBOSlab/jabotR</span><span class="co">](https://github.com/DBOSlab/jabotR)</span></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="fu">### Why the name jabotR?</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>The name pays tribute to the Rio de Janeiro Botanical Garden’s JABOT system for managing herbarium collections, while also making a clever nod to the R programming language. It reflects JBRJ’s national leadership in botanical research, now strengthened by reproducible and transparent data workflows.</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="fu">### Where can I report bugs or request features?</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="fu">### What output can jabotR generate?</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>While <span class="in">`jabotR`</span> itself does not generate formatted documents, it is designed for data retrieval and analysis. However, it integrates well with tools like Quarto and RMarkdown to produce documents, HTML pages, and interactive apps using filtered specimen data.</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="fu">### Who are the developers of jabotR?</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>Development is sponsored by <span class="co">[</span><span class="ot">JBRJ</span><span class="co">](https://www.gov.br/jbrj/pt-br)</span>, <span class="co">[</span><span class="ot">FINEP</span><span class="co">](http://www.finep.gov.br)</span>, and <span class="co">[</span><span class="ot">CNPq</span><span class="co">](https://www.gov.br/cnpq/pt-br)</span>. Main developers:</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Domingos Cardoso (<span class="co">[</span><span class="ot">\@DBOSlab</span><span class="co">](https://github.com/DBOSlab)</span>)</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Giulia C. Ottino</span>
 <span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>Submit issues on GitHub: <span class="co">[</span><span class="ot">jabotR Issues</span><span class="co">](https://github.com/DBOSlab/jabotR/issues)</span>.</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>View the code and contribute on GitHub: <span class="co">[</span><span class="ot">https://github.com/DBOSlab/jabotR</span><span class="co">](https://github.com/DBOSlab/jabotR)</span></span>
 <span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="fu">### Where can I ask questions and discuss jabotR?</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="fu">### Why the name jabotR?</span></span>
 <span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>Join our community via <span class="co">[</span><span class="ot">GitHub Discussions</span><span class="co">](https://github.com/DBOSlab/jabotR/discussions)</span> to ask questions, suggest ideas, or help others.</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>The name pays tribute to the Rio de Janeiro Botanical Garden’s JABOT system for managing herbarium collections, while also making a clever nod to the R programming language. It reflects JBRJ’s national leadership in botanical research, now strengthened by reproducible and transparent data workflows.</span>
 <span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="fu">### How does jabotR relate to JABOT?</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="fu">### Where can I report bugs or request features?</span></span>
 <span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>The <span class="in">`jabotR`</span> package acts as a programmatic interface to query, retrieve, and explore data from JABOT and its partner collections. It enhances access, encourages reproducibility, and supports large-scale taxonomic and biogeographic studies.</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>Submit issues on GitHub: <span class="co">[</span><span class="ot">jabotR Issues</span><span class="co">](https://github.com/DBOSlab/jabotR/issues)</span>.</span>
 <span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="fu">### Can my herbarium join the JABOT?</span></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="fu">### Where can I ask questions and discuss jabotR?</span></span>
 <span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>Yes. Herbarium curators can contact **Luís Alexandre Estevão da Silva &lt;estevao@jbrj.gov.br&gt;** to initiate data and image contributions. Participating herbaria receive support to digitize and publish their collections.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></pre></div>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>Join our community via <span class="co">[</span><span class="ot">GitHub Discussions</span><span class="co">](https://github.com/DBOSlab/jabotR/discussions)</span> to ask questions, suggest ideas, or help others.</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="fu">### How does jabotR relate to JABOT?</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>The <span class="in">`jabotR`</span> package acts as a programmatic interface to query, retrieve, and explore data from JABOT and its partner collections. It enhances access, encourages reproducibility, and supports large-scale taxonomic and biogeographic studies.</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="fu">### Can my herbarium join the JABOT?</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>Yes. Herbarium curators can contact **Luís Alexandre Estevão da Silva &lt;estevao@jbrj.gov.br&gt;** to initiate data and image contributions. Participating herbaria receive support to digitize and publish their collections.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

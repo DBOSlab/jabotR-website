@@ -47,4 +47,9 @@ sidebar: pt-articles
 - [Localizar espécies faltantes e prioridades de coleta](/pt/articles/locate_missing_jabot_species.qmd)
 :::
 
+::: {style="display: block;"}
+### Organizar novos dados de campo
+- [Organize dados de campo com o caderno de campo do jabotR](/pt/articles/jabot_fieldbook.qmd)
+:::
+
 :::
