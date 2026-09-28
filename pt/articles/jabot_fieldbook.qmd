@@ -23,6 +23,8 @@ Este guia apresenta um roteiro completo para `jabot_fieldbook()`, o caderno de c
 
 `jabot_fieldbook()` abre o caderno de campo, construído em HTML, CSS e JavaScript puros, no navegador padrão do usuário. Ele funciona totalmente offline, não requer Shiny nem conexão com a internet, e realiza toda a geração da planilha localmente no navegador — nenhum dado sai do computador do usuário. A interface está disponível em português (padrão) e inglês, com um seletor de idioma no canto inferior esquerdo.
 
+![Tela inicial do caderno de campo: um guia de quatro passos, as ações de exportação/rascunho e um resumo em tempo real dos eventos de coleta, espécimes e cabeçalhos preenchidos](/figures/jabot_fieldbook_overview_pt.png){.lightbox}
+
 ## Argumentos
 
 | Argumento | Descrição |
@@ -69,9 +71,13 @@ Clique em **Adicionar evento de coleta** para iniciar um novo evento, ou use **R
 
 Um painel de **Campos avançados do cabeçalho** expõe colunas adicionais, usadas com menor frequência: coordenadas decompostas em graus/minutos/segundos com hemisfério N/S e E/W, altitude máxima e sua unidade, sigla do herbário de origem, herbários de duplicatas e sua quantidade, e o projeto associado.
 
+![Um evento de coleta com seu cabeçalho compartilhado preenchido — data, localidade, coordenadas, habitat e coletores](/figures/jabot_fieldbook_header_pt.png){.lightbox}
+
 ### Campos dos espécimes
 
 Cada linha da tabela de espécimes cobre os campos necessários para uma primeira passada rápida — número de coleta, família, gênero, qualificador `cf.`, epíteto da espécie, determinador, data de determinação e uma descrição livre da planta. As larguras das colunas podem ser ajustadas diretamente na tabela.
+
+![A tabela de espécimes de um evento de coleta, com as ações Detalhes e Remover em cada linha](/figures/jabot_fieldbook_specimen_table_pt.png){.lightbox}
 
 Ao abrir **Detalhes** de um espécime, é exibida a ficha completa, organizada em quatro grupos:
 
@@ -81,6 +87,8 @@ Ao abrir **Detalhes** de um espécime, é exibida a ficha completa, organizada e
 | Coleta e determinação | Número, determinador, data de determinação, número de tombo (`numtombo`), sufixo |
 | Descrição do indivíduo | Flores, frutos, fuste, altura e sua unidade, hábito |
 | Uso e observações complementares | Usos, uso específico, descrição da planta |
+
+![A ficha "Detalhes" do espécime, com seus quatro grupos de campos: identificação taxonômica, coleta e determinação, descrição do indivíduo e uso/observações](/figures/jabot_fieldbook_specimen_details_pt.png){.lightbox}
 
 Use **Adicionar espécime** para incluir uma nova linha, **Duplicar último** para copiar o espécime anterior como ponto de partida, ou **Seguir sequência numérica** para incrementar automaticamente o número de coleta de um novo espécime.
 

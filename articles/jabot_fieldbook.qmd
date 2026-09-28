@@ -22,6 +22,8 @@ Here we present a complete guide to `jabot_fieldbook()`, the interactive field n
 
 `jabot_fieldbook()` opens the field notebook, built with plain HTML, CSS and JavaScript, in the user's default web browser. It runs entirely offline, requires neither Shiny nor an internet connection, and performs all spreadsheet generation locally in the browser — no data ever leaves the user's computer. The interface is available in Portuguese (the default) and English, with a language switch in the bottom-left corner.
 
+![The field notebook's opening screen: a four-step guide, the export/draft actions, and a live summary of collection events, specimens, and header completion](/figures/jabot_fieldbook_overview.png){.lightbox}
+
 ## Arguments
 
 | Argument  | Description |
@@ -68,9 +70,13 @@ Click **Add collection event** to start a new event, or use **Repeat previous he
 
 An **Advanced header fields** panel exposes further, less frequently needed columns: coordinates split into degrees/minutes/seconds with N/S and E/W hemisphere, maximum altitude and its unit, the source herbarium acronym, duplicate herbaria and their count, and the associated project.
 
+![A collection event with its shared header filled in — date, locality, coordinates, habitat, and collectors](/figures/jabot_fieldbook_header.png){.lightbox}
+
 ### Specimen fields
 
 Each row of the specimen table covers the fields needed for a quick first pass — collection number, family, genus, `cf.` qualifier, species epithet, determiner, determination date, and a free-text plant description. Column widths can be adjusted directly in the table.
+
+![The specimen table for a collection event, with the Details and Remove actions for each row](/figures/jabot_fieldbook_specimen_table.png){.lightbox}
 
 Opening **Details** on a specimen reveals the complete record, organized into four groups:
 
@@ -80,6 +86,8 @@ Opening **Details** on a specimen reveals the complete record, organized into fo
 | Collection and determination | Number, determiner, determination date, accession number (`numtombo`), suffix |
 | Individual description | Flowers, fruits, stem, height and its unit, habit |
 | Uses and notes | Uses, specific use, plant description |
+
+![The specimen "Details" record, with its four field groups: taxonomic identification, collection and determination, individual description, and uses/notes](/figures/jabot_fieldbook_specimen_details.png){.lightbox}
 
 Use **Add specimen** to add a new row, **Duplicate last** to copy the previous specimen as a starting point, or **Continue number sequence** to auto-increment the collection number for a new specimen.
 
