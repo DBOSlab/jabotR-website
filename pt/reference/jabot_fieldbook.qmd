@@ -1,0 +1,45 @@
+---
+title: 'jabot_fieldbook'
+description: 'Abrir o caderno de campo do jabotR'
+toc: true
+toc-depth: 3
+---
+
+
+```{r}
+#| eval: false
+jabotR::jabot_fieldbook()
+```
+
+### Descrição
+
+Abre o caderno de campo interativo do jabotR no navegador padrão do
+usuário. O aplicativo é distribuído junto com o pacote e funciona
+localmente, sem necessidade de conexão com a internet.
+
+O caderno de campo permite que os usuários organizem dados por evento
+de coleta e por espécime, exportem uma planilha padronizada no formato
+Jabot, e gerem um caderno de campo imprimível em formato PDF.
+
+### Detalhes
+
+O caderno de campo funciona localmente usando arquivos HTML, CSS e
+JavaScript distribuídos com o jabotR. Ele não requer Shiny nem conexão
+com a internet. A geração da planilha é realizada inteiramente no
+navegador.
+
+### Argumentos
+
+| Argumento | Descrição |
+|---|---|
+| browser | Lógico. Se `TRUE`, abre o caderno de campo no navegador padrão. Se `FALSE`, apenas retorna o caminho local do aplicativo. |
+
+### Valor
+
+Retorna, de forma invisível, o caminho local para o arquivo `index.html` do caderno de campo.
+
+### Exemplos
+
+```r
+jabot_fieldbook()
+```

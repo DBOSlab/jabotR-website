@@ -28,6 +28,8 @@ format:
 
 - [`jabot_download()`](/pt/reference/jabot_download.qmd)
 
+- [`jabot_fieldbook()`](/pt/reference/jabot_fieldbook.qmd)
+
 - [`jabot_gaps()`](/pt/reference/jabot_gaps.qmd)
 
 - [`jabot_indets()`](/pt/reference/jabot_indets.qmd)
