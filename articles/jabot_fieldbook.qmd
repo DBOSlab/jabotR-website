@@ -82,10 +82,12 @@ Opening **Details** on a specimen reveals the complete record, organized into fo
 
 | Group | Fields |
 |---|---|
-| Taxonomic identification | Family, genus, `cf.`, species 1–3 with authors and infraspecific ranks, vernacular name, type status |
-| Collection and determination | Number, determiner, determination date, accession number (`numtombo`), suffix |
-| Individual description | Flowers, fruits, stem, height and its unit, habit |
-| Uses and notes | Uses, specific use, plant description |
+| Taxonomic identification | Family, genus, `cf.`, species 1–3 with authors and infraspecific ranks, vernacular name |
+| Collection and determination | Number, determiner, determination date |
+| Individual description | Plant description |
+| Uses and notes | Uses, specific use |
+
+The notebook form shows only the fields most useful in the field. The remaining JABOT columns (`typestat`, `numtombo`, `sufixo`, `flor`, `fruto`, `fuste`, `altura`, `unidmedaltura`, `habito`) are not shown, but they are always included — empty — in the exported JABOT spreadsheet, which keeps its full 58-column layout.
 
 ![The specimen "Details" record, with its four field groups: taxonomic identification, collection and determination, individual description, and uses/notes](/figures/jabot_fieldbook_specimen_details.png){.lightbox}
 
@@ -109,6 +111,14 @@ Three export options are available, at the top and bottom of the page:
 - **Download empty spreadsheet**: generates a blank spreadsheet with the 58 JABOT columns and no data, useful as a template or for entering data directly in a spreadsheet application.
 - **Generate Jabot spreadsheet**: exports all completed collection events and specimens as a single spreadsheet in the standard JABOT column layout, ready for submission.
 - **Generate field notebook (PDF)**: renders a printable field notebook from the entered data, useful as a physical or archival record of the collecting trip.
+
+Both products are named automatically from the data: a prefix (`jabotsheet_` or `fieldbook_`), the surname of the first collector entered in the **Collector** field, and the lowest and highest collection numbers, for example `jabotsheet_Cardoso2020-2052.xlsx` and `fieldbook_Cardoso2020-2052.pdf`. For the PDF, this name is suggested in the browser's print dialog when choosing "Save as PDF".
+
+### The printable field notebook
+
+The PDF opens with the main collector's name as a large title, with the range of collection numbers below it. Each collecting date follows in green, then one line with the locality in the form `COUNTRY: State, Municipality, Locality, protected area, locality notes, habitat, coordinates`, and the additional collectors, if any. The collector is not repeated for each event (only if it differs from the main collector). Each specimen is a single line: collection number, family, scientific name (in italics) and the plant description, followed by any other information entered for the specimen, such as vernacular name, uses and specific use.
+
+![Printable field notebook (PDF): main collector as the title, collection-number range, dated collecting events with their locality, and one line per specimen](/figures/jabot_fieldbook_pdf.png){.lightbox}
 
 ## Additional Tips
 

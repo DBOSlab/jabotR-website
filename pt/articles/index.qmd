@@ -21,6 +21,10 @@ sidebar: pt-articles
 
 <img src="/figures/jabot_original_logo.png" class="watermark" alt="marca d'água do logo jabot">
 
+Estes artigos práticos percorrem as funções do `jabotR` na ordem em que normalmente são usadas. O diagrama abaixo mostra o formato geral desse fluxo de trabalho antes de você explorar os guias individuais.
+
+<img src="/figures/jabotR_workflow_pt.svg" alt="Diagrama do fluxo de trabalho do jabotR" width="100%" />
+
 ::: {layout-ncol="2"}
 
 ::: {style="display: block;"}
@@ -48,7 +52,9 @@ sidebar: pt-articles
 :::
 
 ::: {style="display: block;"}
-### Organizar novos dados de campo
+### Aprimorar a coleção
+- [Sugerir identificações para espécimes indeterminados](/pt/articles/identify_jabot_indets.qmd)
+- [Use o REFLORA para identificar espécimes indeterminados](/pt/articles/identify_with_reflora.qmd)
 - [Organize dados de campo com o caderno de campo do jabotR](/pt/articles/jabot_fieldbook.qmd)
 :::
 

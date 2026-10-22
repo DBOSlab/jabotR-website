@@ -20,6 +20,10 @@ format: html
 
 <img src="/figures/jabot_original_logo.png" class="watermark" alt="jabot logo watermark">
 
+These "how-to" articles walk through `jabotR`'s functions in the order you would typically reach for them. The diagram below gives the overall shape of that workflow before you dive into the individual guides.
+
+<img src="/figures/jabotR_workflow.svg" alt="jabotR workflow diagram" width="100%" />
+
 ::: {layout-ncol="2"}
 
 ::: {style="display: block;"}
@@ -47,7 +51,9 @@ format: html
 :::
 
 ::: {style="display: block;"}
-### Organize new field data
+### Improve the collection
+- [Suggest identifications for indeterminate specimens](/articles/identify_jabot_indets.qmd)
+- [Use REFLORA to identify indeterminate specimens](/articles/identify_with_reflora.qmd)
 - [Organize field data with the jabotR field notebook](/articles/jabot_fieldbook.qmd)
 :::
 

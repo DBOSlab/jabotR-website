@@ -1,0 +1,126 @@
+---
+title: 'jabot_identify'
+description: 'Sugerir identificações para espécimes indeterminados a partir de duplicatas no JABOT e no REFLORA'
+toc: true
+toc-depth: 3
+---
+
+
+```{r}
+#| eval: false
+jabotR::jabot_identify()
+```
+
+### Descrição
+
+Busca identificações para os espécimes indeterminados de um herbário
+hospedado na rede [JABOT](https://ipt.jbrj.gov.br/jabot) ou no
+[Herbário Virtual REFLORA](https://ipt.jbrj.gov.br/reflora/). Um espécime é
+considerado indeterminado quando não tem família, gênero ou epíteto
+específico. Os registros da rede JABOT e do REFLORA (ou de subconjuntos de
+seus herbários) são padronizados com `barRoso::barroso_std()`, que sinaliza
+blocos de duplicatas (mesmo coletor e número de coleta, ou mesma espécie,
+coletor e data quando o número está ausente; veja
+`barRoso::barroso_flag_duplicates()`). Para cada espécime indeterminado,
+as duplicatas mantidas por outros herbários são inspecionadas para
+verificar se alguma já foi identificada e em que nível. Os resultados são
+resumidos em um relatório HTML interativo e autocontido.
+
+### Detalhes
+
+O herbário a ser investigado (`herbarium`) pode ser qualquer herbário
+hospedado no JABOT ou, quando não está no JABOT, qualquer herbário
+disponível no REFLORA, que também reúne espécimes brasileiros guardados por
+herbários internacionais (ex.: `"NY"`, `"K"`, `"P"`, `"US"`). Quando está
+disponível nos dois, os registros do JABOT são usados. As duplicatas são
+buscadas nos outros herbários do JABOT (`jabot = TRUE`) e do REFLORA
+(`reflora = TRUE`). As bases são verificadas primeiro em `jabot_path` e
+`reflora_path` (ou nas pastas padrão `jabot_download` e `reflora_download`) e
+apenas o que falta ou está desatualizado é baixado, com `jabot_download()` e
+`refloraR::reflora_download()`. Herbários do REFLORA que já estão nos dados do
+JABOT não são usados a partir do REFLORA (nem são baixados), de modo que nenhum
+espécime é contado duas vezes, e a fonte de cada registro (JABOT ou REFLORA) é
+mantida. Os registros são lidos com `jabot_parse()` e
+`refloraR::reflora_parse()`, um herbário por vez, mantendo na memória apenas
+os registros que podem ser duplicatas de um espécime indeterminado, e depois
+padronizados com o barRoso.
+
+A análise inclui o número de espécimes indeterminados do herbário, quantos
+podem ser pareados com duplicatas em outros herbários, quantos têm uma
+duplicata com melhor identificação (em espécie, gênero ou família), a
+identificação sugerida e sua origem (fonte de dados, herbário, número de
+catálogo e, quando disponível, links para o espécime indeterminado e para a
+duplicata que o identifica, para comparar as duas imagens), os herbários que
+mais contribuem com identificações, os indeterminados por família, os
+conflitos entre a identificação do espécime e a de suas duplicatas, resumos
+gráficos e um relatório HTML.
+
+Uma duplicata é considerada uma identificação candidata quando preenche ao
+menos uma categoria ausente no espécime indeterminado (família, gênero ou
+epíteto específico). Candidatas que contradizem categorias já presentes no
+espécime (por exemplo, uma família diferente) são informadas como conflitos
+e nunca sugeridas. Apenas duplicatas mantidas por herbários diferentes de
+`herbarium` são consideradas. Espécimes sem coletor conhecido e número de
+coleta (ou, para aqueles identificados ao menos em gênero, uma data de
+coleta completa) não podem ser pareados com duplicatas e são contados
+separadamente.
+
+O determinador (`identifiedBy`) e a data de identificação (`dateIdentified`)
+do espécime indeterminado e de cada duplicata estão incluídos nas tabelas,
+para ajudar a decidir qual identificação adotar quando há conflito.
+
+As identificações sugeridas vêm de registros de outros herbários e devem
+ser conferidas, de preferência com as imagens dos espécimes, antes de serem
+adotadas.
+
+### Argumentos
+
+| Argumento | Descrição |
+|---|---|
+| herbarium | Caractere. Uma única sigla de herbário em maiúsculas (ex.: `"RB"`) cujos espécimes indeterminados serão investigados. Pode estar hospedado no JABOT ou, caso contrário, no REFLORA (ex.: `"HUEFS"`). |
+| taxon | Vetor de caracteres. Nomes de famílias e/ou gêneros para restringir os espécimes indeterminados de `herbarium` (ex.: `"Fabaceae"` ou `c("Inga", "Mimosa")`). Espécimes sem família ou gênero não podem corresponder a um `taxon`. Use `NULL` (padrão) para analisar todos os espécimes indeterminados. |
+| jabot | Lógico. Se `TRUE` (padrão), busca duplicatas nos herbários da rede JABOT. |
+| network_herbaria | Vetor de caracteres. Siglas de herbários do JABOT para restringir os registros do JABOT nos quais as duplicatas são buscadas. `NULL` (padrão) usa todos os herbários hospedados no JABOT. |
+| reflora | Lógico. Se `TRUE` (padrão), busca duplicatas também nos herbários do REFLORA, incluindo os internacionais. |
+| reflora_herbaria | Vetor de caracteres. Siglas de herbários do REFLORA para restringir os registros do REFLORA nos quais as duplicatas são buscadas (ex.: `c("NY", "K", "P", "US")`). `NULL` (padrão) usa todos os herbários do REFLORA. Use `refloraR::reflora_summary()` para vê-los. |
+| jabot_path | Caractere. Caminho para arquivos DwC-A do JABOT já existentes. Se `NULL` (padrão), os arquivos são baixados automaticamente. |
+| reflora_path | Caractere. Caminho para arquivos DwC-A do REFLORA já existentes. Se `NULL` (padrão), os arquivos são baixados automaticamente. |
+| format | Vetor de caracteres. Formatos estáticos usados para salvar as figuras individuais: `"pdf"`, `"png"` ou ambos. O relatório HTML é sempre gerado. O padrão é `NULL` (as figuras não são salvas separadamente). |
+| fig_width, fig_height | Numérico. Dimensões (em polegadas) das figuras salvas. |
+| open_report | Lógico. Se `TRUE` (padrão), abre o relatório HTML no navegador padrão após a geração (somente em sessões interativas). |
+| verbose | Lógico. Se `TRUE` (padrão), imprime mensagens de progresso. |
+| dir | Caractere. Diretório de saída. O padrão é `"<herbarium>_identify"`. |
+
+### Valor
+
+Retorna, de forma invisível, uma lista nomeada com os objetos calculados,
+entre eles `indets` (uma linha por espécime indeterminado, com o resultado e
+a identificação sugerida), `suggestions` (uma linha por espécime e duplicata
+mantida por outro herbário), as tabelas-resumo e as figuras. O relatório HTML
+e dois arquivos CSV (`<herbarium>_identify_indets.csv` e
+`<herbarium>_identify_suggestions.csv`) são salvos em `dir`.
+
+### Exemplos
+
+```r
+# Todos os espécimes indeterminados do RB, comparados com JABOT e REFLORA
+jabot_identify(herbarium = "RB")
+
+# Apenas Fabaceae e Inga indeterminadas, reutilizando arquivos baixados
+jabot_identify(herbarium = "RB",
+               taxon = c("Fabaceae", "Inga"),
+               jabot_path = "jabot_download",
+               reflora_path = "reflora_download")
+
+# Herbário disponível apenas no REFLORA, comparado com herbários internacionais
+jabot_identify(herbarium = "HUEFS",
+               jabot = FALSE,
+               reflora_herbaria = c("NY", "K", "P", "US"))
+
+# Restringir os herbários pesquisados em busca de duplicatas
+jabot_identify(herbarium = "RB",
+               network_herbaria = c("MBM", "UPCB", "FURB"),
+               reflora_herbaria = c("NY", "HUEFS"),
+               jabot_path = "jabot_download",
+               reflora_path = "reflora_download")
+```

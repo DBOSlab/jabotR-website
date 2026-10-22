@@ -32,6 +32,8 @@ format:
 
 - [`jabot_gaps()`](/reference/jabot_gaps.qmd)
 
+- [`jabot_identify()`](/reference/jabot_identify.qmd)
+
 - [`jabot_indets()`](/reference/jabot_indets.qmd)
 
 - [`jabot_missing()`](/reference/jabot_missing.qmd)

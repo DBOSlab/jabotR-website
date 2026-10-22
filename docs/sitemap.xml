@@ -6,31 +6,35 @@
   </url>
   <url>
     <loc>https://dboslab.github.io/jabotR-website/reference/jabot_coverage.html</loc>
-    <lastmod>2026-09-21T21:07:26.884Z</lastmod>
+    <lastmod>2026-10-22T20:00:35.901Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/reference/jabot_gaps.html</loc>
-    <lastmod>2026-09-21T21:07:26.892Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/reference/jabot_records.html</loc>
+    <lastmod>2026-10-22T20:00:35.917Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/reference/jabot_summary.html</loc>
-    <lastmod>2026-09-21T21:07:26.899Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/reference/index.html</loc>
+    <lastmod>2026-10-22T20:00:35.922Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/reference/jabot_download.html</loc>
-    <lastmod>2026-09-21T21:07:26.890Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/reference/jabot_missing.html</loc>
+    <lastmod>2026-10-22T20:00:35.915Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/reference/jabot_fieldbook.html</loc>
-    <lastmod>2026-09-21T21:07:26.890Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/reference/jabot_parse.html</loc>
+    <lastmod>2026-10-22T20:00:35.916Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/pt/get-started/index.html</loc>
-    <lastmod>2026-08-31T14:49:14.528Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/news/index.html</loc>
+    <lastmod>2026-10-22T19:15:22.511Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/pt/reference/jabot_coverage.html</loc>
-    <lastmod>2026-08-31T14:44:10.266Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/pt/reference/jabot_indets.html</loc>
+    <lastmod>2026-08-31T14:43:40.508Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dboslab.github.io/jabotR-website/pt/reference/jabot_identify.html</loc>
+    <lastmod>2026-10-22T19:35:58.976Z</lastmod>
   </url>
   <url>
     <loc>https://dboslab.github.io/jabotR-website/pt/reference/jabot_gaps.html</loc>
@@ -53,24 +57,28 @@
     <lastmod>2026-08-31T14:35:47.541Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/pt/articles/measure_jabot_representativeness.html</loc>
-    <lastmod>2026-08-31T14:58:50.894Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/pt/articles/identify_with_reflora.html</loc>
+    <lastmod>2026-10-22T19:35:58.975Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/pt/articles/parse_jabot_dwca.html</loc>
-    <lastmod>2026-08-31T14:37:43.232Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/pt/articles/filter_indeterminate_jabot_specimens.html</loc>
+    <lastmod>2026-08-31T14:38:24.199Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/pt/articles/index.html</loc>
-    <lastmod>2026-09-02T00:05:44.803Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/pt/articles/download_jabot_collections.html</loc>
+    <lastmod>2026-08-31T14:37:31.177Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/pt/articles/filter_jabot_records.html</loc>
-    <lastmod>2026-08-31T14:38:02.753Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/pt/articles/summarize_jabot_collections.html</loc>
+    <lastmod>2026-08-31T14:37:21.640Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/pt/articles/identify_jabot_gaps.html</loc>
-    <lastmod>2026-08-31T14:58:50.891Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/pt/articles/locate_missing_jabot_species.html</loc>
+    <lastmod>2026-08-31T14:58:50.896Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dboslab.github.io/jabotR-website/pt/articles/identify_jabot_indets.html</loc>
+    <lastmod>2026-10-22T19:35:58.973Z</lastmod>
   </url>
   <url>
     <loc>https://dboslab.github.io/jabotR-website/pt/faq/index.html</loc>
@@ -81,24 +89,28 @@
     <lastmod>2026-08-31T14:32:32.152Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/articles/measure_jabot_representativeness.html</loc>
-    <lastmod>2026-08-31T14:58:50.886Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/articles/identify_with_reflora.html</loc>
+    <lastmod>2026-10-22T19:35:58.973Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/articles/parse_jabot_dwca.html</loc>
-    <lastmod>2025-06-24T13:18:27.000Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/articles/filter_indeterminate_jabot_specimens.html</loc>
+    <lastmod>2026-08-31T14:33:46.856Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/articles/index.html</loc>
-    <lastmod>2026-09-02T00:05:39.921Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/articles/download_jabot_collections.html</loc>
+    <lastmod>2025-06-24T13:08:31.000Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/articles/filter_jabot_records.html</loc>
-    <lastmod>2025-06-24T13:16:16.000Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/articles/summarize_jabot_collections.html</loc>
+    <lastmod>2025-06-24T13:21:14.000Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/articles/identify_jabot_gaps.html</loc>
-    <lastmod>2026-08-31T14:58:50.883Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/articles/locate_missing_jabot_species.html</loc>
+    <lastmod>2026-08-31T14:58:50.888Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dboslab.github.io/jabotR-website/articles/identify_jabot_indets.html</loc>
+    <lastmod>2026-10-22T19:35:58.972Z</lastmod>
   </url>
   <url>
     <loc>https://dboslab.github.io/jabotR-website/faq/index.html</loc>
@@ -114,23 +126,27 @@
   </url>
   <url>
     <loc>https://dboslab.github.io/jabotR-website/articles/jabot_fieldbook.html</loc>
-    <lastmod>2026-09-28T14:30:45.666Z</lastmod>
+    <lastmod>2026-10-20T17:50:24.563Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/articles/locate_missing_jabot_species.html</loc>
-    <lastmod>2026-08-31T14:58:50.888Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/articles/identify_jabot_gaps.html</loc>
+    <lastmod>2026-08-31T14:58:50.883Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/articles/summarize_jabot_collections.html</loc>
-    <lastmod>2025-06-24T13:21:14.000Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/articles/filter_jabot_records.html</loc>
+    <lastmod>2025-06-24T13:16:16.000Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/articles/download_jabot_collections.html</loc>
-    <lastmod>2025-06-24T13:08:31.000Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/articles/index.html</loc>
+    <lastmod>2026-10-22T19:16:26.291Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/articles/filter_indeterminate_jabot_specimens.html</loc>
-    <lastmod>2026-08-31T14:33:46.856Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/articles/parse_jabot_dwca.html</loc>
+    <lastmod>2025-06-24T13:18:27.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dboslab.github.io/jabotR-website/articles/measure_jabot_representativeness.html</loc>
+    <lastmod>2026-08-31T14:58:50.886Z</lastmod>
   </url>
   <url>
     <loc>https://dboslab.github.io/jabotR-website/index.html</loc>
@@ -142,23 +158,27 @@
   </url>
   <url>
     <loc>https://dboslab.github.io/jabotR-website/pt/articles/jabot_fieldbook.html</loc>
-    <lastmod>2026-09-28T14:32:42.324Z</lastmod>
+    <lastmod>2026-10-20T17:50:24.564Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/pt/articles/locate_missing_jabot_species.html</loc>
-    <lastmod>2026-08-31T14:58:50.896Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/pt/articles/identify_jabot_gaps.html</loc>
+    <lastmod>2026-08-31T14:58:50.891Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/pt/articles/summarize_jabot_collections.html</loc>
-    <lastmod>2026-08-31T14:37:21.640Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/pt/articles/filter_jabot_records.html</loc>
+    <lastmod>2026-08-31T14:38:02.753Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/pt/articles/download_jabot_collections.html</loc>
-    <lastmod>2026-08-31T14:37:31.177Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/pt/articles/index.html</loc>
+    <lastmod>2026-10-22T19:16:26.292Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/pt/articles/filter_indeterminate_jabot_specimens.html</loc>
-    <lastmod>2026-08-31T14:38:24.199Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/pt/articles/parse_jabot_dwca.html</loc>
+    <lastmod>2026-08-31T14:37:43.232Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dboslab.github.io/jabotR-website/pt/articles/measure_jabot_representativeness.html</loc>
+    <lastmod>2026-08-31T14:58:50.894Z</lastmod>
   </url>
   <url>
     <loc>https://dboslab.github.io/jabotR-website/pt/index.html</loc>
@@ -166,7 +186,7 @@
   </url>
   <url>
     <loc>https://dboslab.github.io/jabotR-website/pt/news/index.html</loc>
-    <lastmod>2026-08-31T15:21:20.658Z</lastmod>
+    <lastmod>2026-10-22T19:15:22.512Z</lastmod>
   </url>
   <url>
     <loc>https://dboslab.github.io/jabotR-website/pt/reference/jabot_parse.html</loc>
@@ -178,38 +198,42 @@
   </url>
   <url>
     <loc>https://dboslab.github.io/jabotR-website/pt/reference/index.html</loc>
-    <lastmod>2026-09-28T09:36:50.131Z</lastmod>
+    <lastmod>2026-10-22T17:25:46.321Z</lastmod>
   </url>
   <url>
     <loc>https://dboslab.github.io/jabotR-website/pt/reference/jabot_records.html</loc>
     <lastmod>2026-08-31T14:40:13.456Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/pt/reference/jabot_indets.html</loc>
-    <lastmod>2026-08-31T14:43:40.508Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/pt/reference/jabot_coverage.html</loc>
+    <lastmod>2026-08-31T14:44:10.266Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/news/index.html</loc>
-    <lastmod>2026-08-31T15:21:07.924Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/pt/get-started/index.html</loc>
+    <lastmod>2026-08-31T14:49:14.528Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/reference/jabot_parse.html</loc>
-    <lastmod>2026-09-21T21:07:26.896Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/reference/jabot_fieldbook.html</loc>
+    <lastmod>2026-10-22T20:00:35.908Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/reference/jabot_missing.html</loc>
-    <lastmod>2026-09-21T21:07:26.896Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/reference/jabot_download.html</loc>
+    <lastmod>2026-10-22T20:00:35.908Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/reference/index.html</loc>
-    <lastmod>2026-09-21T21:07:26.903Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/reference/jabot_summary.html</loc>
+    <lastmod>2026-10-22T20:00:35.918Z</lastmod>
   </url>
   <url>
-    <loc>https://dboslab.github.io/jabotR-website/reference/jabot_records.html</loc>
-    <lastmod>2026-09-21T21:07:26.898Z</lastmod>
+    <loc>https://dboslab.github.io/jabotR-website/reference/jabot_gaps.html</loc>
+    <lastmod>2026-10-22T20:00:35.910Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dboslab.github.io/jabotR-website/reference/jabot_identify.html</loc>
+    <lastmod>2026-10-22T20:00:35.912Z</lastmod>
   </url>
   <url>
     <loc>https://dboslab.github.io/jabotR-website/reference/jabot_indets.html</loc>
-    <lastmod>2026-09-21T21:07:26.894Z</lastmod>
+    <lastmod>2026-10-22T20:00:35.914Z</lastmod>
   </url>
 </urlset>

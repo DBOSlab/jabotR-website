@@ -1,0 +1,126 @@
+---
+title: "Use o REFLORA para identificar espécimes indeterminados"
+format: html
+sidebar: pt-articles
+execute:
+  echo: true
+  eval: false
+  freeze: auto
+  cache: false
+  warning: false
+  message: false
+  include: true
+  inline: true
+---
+
+```{r setup, include=FALSE}
+library(jabotR)
+```
+
+Este guia mostra como usar o [Herbário Virtual REFLORA](https://ipt.jbrj.gov.br/reflora/) com `jabot_identify()`, de duas formas: para investigar os espécimes indeterminados de um herbário que está **apenas no REFLORA** e para buscar duplicatas identificadas nos **herbários internacionais** que o REFLORA reúne (por exemplo NY, K, P e US), que guardam muitas duplicatas de coletas brasileiras. Ele complementa [Sugerir identificações para espécimes indeterminados](/pt/articles/identify_jabot_indets.qmd), onde a função é apresentada.
+
+## O que o REFLORA Acrescenta
+
+O JABOT e o REFLORA são publicados pelo Jardim Botânico do Rio de Janeiro, mas não reúnem as mesmas coleções:
+
+- O REFLORA inclui herbários brasileiros que não estão no JABOT (por exemplo HUEFS, ALCB, SPF, CEPEC e MBML).
+- O REFLORA inclui espécimes brasileiros guardados por **herbários internacionais**, como NY, K, P, US, B e W.
+- Alguns herbários estão nos dois. Esses são usados apenas a partir do JABOT por `jabot_identify()`.
+
+Para conferir quais herbários estão disponíveis em cada fonte:
+
+```{r}
+jabot_summary(verbose = FALSE, save = FALSE)$collectionCode
+refloraR::reflora_summary(verbose = FALSE, save = FALSE)$collectionCode
+```
+
+## Como os Registros São Obtidos
+
+`jabot_identify()` segue estas etapas:
+
+1. **Verificar e baixar as bases.** Com `jabot_path = NULL` e `reflora_path = NULL`, as pastas padrão `jabot_download` e `reflora_download` são usadas, e apenas o que falta ou está desatualizado é baixado (`jabot_download()` e `refloraR::reflora_download()`). Herbários do REFLORA que já estão no JABOT não são baixados do REFLORA.
+2. **Ler o herbário investigado** (`jabot_parse()` ou `refloraR::reflora_parse()`) e selecionar seus espécimes indeterminados, restritos por `taxon` quando informado.
+3. **Ler os demais herbários** do JABOT e do REFLORA, **um por vez**, mantendo na memória apenas os registros que podem ser duplicatas de um espécime indeterminado, e juntá-los em uma única tabela que mantém a fonte de cada registro. Isso permite usar herbários grandes como NY ou RB.
+4. **Padronizar com o `barRoso`**, sinalizar as duplicatas e comparar as identificações.
+
+Você também pode baixar os herbários do REFLORA antes e reutilizá-los com `reflora_path`:
+
+```{r}
+refloraR::reflora_download(herbarium = c("NY", "K", "P", "US"),
+                           dir = "reflora_download")
+```
+
+## Caso 1: Um Herbário Disponível Apenas no REFLORA
+
+`herbarium` pode ser qualquer herbário do JABOT ou do REFLORA: a função procura primeiro no JABOT e, quando o herbário não está lá, usa seus registros do REFLORA. Para investigar os espécimes indeterminados do HUEFS e buscar duplicatas nos herbários internacionais do REFLORA:
+
+```{r}
+identify_analysis <- jabot_identify(herbarium = "HUEFS",
+                                    jabot = FALSE,
+                                    reflora_herbaria = c("NY", "K", "P", "US"),
+                                    reflora_path = "reflora_download",
+                                    open_report = TRUE,
+                                    dir = "HUEFS_identify")
+```
+
+`jabot = FALSE` ignora a rede JABOT. Remova-o para pesquisar também os herbários brasileiros do JABOT.
+
+## Caso 2: Um Herbário do JABOT Comparado com os Herbários Internacionais
+
+Um herbário hospedado no JABOT, como o RB, pode ser comparado apenas com o REFLORA. Seus próprios registros no REFLORA nunca são usados como duplicatas:
+
+```{r}
+identify_analysis <- jabot_identify(herbarium = "RB",
+                                    jabot = FALSE,
+                                    reflora_herbaria = c("NY", "K", "P", "US"),
+                                    open_report = TRUE)
+```
+
+## Caso 3: JABOT e REFLORA Juntos
+
+Por padrão as duas fontes são pesquisadas (`jabot = TRUE`, `reflora = TRUE`). Use `network_herbaria` e `reflora_herbaria` para restringir cada uma e `taxon` para focar em uma família ou gênero:
+
+```{r}
+identify_analysis <- jabot_identify(herbarium = "MBM",
+                                    taxon = "Fabaceae",
+                                    network_herbaria = c("UPCB", "FURB", "JOI"),
+                                    reflora_herbaria = c("NY", "HUEM", "MBML"),
+                                    jabot_path = "jabot_download",
+                                    reflora_path = "reflora_download",
+                                    open_report = TRUE)
+```
+
+Para usar apenas o JABOT, defina `reflora = FALSE`.
+
+## Como as Duas Fontes São Combinadas
+
+- **Herbários presentes nas duas fontes são usados apenas a partir do JABOT.** Um herbário do REFLORA que já está nos dados do JABOT é excluído do REFLORA antes do download, então nenhum espécime é contado duas vezes.
+- **O herbário investigado nunca é fonte de duplicatas de si mesmo**, mesmo que esteja no JABOT e no REFLORA.
+- **Links dos espécimes.** Para registros do JABOT, o link vem da extensão multimídia do DwC-A; para registros do REFLORA, é a imagem do espécime (`associatedMedia`). As tabelas trazem o link do espécime indeterminado e o da duplicata que o identifica.
+- **Fonte de dados.** O relatório e os arquivos CSV mostram se cada duplicata veio do `JABOT` ou do `REFLORA`, junto com quem a identificou e quando, para ajudar a decidir qual identificação adotar.
+
+## Exemplo de Saída
+
+A visão geral abaixo vem da análise do MBML (disponível apenas no REFLORA), comparado com MBM e UPCB (JABOT) e HUEM (REFLORA):
+
+![Visão geral do relatório do MBML, um herbário disponível apenas no REFLORA](/figures/jabot_identify_reflora_overview.png){.lightbox}
+
+```{r}
+#| eval: false
+#| echo: true
+table(identify_analysis$indets$source)
+table(identify_analysis$suggestions$dup_herbarium,
+      identify_analysis$suggestions$dup_source)
+```
+
+## Dicas
+
+- A primeira execução pode levar bastante tempo e espaço em disco, porque o JABOT tem mais de 3 milhões de registros e o REFLORA mais de 4 milhões. Restrinja os herbários com `network_herbaria` e `reflora_herbaria` e reutilize os arquivos com `jabot_path` e `reflora_path`.
+- Os herbários internacionais costumam ter poucos coletores em comum com um herbário brasileiro, mas esses coletores costumam ser os mais ativos. Comece por NY, K, P e US.
+- Confira as identificações sugeridas com as imagens dos espécimes antes de adotá-las. Os nomes vêm de outros herbários e podem ser sinônimos desatualizados ou identificações equivocadas.
+
+## Veja Também
+
+- [Sugerir identificações para espécimes indeterminados](/pt/articles/identify_jabot_indets.qmd): `jabot_identify()`
+- [Filtrar espécimes indeterminados](/pt/articles/filter_indeterminate_jabot_specimens.qmd): `jabot_indets()`
+- [Baixar registros de espécimes](/pt/articles/download_jabot_collections.qmd): `jabot_download()`

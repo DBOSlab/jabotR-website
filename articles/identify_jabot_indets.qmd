@@ -1,0 +1,134 @@
+---
+title: "Suggest identifications for indeterminate specimens"
+format: html
+execute:
+  echo: true
+  eval: false
+  freeze: auto
+  cache: false
+  warning: false
+  message: false
+  include: true
+  inline: true
+---
+
+```{r setup, include=FALSE}
+library(jabotR)
+```
+
+This guide demonstrates how to use the `jabot_identify()` function in the `jabotR` package to find possible identifications for the indeterminate specimens of a herbarium, using their duplicates already identified in other herbaria of the JABOT network and of [REFLORA](https://ipt.jbrj.gov.br/reflora/).
+
+## Function Overview
+
+`jabot_identify()` looks at the specimens of a herbarium (`herbarium`) that lack the **family**, the **genus** or the **specific epithet**. The herbarium can be hosted in JABOT or, otherwise, in REFLORA. The function downloads the records of the whole JABOT network and of REFLORA (or of subsets, via `network_herbaria` and `reflora_herbaria`) with `jabot_download()` and `refloraR::reflora_download()`, reads them one herbarium at a time with `jabot_parse()` and `refloraR::reflora_parse()`, standardizes them with [`barRoso`](https://github.com/DBOSlab/barRoso) (`barroso_std()`, which calls `barroso_flag_duplicates()`) and groups the duplicates of each indeterminate specimen: records with the same collector and collector number or, when the number is missing, the same species, collector and date. It then checks whether a duplicate held by **another herbarium** was already identified and reports the best candidate identification, so that curators can focus their effort on the specimens that can be resolved quickly.
+
+A duplicate is a **candidate identification** when it fills at least one rank missing in the indeterminate specimen (family, genus or specific epithet) and does not disagree with the ranks already present in it. Duplicates that disagree (for example, a different family) are reported as conflicts and never suggested.
+
+The analysis includes the number of indeterminate specimens, how many can be matched with duplicates, how many have a better identified duplicate (to species, genus or family), the suggested identification with its source herbarium, catalog number and the specimen links (indeterminate and duplicate), the herbaria that most contribute with identifications, indeterminate specimens by family, conflicts between duplicates, graphical summaries and an HTML report.
+
+## Arguments
+
+| Argument | Description |
+|---|---|
+| `herbarium` | Acronym of the herbarium whose indeterminate specimens will be investigated (e.g. `"RB"`). It can be hosted in JABOT or, otherwise, in REFLORA (e.g. `"HUEFS"`). |
+| `taxon` | Family and/or genus names to restrict the indeterminate specimens (e.g. `"Fabaceae"` or `c("Inga", "Mimosa")`). Specimens without family and genus cannot match a `taxon`. `NULL` analyses all of them. |
+| `jabot` | If `TRUE` (default), searches for duplicates in the herbaria of the JABOT network. |
+| `network_herbaria` | JABOT herbarium acronyms to restrict the JABOT records searched for duplicates. `NULL` uses all JABOT-hosted herbaria. |
+| `reflora` | If `TRUE` (default), also searches for duplicates in the herbaria of REFLORA, including the international ones. |
+| `reflora_herbaria` | REFLORA herbarium acronyms to restrict the REFLORA records searched for duplicates (e.g. `c("NY", "K", "P", "US")`). `NULL` uses all REFLORA herbaria. |
+| `jabot_path`, `reflora_path` | Paths to directories with previously downloaded JABOT and REFLORA DwC-A files. `NULL` downloads automatically. |
+| `format` | Static formats to save individual figures: `"pdf"`, `"png"`, or both. The HTML report is always generated regardless. |
+| `fig_width`, `fig_height` | Dimensions (in inches) of saved figures. |
+| `open_report` | If `TRUE`, opens the HTML report in the default browser after rendering. |
+| `verbose` | If `TRUE`, prints progress messages. |
+| `dir` | Output directory. Defaults to `"<herbarium>_identify"`. |
+
+## Basic Use Case
+
+```{r}
+identify_analysis <- jabot_identify(herbarium = "RB",
+                                    verbose = TRUE,
+                                    open_report = TRUE,
+                                    dir = "RB_identify")
+```
+
+## Restricting to a Family or Genus
+
+Use `taxon` to focus on the indeterminate specimens already placed in a family or genus, for example those identified only as Fabaceae or only as *Inga*:
+
+```{r}
+identify_analysis <- jabot_identify(herbarium = "RB",
+                                    taxon = c("Fabaceae", "Inga"),
+                                    open_report = TRUE)
+```
+
+## Restricting the Herbaria and Reusing Downloaded Files
+
+By default, duplicates are searched in all herbaria of JABOT and REFLORA. `network_herbaria` and `reflora_herbaria` restrict the search to subsets, `jabot = FALSE` or `reflora = FALSE` skip a source, individual figures can be exported as PDF/PNG, and `jabot_path` and `reflora_path` reuse previously downloaded data.
+
+```{r}
+identify_analysis <- jabot_identify(herbarium = "RB",
+                                    network_herbaria = c("MBM", "UPCB", "FURB"),
+                                    reflora_herbaria = c("NY", "HUEFS"),
+                                    jabot_path = "jabot_download",
+                                    reflora_path = "reflora_download",
+                                    format = "pdf",
+                                    open_report = TRUE)
+```
+
+Herbaria that are only in REFLORA, and the use of the international herbaria of REFLORA, are covered in [Use REFLORA to identify indeterminate specimens](/articles/identify_with_reflora.qmd).
+
+## How Each Specimen Is Classified
+
+Every indeterminate specimen receives one outcome:
+
+| Outcome | Meaning |
+|---|---|
+| Species-level identification available | A duplicate in another herbarium is identified to species. |
+| Genus-level identification available | The best duplicate is identified only to genus. |
+| Family-level identification available | The best duplicate is identified only to family. |
+| Duplicates identified differently (conflict) | Duplicates were found, but their names disagree with the family, genus or epithet already present in the specimen. |
+| Duplicates found, none better identified | Duplicates exist, but none supplies a missing rank. |
+| No duplicates found | The specimen has a collector and number, but no duplicate was found in the searched herbaria. |
+| Cannot be matched (no collector or number) | Without a known collector and a collector number (or, for specimens identified at least to genus, a complete collection date), duplicates cannot be detected. |
+
+When several duplicates qualify, the suggestion is the one identified to the finest rank, then the name given by the most duplicates, then one with a determiner.
+
+## Example Output
+
+The HTML report summarizes the outcomes and lists each specimen that can be identified, with the suggested name and its source:
+
+![Overview of the `jabot_identify()` HTML report for the MBM herbarium](/figures/jabot_identify_report_overview.png){.lightbox}
+
+![Indeterminate specimens with a candidate identification, with the source duplicate](/figures/jabot_identify_report_table.png){.lightbox}
+
+The function also returns (invisibly) a named list with every computed object, and saves the report together with two CSV files in `dir`:
+
+```{r}
+#| eval: false
+#| echo: true
+identify_analysis$n_indets
+identify_analysis$n_resolvable
+head(identify_analysis$indets)
+head(identify_analysis$suggestions)
+```
+
+- `RB_identify.html`: the interactive report.
+- `RB_identify_indets.csv`: one row per indeterminate specimen, with its outcome and suggested identification.
+- `RB_identify_suggestions.csv`: one row per specimen and duplicate found in another herbarium, with the identification it carries and its data source (`JABOT` or `REFLORA`).
+
+## Tips
+
+- The suggested identifications come from records of other herbaria. Check them, preferably against the specimen images, before adopting any of them. When the herbaria provide images, the report gives the link of both the indeterminate specimen and the duplicate that identifies it (the links are shown in full and clickable), so both can be opened side by side.
+- The tables include who identified each specimen (`identifiedBy`) and when (`dateIdentified`), for the indeterminate specimen and for its duplicates. In the "Conflicts Between Duplicates" section, both identifications are shown side by side with their links, to help deciding which one to trust.
+- Matching depends on the collector and the collector number, so specimens without them are counted as "cannot be matched" and need other approaches.
+- Downloading and standardizing JABOT and REFLORA can be slow and needs disk space on the first run: supply `jabot_path` and `reflora_path` afterwards, and consider restricting `network_herbaria` and `reflora_herbaria` for quick, repeated exploration.
+- Herbaria that are in both JABOT and REFLORA are used only from JABOT (they are not even downloaded from REFLORA), so no specimen is counted twice.
+- Use `taxon` to work through one family or genus at a time.
+
+## See Also
+
+- [Filter indeterminate specimens](/articles/filter_indeterminate_jabot_specimens.qmd): `jabot_indets()`
+- [Identify taxonomic gaps](/articles/identify_jabot_gaps.qmd): `jabot_gaps()`
+- [Use REFLORA to identify indeterminate specimens](/articles/identify_with_reflora.qmd): REFLORA herbaria and international duplicates
+- [Organize field data with the jabotR field notebook](/articles/jabot_fieldbook.qmd): `jabot_fieldbook()`

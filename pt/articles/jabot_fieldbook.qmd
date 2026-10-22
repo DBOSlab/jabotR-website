@@ -83,10 +83,12 @@ Ao abrir **Detalhes** de um espécime, é exibida a ficha completa, organizada e
 
 | Grupo | Campos |
 |---|---|
-| Identificação taxonômica | Família, gênero, `cf.`, espécies 1–3 com autores e categorias infraespecíficas, nome vernacular, status de tipo |
-| Coleta e determinação | Número, determinador, data de determinação, número de tombo (`numtombo`), sufixo |
-| Descrição do indivíduo | Flores, frutos, fuste, altura e sua unidade, hábito |
-| Uso e observações complementares | Usos, uso específico, descrição da planta |
+| Identificação taxonômica | Família, gênero, `cf.`, espécies 1–3 com autores e categorias infraespecíficas, nome vernacular |
+| Coleta e determinação | Número, determinador, data de determinação |
+| Descrição do indivíduo | Descrição da planta |
+| Uso e observações complementares | Usos, uso específico |
+
+O formulário do caderno mostra apenas os campos mais úteis em campo. As demais colunas do JABOT (`typestat`, `numtombo`, `sufixo`, `flor`, `fruto`, `fuste`, `altura`, `unidmedaltura`, `habito`) não são exibidas, mas sempre são incluídas — vazias — na planilha Jabot exportada, que mantém o leiaute completo de 58 colunas.
 
 ![A ficha "Detalhes" do espécime, com seus quatro grupos de campos: identificação taxonômica, coleta e determinação, descrição do indivíduo e uso/observações](/figures/jabot_fieldbook_specimen_details_pt.png){.lightbox}
 
@@ -110,6 +112,14 @@ Três opções de exportação estão disponíveis, no topo e ao final da págin
 - **Baixar planilha vazia**: gera uma planilha em branco com as 58 colunas do padrão Jabot e nenhum dado, útil como modelo ou para preenchimento direto em um aplicativo de planilha.
 - **Gerar planilha Jabot**: exporta todos os eventos de coleta e espécimes preenchidos em uma única planilha no leiaute de colunas padrão do Jabot, pronta para submissão.
 - **Gerar caderno de campo (PDF)**: renderiza um caderno de campo imprimível a partir dos dados preenchidos, útil como registro físico ou de arquivo da expedição de coleta.
+
+Ambos os produtos são nomeados automaticamente a partir dos dados: um prefixo (`jabotsheet_` ou `fieldbook_`), o sobrenome do primeiro coletor informado no campo **Collector** e os menores e maiores números de coleta, por exemplo `jabotsheet_Cardoso2020-2052.xlsx` e `fieldbook_Cardoso2020-2052.pdf`. No caso do PDF, esse nome é sugerido na caixa de impressão do navegador ao escolher "Salvar como PDF".
+
+### O caderno de campo imprimível
+
+O PDF começa com o nome do coletor principal em destaque, com o intervalo de números de coleta logo abaixo. Em seguida vem cada data de coleta em verde, uma linha com a localidade no formato `PAÍS: Estado, Município, Localidade, área protegida, notas da localidade, habitat, coordenadas` e os coletores adicionais, se houver. O coletor não é repetido a cada evento (somente se for diferente do coletor principal). Cada espécime ocupa uma linha: número de coleta, família, nome científico (em itálico) e a descrição da planta, seguidos de qualquer outra informação preenchida para o espécime, como nome vernacular, usos e uso específico.
+
+![Caderno de campo imprimível (PDF): coletor principal como título, intervalo de números de coleta, eventos de coleta com data e localidade, e uma linha por espécime](/figures/jabot_fieldbook_pdf_pt.png){.lightbox}
 
 ## Dicas Adicionais
 

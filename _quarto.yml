@@ -93,8 +93,12 @@ website:
             href: articles/measure_jabot_representativeness.qmd
           - text: Locate missing species and collecting priorities
             href: articles/locate_missing_jabot_species.qmd
-        - section: Organize new field data
+        - section: Improve the collection
           contents:
+          - text: Suggest identifications for indeterminate specimens
+            href: articles/identify_jabot_indets.qmd
+          - text: Use REFLORA to identify indeterminate specimens
+            href: articles/identify_with_reflora.qmd
           - text: Organize field data with the jabotR field notebook
             href: articles/jabot_fieldbook.qmd
 
@@ -129,8 +133,12 @@ website:
             href: pt/articles/measure_jabot_representativeness.qmd
           - text: Localizar espécies faltantes e prioridades de coleta
             href: pt/articles/locate_missing_jabot_species.qmd
-        - section: Organizar novos dados de campo
+        - section: Aprimorar a coleção
           contents:
+          - text: Sugerir identificações para espécimes indeterminados
+            href: pt/articles/identify_jabot_indets.qmd
+          - text: Use o REFLORA para identificar espécimes indeterminados
+            href: pt/articles/identify_with_reflora.qmd
           - text: Organize dados de campo com o caderno de campo do jabotR
             href: pt/articles/jabot_fieldbook.qmd
 

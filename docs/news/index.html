@@ -4584,6 +4584,8 @@ width: 400px;
 <li><code>jabot_gaps()</code>: Identify taxa missing from a herbarium relative to the Flora e Funga do Brasil, with an optional nationwide, municipality-level collecting-priority heat map (<code>priority_map</code>).</li>
 <li><code>jabot_coverage()</code>: Measure how well a herbarium represents the Flora e Funga do Brasil, by taxonomic group, family, phytogeographic domain, and Brazilian state.</li>
 <li><code>jabot_missing()</code>: Identify species expected in a target Brazilian state/municipality that are missing from a local herbarium, with an interactive map of candidate collecting localities and a municipality-level collecting-priority heat map drawn from the pooled JABOT network — including direct links to physical specimen images when available.</li>
+<li><code>jabot_identify()</code>: Suggest identifications for the indeterminate specimens of a herbarium (lacking family, genus, or specific epithet) by finding their duplicates in the whole JABOT network and in REFLORA (via <code>refloraR</code>) with <code>barRoso</code>, with an optional <code>taxon</code> filter, support for REFLORA-only herbaria, and an interactive HTML report listing the suggested identification, its source herbarium and specimen link, and conflicts between duplicates.</li>
+<li><code>jabot_fieldbook()</code>: Open an offline field notebook in the browser to organize collection events and specimens and export a standardized 58-column JABOT spreadsheet and a printable field notebook in PDF format.</li>
 <li><code>jabot_gaps()</code>, <code>jabot_coverage()</code>, and <code>jabot_missing()</code> each produce a self-contained, interactive HTML report.</li>
 <li>Optional filters by <code>taxon</code>, <code>herbarium</code>, <code>state</code>, <code>recordYear</code>, and <code>level</code>.</li>
 <li>Supports integration with tidyverse workflows for downstream analyses.</li>
@@ -5116,21 +5118,23 @@ width: 400px;
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`jabot_gaps()`</span>: Identify taxa missing from a herbarium relative to the Flora e Funga do Brasil, with an optional nationwide, municipality-level collecting-priority heat map (<span class="in">`priority_map`</span>).</span>
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`jabot_coverage()`</span>: Measure how well a herbarium represents the Flora e Funga do Brasil, by taxonomic group, family, phytogeographic domain, and Brazilian state.</span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`jabot_missing()`</span>: Identify species expected in a target Brazilian state/municipality that are missing from a local herbarium, with an interactive map of candidate collecting localities and a municipality-level collecting-priority heat map drawn from the pooled JABOT network — including direct links to physical specimen images when available.</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`jabot_gaps()`</span>, <span class="in">`jabot_coverage()`</span>, and <span class="in">`jabot_missing()`</span> each produce a self-contained, interactive HTML report.</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Optional filters by <span class="in">`taxon`</span>, <span class="in">`herbarium`</span>, <span class="in">`state`</span>, <span class="in">`recordYear`</span>, and <span class="in">`level`</span>.</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Supports integration with tidyverse workflows for downstream analyses.</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Comprehensive testthat suite, continuous integration via GitHub Actions.</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="fu">### Infrastructure</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`jabot_identify()`</span>: Suggest identifications for the indeterminate specimens of a herbarium (lacking family, genus, or specific epithet) by finding their duplicates in the whole JABOT network and in REFLORA (via <span class="in">`refloraR`</span>) with <span class="in">`barRoso`</span>, with an optional <span class="in">`taxon`</span> filter, support for REFLORA-only herbaria, and an interactive HTML report listing the suggested identification, its source herbarium and specimen link, and conflicts between duplicates.</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`jabot_fieldbook()`</span>: Open an offline field notebook in the browser to organize collection events and specimens and export a standardized 58-column JABOT spreadsheet and a printable field notebook in PDF format.</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`jabot_gaps()`</span>, <span class="in">`jabot_coverage()`</span>, and <span class="in">`jabot_missing()`</span> each produce a self-contained, interactive HTML report.</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Optional filters by <span class="in">`taxon`</span>, <span class="in">`herbarium`</span>, <span class="in">`state`</span>, <span class="in">`recordYear`</span>, and <span class="in">`level`</span>.</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Supports integration with tidyverse workflows for downstream analyses.</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Comprehensive testthat suite, continuous integration via GitHub Actions.</span>
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>MIT license.</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>GitHub Actions: R-CMD-check and test coverage.</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Hosted documentation: <span class="co">[</span><span class="ot">jabotR-website</span><span class="co">](https://dboslab.github.io/jabotR-website/)</span>, with How-To articles for every function and a full Portuguese translation (EN/PT language switcher).</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="fu">### Feedback</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="fu">### Infrastructure</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>MIT license.</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>GitHub Actions: R-CMD-check and test coverage.</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Hosted documentation: <span class="co">[</span><span class="ot">jabotR-website</span><span class="co">](https://dboslab.github.io/jabotR-website/)</span>, with How-To articles for every function and a full Portuguese translation (EN/PT language switcher).</span>
 <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>Please report bugs or issues at:</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://github.com/DBOSlab/jabotR/issues&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### Feedback</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>Please report bugs or issues at:</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://github.com/DBOSlab/jabotR/issues&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
