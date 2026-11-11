@@ -50,7 +50,7 @@ de sinônimos são resolvidos antes da comparação.
 | format | Vetor de caracteres. Formatos estáticos para salvar as figuras individuais: `"pdf"`, `"png"`, ou ambos. O relatório HTML é sempre gerado. |
 | fig_width | Numérico. Largura das figuras salvas em polegadas. Padrão `10`. |
 | fig_height | Numérico. Altura das figuras salvas em polegadas. Padrão `6`. |
-| open_report | Lógico. Se `TRUE` (padrão), abre o relatório HTML no navegador padrão após a renderização. |
+| open_report | Lógico. Se `TRUE`, abre o relatório HTML no navegador padrão após a renderização. Padrão `FALSE`: o relatório é apenas salvo. |
 | verbose | Lógico. Se `TRUE` (padrão), mensagens de progresso são impressas. |
 | dir | Caractere. Diretório de saída. O padrão é `"<herbarium>_representativeness"`. |
 

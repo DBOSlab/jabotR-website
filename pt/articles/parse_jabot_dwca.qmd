@@ -69,15 +69,38 @@ head(dwca[["ALCB"]][["data"]][["occurrence.txt"]])
 
 ## Limpeza de Dados e Padronização de Colunas
 
-- Converte campos taxonômicos para title case (iniciais maiúsculas).
-- Adiciona `taxonName` combinando `genus`, `specificEpithet` e `infraspecificEpithet`.
-- Substitui categorias taxonômicas ausentes por `"FAMILY"`.
+Os registros do JABOT vêm de muitos herbários que preenchem os mesmos campos de formas diferentes (por exemplo, o país como `"Brasil"`, `"Brazil"` ou `"Brasi"`). `jabot_parse()` padroniza as colunas para que os herbários possam ser comparados e combinados:
+
+| Coluna | Padronização | Exemplo |
+|---|---|---|
+| `family`, `genus`, `specificEpithet`, `taxonRank` | Iniciais maiúsculas, limpeza de nomes e categorias, `taxonName` combinando gênero, epíteto e epíteto infraespecífico, categorias ausentes substituídas por `"FAMILY"`. Nomes alternativos de família com um único equivalente são unificados. | `Leguminosae` para `Fabaceae`, `Compositae` para `Asteraceae` |
+| `specificEpithet` | Nunca repete o gênero: registros de gênero, família e categorias superiores não têm epíteto, e um gênero antes do epíteto é removido. | `Ormosia` como epíteto do gênero *Ormosia* para `NA`; `ormosia monosperma` para `monosperma` |
+| `country` | Sempre um nome de país em inglês. Erros de digitação e valores que não são país são removidos, e um país ausente é obtido dos registros com o mesmo estado. | `Brasil`, `Brazil`, `Brasi` para `Brazil`; `Bolívia` para `Bolivia`; `Capital`, `Indisponível` para `NA` |
+| `countryCode` | Código ISO 3166 alfa-2 do país. | `Brazil` para `BR` |
+| `stateProvince` | Grafia oficial completa dos estados brasileiros. Um município encontrado na coluna de estado é movido para `municipality`. | `Pernanbuco` para `Pernambuco`; `Minas Gerais, MG` para `Minas Gerais`; `Estado do Rio de Janeiro` para `Rio de Janeiro` |
+| `typeStatus` | Termos em inglês; valores que não são um tipo são removidos. | `Holotipo`, `HOLOTYPUS` para `Holotype`; `Chapéu de couro` para `NA` |
+| `eventDate`, `dateIdentified` | Formato ISO (`aaaa-mm-dd`, `aaaa-mm` ou `aaaa`). | `2014-9-4` para `2014-09-04`; `28/4/2020` para `2020-04-28` |
+| `year`, `month`, `day` | Apenas valores válidos; os inválidos são obtidos de `eventDate` quando possível. | `0` para `NA` |
+| `minimumElevationInMeters`, `maximumElevationInMeters` | Valores de preenchimento e impossíveis removidos. | `-9999` para `NA` |
+| `decimalLatitude`, `decimalLongitude` | `0, 0` e valores fora do intervalo removidos. | |
+| `recordNumber` | Registros sem número de coleta. | `s/n`, `S/N`, `sn` para `s.n.` |
+
+As colunas padronizadas podem ser conferidas, por exemplo, com:
+
+```r
+occ <- dwca[["ALCB"]][["data"]][["occurrence.txt"]]
+table(occ$country)
+table(occ$typeStatus)
+```
+
+Outros campos, como `locality`, `recordedBy`, `identifiedBy` e as coordenadas (por exemplo, um sinal errado), não são alterados. Use `barRoso::barroso_std()` para padronizar os coletores; `jabot_identify()` faz isso automaticamente ao comparar as duplicatas.
 
 ## Dicas
 
 - Certifique-se de ter baixado os dados com `jabot_download()` antes de analisá-los.
 - Use `jabot_summary()` para verificar quais herbários são repatriados.
 - Você pode combinar e analisar os dados analisados usando `dplyr::bind_rows()`.
+- Analisar um herbário grande (como o RB, com mais de 850 mil registros) leva alguns minutos por causa da padronização.
 
 ## Veja Também
 

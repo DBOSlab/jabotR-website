@@ -87,7 +87,7 @@ adotadas.
 | reflora_path | Caractere. Caminho para arquivos DwC-A do REFLORA já existentes. Se `NULL` (padrão), os arquivos são baixados automaticamente. |
 | format | Vetor de caracteres. Formatos estáticos usados para salvar as figuras individuais: `"pdf"`, `"png"` ou ambos. O relatório HTML é sempre gerado. O padrão é `NULL` (as figuras não são salvas separadamente). |
 | fig_width, fig_height | Numérico. Dimensões (em polegadas) das figuras salvas. |
-| open_report | Lógico. Se `TRUE` (padrão), abre o relatório HTML no navegador padrão após a geração (somente em sessões interativas). |
+| open_report | Lógico. Se `TRUE`, abre o relatório HTML no navegador padrão após a geração (somente em sessões interativas). Padrão `FALSE`: o relatório é apenas salvo. |
 | verbose | Lógico. Se `TRUE` (padrão), imprime mensagens de progresso. |
 | dir | Caractere. Diretório de saída. O padrão é `"<herbarium>_identify"`. |
 

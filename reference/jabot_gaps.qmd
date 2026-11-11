@@ -66,7 +66,7 @@ Workflow
 | format | Character vector. Which static formats to save individual figures. Any combination of `"pdf"` and `"png"` is accepted. The HTML report is always generated regardless of this argument. |
 | fig_width | Numeric. Width of saved figures in inches. Default `10`. |
 | fig_height | Numeric. Height of saved figures in inches. Default `6`. |
-| open_report | Logical. If `TRUE` (default), the HTML report is opened in the default browser after rendering. |
+| open_report | Logical. If `TRUE`, the HTML report is opened in the default browser after rendering. Default `FALSE`: the report is only saved. |
 | verbose | Logical. If `TRUE` (default), progress messages are printed. |
 | dir | Character. Output directory. Defaults to `"<herbarium>_gap_analysis"`. |
 

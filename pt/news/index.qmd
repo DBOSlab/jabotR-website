@@ -34,7 +34,7 @@ O primeiro lançamento oficial do pacote R `jabotR`, projetado para facilitar o 
 
 - `jabot_summary()`: Recupera metadados e informações resumidas de todos ou de herbários específicos do JABOT.
 - `jabot_download()`: Baixa dados originais de espécimes no formato Darwin Core Archive (DwC-A).
-- `jabot_parse()`: Lê e analisa arquivos Darwin Core Archive já baixados no R.
+- `jabot_parse()`: Lê e analisa arquivos Darwin Core Archive já baixados no R, padronizando as colunas para que os herbários possam ser combinados: nomes de países em inglês com códigos ISO, nomes completos dos estados brasileiros, termos de tipo em inglês, datas em formato ISO e valores de preenchimento limpos.
 - `jabot_records()`: Recupera, filtra e organiza registros de espécimes do JABOT por táxon, herbário, região e ano.
 - `jabot_indets()`: Recupera espécimes indeterminados (por exemplo, identificados apenas até família ou gênero).
 - `jabot_gaps()`: Identifica táxons ausentes de um herbário em relação à Flora e Funga do Brasil, com um mapa de calor nacional opcional, em nível de município, de prioridade de coleta (`priority_map`).

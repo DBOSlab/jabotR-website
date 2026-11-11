@@ -17,6 +17,35 @@ Lê arquivos Darwin Core Archive (DwC-A) de qualquer pasta dwca baixada do
 [JABOT](https://ipt.jbrj.gov.br/jabot), hospedado pelo
 [Jardim Botânico do Rio de Janeiro](https://www.gov.br/jbrj/pt-br).
 
+### Detalhes
+
+Além de ler os arquivos, os registros de ocorrência são padronizados para que
+os herbários possam ser comparados e combinados:
+
+- `taxonRank`, `family`, `genus`, `specificEpithet` e demais colunas
+  taxonômicas são limpas. Nomes alternativos de família com um único
+  equivalente na classificação atual são unificados (por exemplo, Leguminosae
+  para Fabaceae e Compositae para Asteraceae). O epíteto específico nunca
+  repete o gênero: `"Ormosia"` como epíteto de um registro do gênero Ormosia é
+  removido (registros de gênero, família e categorias superiores não têm
+  epíteto), e `"ormosia monosperma"` vira `"monosperma"`.
+- `country` é sempre em inglês (por exemplo, `"Brasil"` e `"Brazil"` viram
+  `"Brazil"`), erros de digitação e valores que não são país são removidos, e
+  `countryCode` é o código ISO 3166 alfa-2 do país. Um país ausente é obtido
+  dos registros com o mesmo estado.
+- `stateProvince`: os estados brasileiros têm a grafia oficial completa
+  (erros como `"Pernanbuco"`, formas como `"Estado do Rio de Janeiro"` ou
+  `"Minas Gerais, MG"` e abreviações são corrigidos). Um município encontrado
+  na coluna de estado é movido para `municipality`.
+- `typeStatus` é padronizado para termos em inglês (Holotype, Isotype,
+  Paratype...), e valores que não são um tipo são removidos.
+- `eventDate` e `dateIdentified` estão no formato ISO (`aaaa-mm-dd`, `aaaa-mm`
+  ou `aaaa`); `year`, `month` e `day` fora do intervalo (por exemplo, 0) são
+  `NA`.
+- Valores de preenchimento de altitude (por exemplo, `-9999`) e valores
+  impossíveis, e coordenadas `0, 0`, são `NA`. Números de coletor como
+  `"s/n"`, `"S/N"` ou `"sn"` são `"s.n."`.
+
 ### Argumentos
 
 | Argumento | Descrição |

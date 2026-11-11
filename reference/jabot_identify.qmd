@@ -88,7 +88,7 @@ adopted.
 | reflora_path | Character. Path to existing REFLORA DwC-A files. If `NULL` (default), the files are downloaded automatically. |
 | format | Character vector. Static formats used to save the individual figures: `"pdf"`, `"png"`, or both. The HTML report is always generated. Defaults to `NULL` (figures are not saved separately). |
 | fig_width, fig_height | Numeric. Dimensions (in inches) of saved figures. |
-| open_report | Logical. If `TRUE` (default), opens the HTML report in the default browser after rendering (interactive sessions only). |
+| open_report | Logical. If `TRUE`, opens the HTML report in the default browser after rendering (interactive sessions only). Default `FALSE`: the report is only saved. |
 | verbose | Logical. If `TRUE` (default), prints progress messages. |
 | dir | Character. Output directory. Defaults to `"<herbarium>_identify"`. |
 

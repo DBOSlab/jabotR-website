@@ -35,7 +35,7 @@ A análise inclui estatísticas resumidas, uma tabela classificada de espécies 
 | `jabot_path` | Caminho para um diretório com arquivos DwC-A do JABOT previamente baixados, compartilhado tanto pelo herbário-alvo quanto pela amostra da rede. `NULL` baixa automaticamente. |
 | `format` | Formatos estáticos para salvar as figuras individuais: `"pdf"`, `"png"`, ou ambos. O relatório HTML é sempre gerado, independentemente disso. |
 | `fig_width`, `fig_height` | Dimensões (em polegadas) das figuras salvas. |
-| `open_report` | Se `TRUE`, abre o relatório HTML no navegador padrão após a renderização. |
+| `open_report` | Se `TRUE`, abre o relatório HTML no navegador padrão após a renderização. Padrão `FALSE`: o relatório é apenas salvo. |
 | `verbose` | Se `TRUE`, exibe mensagens de progresso. |
 | `dir` | Diretório de saída. O padrão é `"<herbarium>_missing_<geo>"`. |
 
@@ -45,7 +45,7 @@ A análise inclui estatísticas resumidas, uma tabela classificada de espécies 
 missing_analysis <- jabot_missing(herbarium = "HUEFS",
                                   geo = "Bahia",
                                   verbose = TRUE,
-                                  open_report = TRUE,
+                                  open_report = FALSE,
                                   dir = "HUEFS_missing_Bahia")
 ```
 
@@ -57,7 +57,7 @@ A lista de espécies esperadas da FFB é sempre resolvida a partir do(s) estado(
 missing_analysis <- jabot_missing(herbarium = "HUEFS",
                                   geo = c("Feira de Santana", "Ilhéus"),
                                   verbose = TRUE,
-                                  open_report = TRUE)
+                                  open_report = FALSE)
 ```
 
 ## Restringindo a Amostra da Rede
@@ -71,7 +71,7 @@ missing_analysis <- jabot_missing(herbarium = "HUEFS",
                                   jabot_path = "jabot_download",
                                   format = "pdf",
                                   verbose = TRUE,
-                                  open_report = TRUE)
+                                  open_report = FALSE)
 ```
 
 ## Exemplo de Saída

@@ -4771,7 +4771,7 @@ height: 400px;
 </tr>
 <tr class="odd">
 <td><code>open_report</code></td>
-<td>Se <code>TRUE</code>, abre o relatório HTML no navegador padrão após a renderização.</td>
+<td>Se <code>TRUE</code>, abre o relatório HTML no navegador padrão após a renderização. Padrão <code>FALSE</code>: o relatório é apenas salvo.</td>
 </tr>
 <tr class="even">
 <td><code>verbose</code></td>
@@ -4789,7 +4789,7 @@ height: 400px;
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>gap_analysis <span class="ot">&lt;-</span> <span class="fu">jabot_gaps</span>(<span class="at">herbarium =</span> <span class="st">&quot;RB&quot;</span>,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">open_report =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">open_report =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">dir =</span> <span class="st">&quot;RB_gap_analysis&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
@@ -4800,7 +4800,7 @@ height: 400px;
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>gap_analysis <span class="ot">&lt;-</span> <span class="fu">jabot_gaps</span>(<span class="at">herbarium =</span> <span class="st">&quot;RB&quot;</span>,</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">format =</span> <span class="fu">c</span>(<span class="st">&quot;pdf&quot;</span>, <span class="st">&quot;png&quot;</span>),</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">open_report =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">open_report =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">dir =</span> <span class="st">&quot;RB_gap_analysis&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
@@ -4812,7 +4812,7 @@ height: 400px;
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">priority_map =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">network_herbaria =</span> <span class="fu">c</span>(<span class="st">&quot;ALCB&quot;</span>, <span class="st">&quot;HUEFS&quot;</span>, <span class="st">&quot;CEPEC&quot;</span>),</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">open_report =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">open_report =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">dir =</span> <span class="st">&quot;RB_gap_analysis&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
@@ -4823,7 +4823,7 @@ height: 400px;
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">jabot_path =</span> <span class="st">&quot;jabot_download&quot;</span>,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">format =</span> <span class="st">&quot;pdf&quot;</span>,</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">open_report =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">open_report =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">dir =</span> <span class="st">&quot;RB_gap_analysis&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
@@ -5384,7 +5384,7 @@ height: 400px;
 <span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`network_herbaria`</span> <span class="pp">|</span> Siglas de herbário para restringir a amostra agrupada da rede, quando <span class="in">`priority_map = TRUE`</span>. <span class="in">`NULL`</span> usa todos os herbários associados ao JABOT. <span class="pp">|</span></span>
 <span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`format`</span> <span class="pp">|</span> Formatos estáticos para salvar as figuras individuais: <span class="in">`&quot;pdf&quot;`</span>, <span class="in">`&quot;png&quot;`</span>, ou ambos. O relatório HTML é sempre gerado, independentemente disso. <span class="pp">|</span></span>
 <span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`fig_width`</span>, <span class="in">`fig_height`</span> <span class="pp">|</span> Dimensões (em polegadas) das figuras salvas. <span class="pp">|</span></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`open_report`</span> <span class="pp">|</span> Se <span class="in">`TRUE`</span>, abre o relatório HTML no navegador padrão após a renderização. <span class="pp">|</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`open_report`</span> <span class="pp">|</span> Se <span class="in">`TRUE`</span>, abre o relatório HTML no navegador padrão após a renderização. Padrão <span class="in">`FALSE`</span>: o relatório é apenas salvo. <span class="pp">|</span></span>
 <span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`verbose`</span> <span class="pp">|</span> Se <span class="in">`TRUE`</span>, exibe mensagens de progresso. <span class="pp">|</span></span>
 <span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`dir`</span> <span class="pp">|</span> Diretório de saída. O padrão é <span class="in">`&quot;&lt;herbarium&gt;_gap_analysis&quot;`</span>. <span class="pp">|</span></span>
 <span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a></span>
@@ -5393,7 +5393,7 @@ height: 400px;
 <span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>gap_analysis <span class="ot">&lt;-</span> <span class="fu">jabot_gaps</span>(<span class="at">herbarium =</span> <span class="st">&quot;RB&quot;</span>,</span>
 <span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>                           <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>                           <span class="at">open_report =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>                           <span class="at">open_report =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>                           <span class="at">dir =</span> <span class="st">&quot;RB_gap_analysis&quot;</span>)</span>
 <span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a></span>
@@ -5405,7 +5405,7 @@ height: 400px;
 <span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>gap_analysis <span class="ot">&lt;-</span> <span class="fu">jabot_gaps</span>(<span class="at">herbarium =</span> <span class="st">&quot;RB&quot;</span>,</span>
 <span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>                           <span class="at">format =</span> <span class="fu">c</span>(<span class="st">&quot;pdf&quot;</span>, <span class="st">&quot;png&quot;</span>),</span>
 <span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>                           <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>                           <span class="at">open_report =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>                           <span class="at">open_report =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>                           <span class="at">dir =</span> <span class="st">&quot;RB_gap_analysis&quot;</span>)</span>
 <span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a></span>
@@ -5418,7 +5418,7 @@ height: 400px;
 <span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>                           <span class="at">priority_map =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>                           <span class="at">network_herbaria =</span> <span class="fu">c</span>(<span class="st">&quot;ALCB&quot;</span>, <span class="st">&quot;HUEFS&quot;</span>, <span class="st">&quot;CEPEC&quot;</span>),</span>
 <span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>                           <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>                           <span class="at">open_report =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>                           <span class="at">open_report =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>                           <span class="at">dir =</span> <span class="st">&quot;RB_gap_analysis&quot;</span>)</span>
 <span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a></span>
@@ -5429,7 +5429,7 @@ height: 400px;
 <span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>                           <span class="at">jabot_path =</span> <span class="st">&quot;jabot_download&quot;</span>,</span>
 <span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>                           <span class="at">format =</span> <span class="st">&quot;pdf&quot;</span>,</span>
 <span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>                           <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>                           <span class="at">open_report =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>                           <span class="at">open_report =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>                           <span class="at">dir =</span> <span class="st">&quot;RB_gap_analysis&quot;</span>)</span>
 <span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a></span>

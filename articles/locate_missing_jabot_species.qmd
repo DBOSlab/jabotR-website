@@ -34,7 +34,7 @@ The analysis includes summary statistics, a ranked table of missing species with
 | `jabot_path` | Path to a directory with previously downloaded JABOT DwC-A files, shared by both the target herbarium and the network pool. `NULL` downloads automatically. |
 | `format` | Static formats to save individual figures: `"pdf"`, `"png"`, or both. The HTML report is always generated regardless. |
 | `fig_width`, `fig_height` | Dimensions (in inches) of saved figures. |
-| `open_report` | If `TRUE`, opens the HTML report in the default browser after rendering. |
+| `open_report` | If `TRUE`, opens the HTML report in the default browser after rendering. Default `FALSE`: the report is only saved. |
 | `verbose` | If `TRUE`, prints progress messages. |
 | `dir` | Output directory. Defaults to `"<herbarium>_missing_<geo>"`. |
 
@@ -44,7 +44,7 @@ The analysis includes summary statistics, a ranked table of missing species with
 missing_analysis <- jabot_missing(herbarium = "HUEFS",
                                   geo = "Bahia",
                                   verbose = TRUE,
-                                  open_report = TRUE,
+                                  open_report = FALSE,
                                   dir = "HUEFS_missing_Bahia")
 ```
 
@@ -56,7 +56,7 @@ FFB's state-level checklist is always resolved from the state(s) intersecting `g
 missing_analysis <- jabot_missing(herbarium = "HUEFS",
                                   geo = c("Feira de Santana", "Ilhéus"),
                                   verbose = TRUE,
-                                  open_report = TRUE)
+                                  open_report = FALSE)
 ```
 
 ## Restricting the Network Pool
@@ -70,7 +70,7 @@ missing_analysis <- jabot_missing(herbarium = "HUEFS",
                                   jabot_path = "jabot_download",
                                   format = "pdf",
                                   verbose = TRUE,
-                                  open_report = TRUE)
+                                  open_report = FALSE)
 ```
 
 ## Example Output

@@ -4578,7 +4578,7 @@ width: 400px;
 <ul>
 <li><code>jabot_summary()</code>: Recupera metadados e informações resumidas de todos ou de herbários específicos do JABOT.</li>
 <li><code>jabot_download()</code>: Baixa dados originais de espécimes no formato Darwin Core Archive (DwC-A).</li>
-<li><code>jabot_parse()</code>: Lê e analisa arquivos Darwin Core Archive já baixados no R.</li>
+<li><code>jabot_parse()</code>: Lê e analisa arquivos Darwin Core Archive já baixados no R, padronizando as colunas para que os herbários possam ser combinados: nomes de países em inglês com códigos ISO, nomes completos dos estados brasileiros, termos de tipo em inglês, datas em formato ISO e valores de preenchimento limpos.</li>
 <li><code>jabot_records()</code>: Recupera, filtra e organiza registros de espécimes do JABOT por táxon, herbário, região e ano.</li>
 <li><code>jabot_indets()</code>: Recupera espécimes indeterminados (por exemplo, identificados apenas até família ou gênero).</li>
 <li><code>jabot_gaps()</code>: Identifica táxons ausentes de um herbário em relação à Flora e Funga do Brasil, com um mapa de calor nacional opcional, em nível de município, de prioridade de coleta (<code>priority_map</code>).</li>
@@ -5112,7 +5112,7 @@ width: 400px;
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`jabot_summary()`</span>: Recupera metadados e informações resumidas de todos ou de herbários específicos do JABOT.</span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`jabot_download()`</span>: Baixa dados originais de espécimes no formato Darwin Core Archive (DwC-A).</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`jabot_parse()`</span>: Lê e analisa arquivos Darwin Core Archive já baixados no R.</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`jabot_parse()`</span>: Lê e analisa arquivos Darwin Core Archive já baixados no R, padronizando as colunas para que os herbários possam ser combinados: nomes de países em inglês com códigos ISO, nomes completos dos estados brasileiros, termos de tipo em inglês, datas em formato ISO e valores de preenchimento limpos.</span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`jabot_records()`</span>: Recupera, filtra e organiza registros de espécimes do JABOT por táxon, herbário, região e ano.</span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`jabot_indets()`</span>: Recupera espécimes indeterminados (por exemplo, identificados apenas até família ou gênero).</span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`jabot_gaps()`</span>: Identifica táxons ausentes de um herbário em relação à Flora e Funga do Brasil, com um mapa de calor nacional opcional, em nível de município, de prioridade de coleta (<span class="in">`priority_map`</span>).</span>

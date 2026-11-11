@@ -17,6 +17,143 @@ Read Darwin Core Archive (DwC-A) files from any downloaded dwca
 folder at [JABOT](https://ipt.jbrj.gov.br/jabot) hosted by the
 [Rio de Janeiro Botanical Garden](https://www.gov.br/jbrj/pt-br).
 
+### Details
+
+Besides reading the files, the occurrence records are standardized so that
+the herbaria can be compared and combined:
+
+- 
+
+-   
+- 
+-  
+- `taxonRank`
+- , 
+- `family`
+- , 
+- `genus`
+- ,
+
+-   
+- `specificEpithet`
+-  and related taxonomic columns are cleaned. Family
+
+-   names with a single equivalent in the current classification are
+
+-   unified (e.g. Leguminosae to Fabaceae, Compositae to Asteraceae). The
+
+-   specific epithet never repeats the genus: 
+- `"Ormosia"`
+-  as the epithet
+
+-   of a record of genus Ormosia is removed (records of genus, family and
+
+-   higher ranks have no epithet), and 
+- `"ormosia monosperma"`
+-  becomes
+
+-   
+- `"monosperma"`
+- .
+
+-   
+- 
+-  
+- `country`
+-  is always in English (e.g. 
+- `"Brasil"`
+-  and
+
+-   
+- `"Brazil"`
+-  become 
+- `"Brazil"`
+- ), typos and non-countries are
+
+-   removed, and 
+- `countryCode`
+-  is the ISO 3166 alpha-2 code of the
+
+-   country. A missing country is taken from the records with the same state.
+
+-   
+- 
+-  
+- `stateProvince`
+- : Brazilian states have their full official
+
+-   spelling (typos such as 
+- `"Pernanbuco"`
+- , forms such as
+
+-   
+- `"Estado do Rio de Janeiro"`
+-  or 
+- `"Minas Gerais, MG"`
+- , and
+
+-   abbreviations are corrected). A municipality found in the state column is
+
+-   moved to 
+- `municipality`
+- .
+
+-   
+- 
+-  
+- `typeStatus`
+-  is standardized to English terms (Holotype,
+
+-   Isotype, Paratype...) and values that are not a type are removed.
+
+-   
+- 
+-  
+- `eventDate`
+-  and 
+- `dateIdentified`
+-  are in the ISO format
+
+-   (
+- `yyyy-mm-dd`
+- , 
+- `yyyy-mm`
+-  or 
+- `yyyy`
+- ); 
+- `year`
+- ,
+
+-   
+- `month`
+-  and 
+- `day`
+-  outside their range (e.g. 0) are 
+- `NA`
+- .
+
+-   
+- 
+-  Elevation placeholders (e.g. 
+- `-9999`
+- ) and impossible values,
+
+-   and coordinates 
+- `0, 0`
+- , are 
+- `NA`
+- . Collector numbers such as
+
+-   
+- `"s/n"`
+- , 
+- `"S/N"`
+-  or 
+- `"sn"`
+-  are 
+- `"s.n."`
+- .
+
 ### Arguments
 
 | Argument | Description |

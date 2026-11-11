@@ -4784,7 +4784,7 @@ height: 400px;
 </tr>
 <tr class="even">
 <td><code>open_report</code></td>
-<td>If <code>TRUE</code>, opens the HTML report in the default browser after rendering.</td>
+<td>If <code>TRUE</code>, opens the HTML report in the default browser after rendering. Default <code>FALSE</code>: the report is only saved.</td>
 </tr>
 <tr class="odd">
 <td><code>verbose</code></td>
@@ -4802,7 +4802,7 @@ height: 400px;
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>identify_analysis <span class="ot">&lt;-</span> <span class="fu">jabot_identify</span>(<span class="at">herbarium =</span> <span class="st">&quot;RB&quot;</span>,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">open_report =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">open_report =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">dir =</span> <span class="st">&quot;RB_identify&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
@@ -4812,7 +4812,7 @@ height: 400px;
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>identify_analysis <span class="ot">&lt;-</span> <span class="fu">jabot_identify</span>(<span class="at">herbarium =</span> <span class="st">&quot;RB&quot;</span>,</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">taxon =</span> <span class="fu">c</span>(<span class="st">&quot;Fabaceae&quot;</span>, <span class="st">&quot;Inga&quot;</span>),</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">open_report =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">open_report =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="restricting-the-herbaria-and-reusing-downloaded-files" class="level2">
@@ -4825,7 +4825,7 @@ height: 400px;
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">jabot_path =</span> <span class="st">&quot;jabot_download&quot;</span>,</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">reflora_path =</span> <span class="st">&quot;reflora_download&quot;</span>,</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">format =</span> <span class="st">&quot;pdf&quot;</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">open_report =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">open_report =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Herbaria that are only in REFLORA, and the use of the international herbaria of REFLORA, are covered in <a href="../articles/identify_with_reflora.html">Use REFLORA to identify indeterminate specimens</a>.</p>
 </section>
@@ -5447,7 +5447,7 @@ height: 400px;
 <span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`jabot_path`</span>, <span class="in">`reflora_path`</span> <span class="pp">|</span> Paths to directories with previously downloaded JABOT and REFLORA DwC-A files. <span class="in">`NULL`</span> downloads automatically. <span class="pp">|</span></span>
 <span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`format`</span> <span class="pp">|</span> Static formats to save individual figures: <span class="in">`&quot;pdf&quot;`</span>, <span class="in">`&quot;png&quot;`</span>, or both. The HTML report is always generated regardless. <span class="pp">|</span></span>
 <span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`fig_width`</span>, <span class="in">`fig_height`</span> <span class="pp">|</span> Dimensions (in inches) of saved figures. <span class="pp">|</span></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`open_report`</span> <span class="pp">|</span> If <span class="in">`TRUE`</span>, opens the HTML report in the default browser after rendering. <span class="pp">|</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`open_report`</span> <span class="pp">|</span> If <span class="in">`TRUE`</span>, opens the HTML report in the default browser after rendering. Default <span class="in">`FALSE`</span>: the report is only saved. <span class="pp">|</span></span>
 <span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`verbose`</span> <span class="pp">|</span> If <span class="in">`TRUE`</span>, prints progress messages. <span class="pp">|</span></span>
 <span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`dir`</span> <span class="pp">|</span> Output directory. Defaults to <span class="in">`&quot;&lt;herbarium&gt;_identify&quot;`</span>. <span class="pp">|</span></span>
 <span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
@@ -5456,7 +5456,7 @@ height: 400px;
 <span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>identify_analysis <span class="ot">&lt;-</span> <span class="fu">jabot_identify</span>(<span class="at">herbarium =</span> <span class="st">&quot;RB&quot;</span>,</span>
 <span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">open_report =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">open_report =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">dir =</span> <span class="st">&quot;RB_identify&quot;</span>)</span>
 <span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a></span>
@@ -5467,7 +5467,7 @@ height: 400px;
 <span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>identify_analysis <span class="ot">&lt;-</span> <span class="fu">jabot_identify</span>(<span class="at">herbarium =</span> <span class="st">&quot;RB&quot;</span>,</span>
 <span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">taxon =</span> <span class="fu">c</span>(<span class="st">&quot;Fabaceae&quot;</span>, <span class="st">&quot;Inga&quot;</span>),</span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">open_report =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">open_report =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## Restricting the Herbaria and Reusing Downloaded Files</span></span>
@@ -5481,7 +5481,7 @@ height: 400px;
 <span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">jabot_path =</span> <span class="st">&quot;jabot_download&quot;</span>,</span>
 <span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">reflora_path =</span> <span class="st">&quot;reflora_download&quot;</span>,</span>
 <span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">format =</span> <span class="st">&quot;pdf&quot;</span>,</span>
-<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">open_report =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">open_report =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>Herbaria that are only in REFLORA, and the use of the international herbaria of REFLORA, are covered in <span class="co">[</span><span class="ot">Use REFLORA to identify indeterminate specimens</span><span class="co">](/articles/identify_with_reflora.qmd)</span>.</span>

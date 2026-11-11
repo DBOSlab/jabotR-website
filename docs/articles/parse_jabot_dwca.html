@@ -4777,11 +4777,83 @@ height: 400px;
 </section>
 <section id="data-cleaning-and-column-standardization" class="level2">
 <h2 class="anchored" data-anchor-id="data-cleaning-and-column-standardization">Data Cleaning and Column Standardization</h2>
-<ul>
-<li>Converts taxonomic fields to title case.</li>
-<li>Adds <code>taxonName</code> combining <code>genus</code>, <code>specificEpithet</code>, <code>infraspecificEpithet</code>.</li>
-<li>Replaces missing taxon ranks with <code>&quot;FAMILY&quot;</code>.</li>
-</ul>
+<p>The records of JABOT come from many herbaria that fill the same fields in different ways (for example, the country as <code>&quot;Brasil&quot;</code>, <code>&quot;Brazil&quot;</code> or <code>&quot;Brasi&quot;</code>). <code>jabot_parse()</code> standardizes the columns so that the herbaria can be compared and combined:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>Standardization</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>family</code>, <code>genus</code>, <code>specificEpithet</code>, <code>taxonRank</code></td>
+<td>Title case, cleaning of names and ranks, <code>taxonName</code> combining genus, epithet and infraspecific epithet, missing ranks replaced with <code>&quot;FAMILY&quot;</code>. Alternative family names with a single equivalent are unified.</td>
+<td><code>Leguminosae</code> to <code>Fabaceae</code>, <code>Compositae</code> to <code>Asteraceae</code></td>
+</tr>
+<tr class="even">
+<td><code>specificEpithet</code></td>
+<td>Never repeats the genus: records of genus, family and higher ranks have no epithet, and a genus before the epithet is removed.</td>
+<td><code>Ormosia</code> as the epithet of the genus <em>Ormosia</em> to <code>NA</code>; <code>ormosia monosperma</code> to <code>monosperma</code></td>
+</tr>
+<tr class="odd">
+<td><code>country</code></td>
+<td>Always an English country name. Typos and values that are not a country are removed, and a missing country is taken from the records with the same state.</td>
+<td><code>Brasil</code>, <code>Brazil</code>, <code>Brasi</code> to <code>Brazil</code>; <code>Bolívia</code> to <code>Bolivia</code>; <code>Capital</code>, <code>Indisponível</code> to <code>NA</code></td>
+</tr>
+<tr class="even">
+<td><code>countryCode</code></td>
+<td>ISO 3166 alpha-2 code of the country.</td>
+<td><code>Brazil</code> to <code>BR</code></td>
+</tr>
+<tr class="odd">
+<td><code>stateProvince</code></td>
+<td>Full official spelling of the Brazilian states. A municipality found in the state column is moved to <code>municipality</code>.</td>
+<td><code>Pernanbuco</code> to <code>Pernambuco</code>; <code>Minas Gerais, MG</code> to <code>Minas Gerais</code>; <code>Estado do Rio de Janeiro</code> to <code>Rio de Janeiro</code></td>
+</tr>
+<tr class="even">
+<td><code>typeStatus</code></td>
+<td>English terms; values that are not a type are removed.</td>
+<td><code>Holotipo</code>, <code>HOLOTYPUS</code> to <code>Holotype</code>; <code>Chapéu de couro</code> to <code>NA</code></td>
+</tr>
+<tr class="odd">
+<td><code>eventDate</code>, <code>dateIdentified</code></td>
+<td>ISO format (<code>yyyy-mm-dd</code>, <code>yyyy-mm</code> or <code>yyyy</code>).</td>
+<td><code>2014-9-4</code> to <code>2014-09-04</code>; <code>28/4/2020</code> to <code>2020-04-28</code></td>
+</tr>
+<tr class="even">
+<td><code>year</code>, <code>month</code>, <code>day</code></td>
+<td>Valid values only; invalid ones are taken from <code>eventDate</code> when possible.</td>
+<td><code>0</code> to <code>NA</code></td>
+</tr>
+<tr class="odd">
+<td><code>minimumElevationInMeters</code>, <code>maximumElevationInMeters</code></td>
+<td>Placeholders and impossible values removed.</td>
+<td><code>-9999</code> to <code>NA</code></td>
+</tr>
+<tr class="even">
+<td><code>decimalLatitude</code>, <code>decimalLongitude</code></td>
+<td><code>0, 0</code> and out-of-range values removed.</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>recordNumber</code></td>
+<td>Records without a collector number.</td>
+<td><code>s/n</code>, <code>S/N</code>, <code>sn</code> to <code>s.n.</code></td>
+</tr>
+</tbody>
+</table>
+<p>The standardized columns can be checked, for example, with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>occ <span class="ot">&lt;-</span> dwca[[<span class="st">&quot;ALCB&quot;</span>]][[<span class="st">&quot;data&quot;</span>]][[<span class="st">&quot;occurrence.txt&quot;</span>]]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occ<span class="sc">$</span>country)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occ<span class="sc">$</span>typeStatus)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Other fields, such as <code>locality</code>, <code>recordedBy</code>, <code>identifiedBy</code> and the coordinates (for example, a wrong sign), are not changed. Use <code>barRoso::barroso_std()</code> to standardize the collectors, and <code>jabot_identify()</code> does it automatically when it compares the duplicates.</p>
 </section>
 <section id="tips" class="level2">
 <h2 class="anchored" data-anchor-id="tips">Tips</h2>
@@ -4789,6 +4861,7 @@ height: 400px;
 <li>Ensure you’ve downloaded data using <code>jabot_download()</code> before parsing.</li>
 <li>Use <code>jabot_summary()</code> to explore which herbaria are repatriated.</li>
 <li>You can combine and analyze parsed data using <code>dplyr::bind_rows()</code>.</li>
+<li>Parsing a large herbarium (such as RB, with more than 850 thousand records) takes a few minutes because of the standardization.</li>
 </ul>
 </section>
 <section id="see-also" class="level2">
@@ -5280,90 +5353,113 @@ height: 400px;
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Parse JABOT Darwin Core Archives&quot;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>This guide demonstrates how to use the <span class="in">`jabot_parse()`</span> function from the <span class="in">`jabotR`</span> package. The function reads and parses Darwin Core Archive (DwC-A) files previously downloaded with <span class="in">`jabot_download()`</span>.</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Function Overview</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>The <span class="in">`jabot_parse()`</span> function reads DwC-A data for all or specified JABOT herbarium collections. It also cleans and formats the specimen data.</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Arguments</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Argument      <span class="pp">|</span> Description <span class="pp">|</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------------|-------------|</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`path`</span>        <span class="pp">|</span> Directory containing downloaded DwC-A folders. <span class="pp">|</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`herbarium`</span>   <span class="pp">|</span> A character vector of herbarium acronyms (e.g., <span class="in">`&quot;RB&quot;`</span>, <span class="in">`&quot;K&quot;`</span>). Use <span class="in">`NULL`</span> to parse all. <span class="pp">|</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`repatriated`</span> <span class="pp">|</span> Logical. If <span class="in">`FALSE`</span>, skips repatriated herbaria (see <span class="in">`jabot_summary()`</span>). <span class="pp">|</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`verbose`</span>     <span class="pp">|</span> Logical. If <span class="in">`TRUE`</span>, displays progress messages. <span class="pp">|</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## Parse All Collections in Directory</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>Use the default settings to parse all DwC-A folders:</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>dwca <span class="ot">&lt;-</span> <span class="fu">jabot_parse</span>(</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">&quot;jabot_download&quot;</span>,</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Parse Specific Herbarium Collections</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>You can specify which collections to parse:</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>dwca <span class="ot">&lt;-</span> <span class="fu">jabot_parse</span>(</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">&quot;jabot_download&quot;</span>,</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">herbarium =</span> <span class="fu">c</span>(<span class="st">&quot;R&quot;</span>, <span class="st">&quot;RB&quot;</span>),</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Skipping Repatriated Collections</span></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>To skip repatriated herbaria:</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>dwca <span class="ot">&lt;-</span> <span class="fu">jabot_parse</span>(</span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">&quot;jabot_download&quot;</span>,</span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">repatriated =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Structure of Parsed Output</span></span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>The return is a **named list** where each element represents a collection and contains:</span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`occurrence.txt`</span>: A data frame of specimen records.</span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`eml.xml`</span>: Metadata about the collection.</span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Optional <span class="in">`summary_&lt;COL&gt;.csv`</span>: Metadata summary file.</span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dwca)</span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dwca[[<span class="st">&quot;ALCB&quot;</span>]][[<span class="st">&quot;data&quot;</span>]][[<span class="st">&quot;occurrence.txt&quot;</span>]])</span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Cleaning and Column Standardization</span></span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Converts taxonomic fields to title case.</span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Adds <span class="in">`taxonName`</span> combining <span class="in">`genus`</span>, <span class="in">`specificEpithet`</span>, <span class="in">`infraspecificEpithet`</span>.</span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Replaces missing taxon ranks with <span class="in">`&quot;FAMILY&quot;`</span>.</span>
-<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tips</span></span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Ensure you&#39;ve downloaded data using <span class="in">`jabot_download()`</span> before parsing.</span>
-<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`jabot_summary()`</span> to explore which herbaria are repatriated.</span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>You can combine and analyze parsed data using <span class="in">`dplyr::bind_rows()`</span>.</span>
-<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a><span class="fu">## See Also</span></span>
-<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">`jabot_download()`</span><span class="co">](/articles/download_jabot_collections.qmd)</span>: Download JABOT specimen records</span>
-<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">`jabot_summary()`</span><span class="co">](/articles/summarize_jabot_collections.qmd)</span>: Inspect JABOT collections</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Parse JABOT Darwin Core Archives&quot;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>This guide demonstrates how to use the <span class="in">`jabot_parse()`</span> function from the <span class="in">`jabotR`</span> package. The function reads and parses Darwin Core Archive (DwC-A) files previously downloaded with <span class="in">`jabot_download()`</span>.</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Function Overview</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>The <span class="in">`jabot_parse()`</span> function reads DwC-A data for all or specified JABOT herbarium collections. It also cleans and formats the specimen data.</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Arguments</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Argument      <span class="pp">|</span> Description <span class="pp">|</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------------|-------------|</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`path`</span>        <span class="pp">|</span> Directory containing downloaded DwC-A folders. <span class="pp">|</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`herbarium`</span>   <span class="pp">|</span> A character vector of herbarium acronyms (e.g., <span class="in">`&quot;RB&quot;`</span>, <span class="in">`&quot;K&quot;`</span>). Use <span class="in">`NULL`</span> to parse all. <span class="pp">|</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`repatriated`</span> <span class="pp">|</span> Logical. If <span class="in">`FALSE`</span>, skips repatriated herbaria (see <span class="in">`jabot_summary()`</span>). <span class="pp">|</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`verbose`</span>     <span class="pp">|</span> Logical. If <span class="in">`TRUE`</span>, displays progress messages. <span class="pp">|</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## Parse All Collections in Directory</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>Use the default settings to parse all DwC-A folders:</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>dwca <span class="ot">&lt;-</span> <span class="fu">jabot_parse</span>(</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">&quot;jabot_download&quot;</span>,</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Parse Specific Herbarium Collections</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>You can specify which collections to parse:</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>dwca <span class="ot">&lt;-</span> <span class="fu">jabot_parse</span>(</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">&quot;jabot_download&quot;</span>,</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">herbarium =</span> <span class="fu">c</span>(<span class="st">&quot;R&quot;</span>, <span class="st">&quot;RB&quot;</span>),</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Skipping Repatriated Collections</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>To skip repatriated herbaria:</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>dwca <span class="ot">&lt;-</span> <span class="fu">jabot_parse</span>(</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">&quot;jabot_download&quot;</span>,</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">repatriated =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Structure of Parsed Output</span></span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>The return is a **named list** where each element represents a collection and contains:</span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`occurrence.txt`</span>: A data frame of specimen records.</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`eml.xml`</span>: Metadata about the collection.</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Optional <span class="in">`summary_&lt;COL&gt;.csv`</span>: Metadata summary file.</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dwca)</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dwca[[<span class="st">&quot;ALCB&quot;</span>]][[<span class="st">&quot;data&quot;</span>]][[<span class="st">&quot;occurrence.txt&quot;</span>]])</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Cleaning and Column Standardization</span></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>The records of JABOT come from many herbaria that fill the same fields in different ways (for example, the country as <span class="in">`&quot;Brasil&quot;`</span>, <span class="in">`&quot;Brazil&quot;`</span> or <span class="in">`&quot;Brasi&quot;`</span>). <span class="in">`jabot_parse()`</span> standardizes the columns so that the herbaria can be compared and combined:</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Column <span class="pp">|</span> Standardization <span class="pp">|</span> Example <span class="pp">|</span></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`family`</span>, <span class="in">`genus`</span>, <span class="in">`specificEpithet`</span>, <span class="in">`taxonRank`</span> <span class="pp">|</span> Title case, cleaning of names and ranks, <span class="in">`taxonName`</span> combining genus, epithet and infraspecific epithet, missing ranks replaced with <span class="in">`&quot;FAMILY&quot;`</span>. Alternative family names with a single equivalent are unified. <span class="pp">|</span> <span class="in">`Leguminosae`</span> to <span class="in">`Fabaceae`</span>, <span class="in">`Compositae`</span> to <span class="in">`Asteraceae`</span> <span class="pp">|</span></span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`specificEpithet`</span> <span class="pp">|</span> Never repeats the genus: records of genus, family and higher ranks have no epithet, and a genus before the epithet is removed. <span class="pp">|</span> <span class="in">`Ormosia`</span> as the epithet of the genus *Ormosia* to <span class="in">`NA`</span>; <span class="in">`ormosia monosperma`</span> to <span class="in">`monosperma`</span> <span class="pp">|</span></span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`country`</span> <span class="pp">|</span> Always an English country name. Typos and values that are not a country are removed, and a missing country is taken from the records with the same state. <span class="pp">|</span> <span class="in">`Brasil`</span>, <span class="in">`Brazil`</span>, <span class="in">`Brasi`</span> to <span class="in">`Brazil`</span>; <span class="in">`Bolívia`</span> to <span class="in">`Bolivia`</span>; <span class="in">`Capital`</span>, <span class="in">`Indisponível`</span> to <span class="in">`NA`</span> <span class="pp">|</span></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`countryCode`</span> <span class="pp">|</span> ISO 3166 alpha-2 code of the country. <span class="pp">|</span> <span class="in">`Brazil`</span> to <span class="in">`BR`</span> <span class="pp">|</span></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`stateProvince`</span> <span class="pp">|</span> Full official spelling of the Brazilian states. A municipality found in the state column is moved to <span class="in">`municipality`</span>. <span class="pp">|</span> <span class="in">`Pernanbuco`</span> to <span class="in">`Pernambuco`</span>; <span class="in">`Minas Gerais, MG`</span> to <span class="in">`Minas Gerais`</span>; <span class="in">`Estado do Rio de Janeiro`</span> to <span class="in">`Rio de Janeiro`</span> <span class="pp">|</span></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`typeStatus`</span> <span class="pp">|</span> English terms; values that are not a type are removed. <span class="pp">|</span> <span class="in">`Holotipo`</span>, <span class="in">`HOLOTYPUS`</span> to <span class="in">`Holotype`</span>; <span class="in">`Chapéu de couro`</span> to <span class="in">`NA`</span> <span class="pp">|</span></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`eventDate`</span>, <span class="in">`dateIdentified`</span> <span class="pp">|</span> ISO format (<span class="in">`yyyy-mm-dd`</span>, <span class="in">`yyyy-mm`</span> or <span class="in">`yyyy`</span>). <span class="pp">|</span> <span class="in">`2014-9-4`</span> to <span class="in">`2014-09-04`</span>; <span class="in">`28/4/2020`</span> to <span class="in">`2020-04-28`</span> <span class="pp">|</span></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`year`</span>, <span class="in">`month`</span>, <span class="in">`day`</span> <span class="pp">|</span> Valid values only; invalid ones are taken from <span class="in">`eventDate`</span> when possible. <span class="pp">|</span> <span class="in">`0`</span> to <span class="in">`NA`</span> <span class="pp">|</span></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`minimumElevationInMeters`</span>, <span class="in">`maximumElevationInMeters`</span> <span class="pp">|</span> Placeholders and impossible values removed. <span class="pp">|</span> <span class="in">`-9999`</span> to <span class="in">`NA`</span> <span class="pp">|</span></span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`decimalLatitude`</span>, <span class="in">`decimalLongitude`</span> <span class="pp">|</span> <span class="in">`0, 0`</span> and out-of-range values removed. <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`recordNumber`</span> <span class="pp">|</span> Records without a collector number. <span class="pp">|</span> <span class="in">`s/n`</span>, <span class="in">`S/N`</span>, <span class="in">`sn`</span> to <span class="in">`s.n.`</span> <span class="pp">|</span></span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>The standardized columns can be checked, for example, with:</span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>occ <span class="ot">&lt;-</span> dwca[[<span class="st">&quot;ALCB&quot;</span>]][[<span class="st">&quot;data&quot;</span>]][[<span class="st">&quot;occurrence.txt&quot;</span>]]</span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occ<span class="sc">$</span>country)</span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occ<span class="sc">$</span>typeStatus)</span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>Other fields, such as <span class="in">`locality`</span>, <span class="in">`recordedBy`</span>, <span class="in">`identifiedBy`</span> and the coordinates (for example, a wrong sign), are not changed. Use <span class="in">`barRoso::barroso_std()`</span> to standardize the collectors, and <span class="in">`jabot_identify()`</span> does it automatically when it compares the duplicates.</span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tips</span></span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Ensure you&#39;ve downloaded data using <span class="in">`jabot_download()`</span> before parsing.</span>
+<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`jabot_summary()`</span> to explore which herbaria are repatriated.</span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>You can combine and analyze parsed data using <span class="in">`dplyr::bind_rows()`</span>.</span>
+<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Parsing a large herbarium (such as RB, with more than 850 thousand records) takes a few minutes because of the standardization.</span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a><span class="fu">## See Also</span></span>
+<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">`jabot_download()`</span><span class="co">](/articles/download_jabot_collections.qmd)</span>: Download JABOT specimen records</span>
+<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">`jabot_summary()`</span><span class="co">](/articles/summarize_jabot_collections.qmd)</span>: Inspect JABOT collections</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

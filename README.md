@@ -151,6 +151,13 @@ dwca_some <- jabot_parse(path = "jabot_download",
 The function returns a named list containing parsed DwC-A data and
 associated metadata for each collection.\
 \
+`jabot_parse()` also standardizes the records so that the herbaria can
+be compared and combined: `country` is always an English name
+(e.g. `"Brasil"` and `"Brazil"` become `"Brazil"`) with its ISO code in
+`countryCode`, Brazilian states have their full official spelling,
+`typeStatus` uses English terms (Holotype, Isotype…), dates are in the
+ISO format, and placeholders such as `-9999` in the elevation are `NA`.\
+\
 
 #### *4. `jabot_records`: Retrieving and filtering specimen records*
 
@@ -293,7 +300,7 @@ A gap analysis can be performed with:\
 ``` r
 gap_analysis <- jabot_gaps(herbarium = "RB",
                            verbose = TRUE,
-                           open_report = TRUE,
+                           open_report = FALSE,
                            dir = "RB_gap_analysis")
 ```
 
@@ -304,7 +311,7 @@ Individual figures can additionally be exported as PDF, PNG, or both.\
 gap_analysis <- jabot_gaps(herbarium = "RB",
                            format = c("pdf", "png"),
                            verbose = TRUE,
-                           open_report = TRUE,
+                           open_report = FALSE,
                            dir = "RB_gap_analysis")
 ```
 
@@ -317,7 +324,7 @@ gap_analysis <- jabot_gaps(herbarium = "RB",
                            jabot_path = "jabot_download",
                            format = "pdf",
                            verbose = TRUE,
-                           open_report = TRUE,
+                           open_report = FALSE,
                            dir = "RB_gap_analysis")
 ```
 
@@ -333,7 +340,7 @@ the most known vouchers of species still missing from the herbarium (see
 gap_analysis <- jabot_gaps(herbarium = "RB",
                            priority_map = TRUE,
                            verbose = TRUE,
-                           open_report = TRUE,
+                           open_report = FALSE,
                            dir = "RB_gap_analysis")
 ```
 
@@ -365,7 +372,7 @@ A representativeness analysis can be performed with:\
 ``` r
 coverage_analysis <- jabot_coverage(herbarium = "RB",
                                     verbose = TRUE,
-                                    open_report = TRUE,
+                                    open_report = FALSE,
                                     dir = "RB_representativeness")
 ```
 
@@ -376,7 +383,7 @@ Individual figures can additionally be exported as PDF, PNG, or both.\
 coverage_analysis <- jabot_coverage(herbarium = "RB",
                                     format = c("pdf", "png"),
                                     verbose = TRUE,
-                                    open_report = TRUE,
+                                    open_report = FALSE,
                                     dir = "RB_representativeness")
 ```
 
@@ -389,7 +396,7 @@ coverage_analysis <- jabot_coverage(herbarium = "RB",
                                     jabot_path = "jabot_download",
                                     format = "pdf",
                                     verbose = TRUE,
-                                    open_report = TRUE,
+                                    open_report = FALSE,
                                     dir = "RB_representativeness")
 ```
 
@@ -426,7 +433,7 @@ A missing-species analysis for Bahia state can be performed with:\
 missing_analysis <- jabot_missing(herbarium = "RB",
                                   geo = "Bahia",
                                   verbose = TRUE,
-                                  open_report = TRUE,
+                                  open_report = FALSE,
                                   dir = "RB_missing_Bahia")
 ```
 
@@ -440,7 +447,7 @@ municipalities.\
 missing_analysis <- jabot_missing(herbarium = "RB",
                                   geo = c("Feira de Santana", "Ilhéus"),
                                   verbose = TRUE,
-                                  open_report = TRUE)
+                                  open_report = FALSE)
 ```
 
 \
@@ -457,7 +464,7 @@ missing_analysis <- jabot_missing(herbarium = "RB",
                                   jabot_path = "jabot_download",
                                   format = "pdf",
                                   verbose = TRUE,
-                                  open_report = TRUE)
+                                  open_report = FALSE)
 ```
 
 \
@@ -494,7 +501,7 @@ The analysis can be performed with:\
 ``` r
 identify_analysis <- jabot_identify(herbarium = "RB",
                                     verbose = TRUE,
-                                    open_report = TRUE,
+                                    open_report = FALSE,
                                     dir = "RB_identify")
 ```
 
@@ -506,7 +513,7 @@ genus with `taxon`. Specimens without any family or genus cannot match a
 ``` r
 identify_analysis <- jabot_identify(herbarium = "RB",
                                     taxon = c("Fabaceae", "Inga"),
-                                    open_report = TRUE)
+                                    open_report = FALSE)
 ```
 
 \
@@ -518,7 +525,7 @@ against the international herbaria of REFLORA, without searching JABOT
 identify_analysis <- jabot_identify(herbarium = "HUEFS",
                                     jabot = FALSE,
                                     reflora_herbaria = c("NY", "K", "P", "US"),
-                                    open_report = TRUE)
+                                    open_report = FALSE)
 ```
 
 \
@@ -535,7 +542,7 @@ identify_analysis <- jabot_identify(herbarium = "RB",
                                     jabot_path = "jabot_download",
                                     reflora_path = "reflora_download",
                                     format = "pdf",
-                                    open_report = TRUE)
+                                    open_report = FALSE)
 ```
 
 \

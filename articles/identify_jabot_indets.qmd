@@ -39,7 +39,7 @@ The analysis includes the number of indeterminate specimens, how many can be mat
 | `jabot_path`, `reflora_path` | Paths to directories with previously downloaded JABOT and REFLORA DwC-A files. `NULL` downloads automatically. |
 | `format` | Static formats to save individual figures: `"pdf"`, `"png"`, or both. The HTML report is always generated regardless. |
 | `fig_width`, `fig_height` | Dimensions (in inches) of saved figures. |
-| `open_report` | If `TRUE`, opens the HTML report in the default browser after rendering. |
+| `open_report` | If `TRUE`, opens the HTML report in the default browser after rendering. Default `FALSE`: the report is only saved. |
 | `verbose` | If `TRUE`, prints progress messages. |
 | `dir` | Output directory. Defaults to `"<herbarium>_identify"`. |
 
@@ -48,7 +48,7 @@ The analysis includes the number of indeterminate specimens, how many can be mat
 ```{r}
 identify_analysis <- jabot_identify(herbarium = "RB",
                                     verbose = TRUE,
-                                    open_report = TRUE,
+                                    open_report = FALSE,
                                     dir = "RB_identify")
 ```
 
@@ -59,7 +59,7 @@ Use `taxon` to focus on the indeterminate specimens already placed in a family o
 ```{r}
 identify_analysis <- jabot_identify(herbarium = "RB",
                                     taxon = c("Fabaceae", "Inga"),
-                                    open_report = TRUE)
+                                    open_report = FALSE)
 ```
 
 ## Restricting the Herbaria and Reusing Downloaded Files
@@ -73,7 +73,7 @@ identify_analysis <- jabot_identify(herbarium = "RB",
                                     jabot_path = "jabot_download",
                                     reflora_path = "reflora_download",
                                     format = "pdf",
-                                    open_report = TRUE)
+                                    open_report = FALSE)
 ```
 
 Herbaria that are only in REFLORA, and the use of the international herbaria of REFLORA, are covered in [Use REFLORA to identify indeterminate specimens](/articles/identify_with_reflora.qmd).

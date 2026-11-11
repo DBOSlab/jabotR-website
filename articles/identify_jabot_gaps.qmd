@@ -34,7 +34,7 @@ This tool is ideal for herbarium curators who want a quick, reproducible snapsho
 | `network_herbaria` | Herbarium acronyms to restrict the pooled network sample to, when `priority_map = TRUE`. `NULL` uses all JABOT-hosted herbaria. |
 | `format` | Static formats to save individual figures: `"pdf"`, `"png"`, or both. The HTML report is always generated regardless. |
 | `fig_width`, `fig_height` | Dimensions (in inches) of saved figures. |
-| `open_report` | If `TRUE`, opens the HTML report in the default browser after rendering. |
+| `open_report` | If `TRUE`, opens the HTML report in the default browser after rendering. Default `FALSE`: the report is only saved. |
 | `verbose` | If `TRUE`, prints progress messages. |
 | `dir` | Output directory. Defaults to `"<herbarium>_gap_analysis"`. |
 
@@ -43,7 +43,7 @@ This tool is ideal for herbarium curators who want a quick, reproducible snapsho
 ```{r}
 gap_analysis <- jabot_gaps(herbarium = "RB",
                            verbose = TRUE,
-                           open_report = TRUE,
+                           open_report = FALSE,
                            dir = "RB_gap_analysis")
 ```
 
@@ -55,7 +55,7 @@ Setting `format` additionally saves each figure as a static PDF and/or PNG file 
 gap_analysis <- jabot_gaps(herbarium = "RB",
                            format = c("pdf", "png"),
                            verbose = TRUE,
-                           open_report = TRUE,
+                           open_report = FALSE,
                            dir = "RB_gap_analysis")
 ```
 
@@ -68,7 +68,7 @@ gap_analysis <- jabot_gaps(herbarium = "RB",
                            priority_map = TRUE,
                            network_herbaria = c("ALCB", "HUEFS", "CEPEC"),
                            verbose = TRUE,
-                           open_report = TRUE,
+                           open_report = FALSE,
                            dir = "RB_gap_analysis")
 ```
 
@@ -79,7 +79,7 @@ gap_analysis <- jabot_gaps(herbarium = "RB",
                            jabot_path = "jabot_download",
                            format = "pdf",
                            verbose = TRUE,
-                           open_report = TRUE,
+                           open_report = FALSE,
                            dir = "RB_gap_analysis")
 ```
 

@@ -58,7 +58,7 @@ identify_analysis <- jabot_identify(herbarium = "HUEFS",
                                     jabot = FALSE,
                                     reflora_herbaria = c("NY", "K", "P", "US"),
                                     reflora_path = "reflora_download",
-                                    open_report = TRUE,
+                                    open_report = FALSE,
                                     dir = "HUEFS_identify")
 ```
 
@@ -72,7 +72,7 @@ A herbarium hosted in JABOT, such as RB, can be compared only with REFLORA. Its 
 identify_analysis <- jabot_identify(herbarium = "RB",
                                     jabot = FALSE,
                                     reflora_herbaria = c("NY", "K", "P", "US"),
-                                    open_report = TRUE)
+                                    open_report = FALSE)
 ```
 
 ## Case 3: JABOT and REFLORA Together
@@ -86,7 +86,7 @@ identify_analysis <- jabot_identify(herbarium = "MBM",
                                     reflora_herbaria = c("NY", "HUEM", "MBML"),
                                     jabot_path = "jabot_download",
                                     reflora_path = "reflora_download",
-                                    open_report = TRUE)
+                                    open_report = FALSE)
 ```
 
 To use only JABOT, set `reflora = FALSE`.

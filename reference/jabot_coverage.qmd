@@ -50,7 +50,7 @@ the comparison is made.
 | format | Character vector. Static formats for saving individual figures: `"pdf"`, `"png"`, or both. The HTML report is always generated. |
 | fig_width | Numeric. Width of saved figures in inches. Default `10`. |
 | fig_height | Numeric. Height of saved figures in inches. Default `6`. |
-| open_report | Logical. If `TRUE` (default), opens the HTML report in the default browser after rendering. |
+| open_report | Logical. If `TRUE`, opens the HTML report in the default browser after rendering. Default `FALSE`: the report is only saved. |
 | verbose | Logical. If `TRUE` (default), progress messages are printed. |
 | dir | Character. Output directory. Defaults to `"<herbarium>_representativeness"`. |
 

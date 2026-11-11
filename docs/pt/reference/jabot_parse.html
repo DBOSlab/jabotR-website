@@ -4518,6 +4518,7 @@ height: 400px;
    
   <ul>
   <li><a href="#descrição" id="toc-descrição" class="nav-link active" data-scroll-target="#descrição">Descrição</a></li>
+  <li><a href="#detalhes" id="toc-detalhes" class="nav-link" data-scroll-target="#detalhes">Detalhes</a></li>
   <li><a href="#argumentos" id="toc-argumentos" class="nav-link" data-scroll-target="#argumentos">Argumentos</a></li>
   <li><a href="#valor" id="toc-valor" class="nav-link" data-scroll-target="#valor">Valor</a></li>
   <li><a href="#exemplos" id="toc-exemplos" class="nav-link" data-scroll-target="#exemplos">Exemplos</a></li>
@@ -4561,6 +4562,18 @@ height: 400px;
 <section id="descrição" class="level3">
 <h3 class="anchored" data-anchor-id="descrição">Descrição</h3>
 <p>Lê arquivos Darwin Core Archive (DwC-A) de qualquer pasta dwca baixada do <a href="https://ipt.jbrj.gov.br/jabot">JABOT</a>, hospedado pelo <a href="https://www.gov.br/jbrj/pt-br">Jardim Botânico do Rio de Janeiro</a>.</p>
+</section>
+<section id="detalhes" class="level3">
+<h3 class="anchored" data-anchor-id="detalhes">Detalhes</h3>
+<p>Além de ler os arquivos, os registros de ocorrência são padronizados para que os herbários possam ser comparados e combinados:</p>
+<ul>
+<li><code>taxonRank</code>, <code>family</code>, <code>genus</code>, <code>specificEpithet</code> e demais colunas taxonômicas são limpas. Nomes alternativos de família com um único equivalente na classificação atual são unificados (por exemplo, Leguminosae para Fabaceae e Compositae para Asteraceae). O epíteto específico nunca repete o gênero: <code>&quot;Ormosia&quot;</code> como epíteto de um registro do gênero Ormosia é removido (registros de gênero, família e categorias superiores não têm epíteto), e <code>&quot;ormosia monosperma&quot;</code> vira <code>&quot;monosperma&quot;</code>.</li>
+<li><code>country</code> é sempre em inglês (por exemplo, <code>&quot;Brasil&quot;</code> e <code>&quot;Brazil&quot;</code> viram <code>&quot;Brazil&quot;</code>), erros de digitação e valores que não são país são removidos, e <code>countryCode</code> é o código ISO 3166 alfa-2 do país. Um país ausente é obtido dos registros com o mesmo estado.</li>
+<li><code>stateProvince</code>: os estados brasileiros têm a grafia oficial completa (erros como <code>&quot;Pernanbuco&quot;</code>, formas como <code>&quot;Estado do Rio de Janeiro&quot;</code> ou <code>&quot;Minas Gerais, MG&quot;</code> e abreviações são corrigidos). Um município encontrado na coluna de estado é movido para <code>municipality</code>.</li>
+<li><code>typeStatus</code> é padronizado para termos em inglês (Holotype, Isotype, Paratype…), e valores que não são um tipo são removidos.</li>
+<li><code>eventDate</code> e <code>dateIdentified</code> estão no formato ISO (<code>aaaa-mm-dd</code>, <code>aaaa-mm</code> ou <code>aaaa</code>); <code>year</code>, <code>month</code> e <code>day</code> fora do intervalo (por exemplo, 0) são <code>NA</code>.</li>
+<li>Valores de preenchimento de altitude (por exemplo, <code>-9999</code>) e valores impossíveis, e coordenadas <code>0, 0</code>, são <code>NA</code>. Números de coletor como <code>&quot;s/n&quot;</code>, <code>&quot;S/N&quot;</code> ou <code>&quot;sn&quot;</code> são <code>&quot;s.n.&quot;</code>.</li>
+</ul>
 </section>
 <section id="argumentos" class="level3">
 <h3 class="anchored" data-anchor-id="argumentos">Argumentos</h3>
@@ -5093,28 +5106,57 @@ height: 400px;
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">JABOT</span><span class="co">](https://ipt.jbrj.gov.br/jabot)</span>, hospedado pelo</span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Jardim Botânico do Rio de Janeiro</span><span class="co">](https://www.gov.br/jbrj/pt-br)</span>.</span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="fu">### Argumentos</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="fu">### Detalhes</span></span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Argumento <span class="pp">|</span> Descrição <span class="pp">|</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> path <span class="pp">|</span> Caminho para o diretório do computador onde estão as pastas dwca baixadas do JABOT. <span class="pp">|</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> herbarium <span class="pp">|</span> Um vetor de siglas de herbário específicas (código da coleção) em letras maiúsculas, ou deixe como <span class="in">`NULL`</span> para analisar os registros de espécimes de todas as pastas dwca de herbário no diretório definido em <span class="in">`path`</span>. <span class="pp">|</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> verbose <span class="pp">|</span> Lógico; se <span class="in">`FALSE`</span>, uma mensagem mostrando as etapas ao resumir os registros de espécimes não será impressa por completo no console. <span class="pp">|</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="fu">### Valor</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>Uma lista de arquivos dwca, incluindo dados e metadados associados.</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exemplos</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="fu">jabot_download</span>(<span class="at">herbarium =</span> <span class="fu">c</span>(<span class="st">&quot;ALCB&quot;</span>, <span class="st">&quot;HUEFS&quot;</span>, <span class="st">&quot;K&quot;</span>, <span class="st">&quot;RB&quot;</span>),</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>               <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>               <span class="at">dir =</span> <span class="st">&quot;jabot_download&quot;</span>)</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>dwca <span class="ot">&lt;-</span> <span class="fu">jabot_parse</span>(<span class="at">path =</span> <span class="st">&quot;jabot_download&quot;</span>,</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>                    <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>Além de ler os arquivos, os registros de ocorrência são padronizados para que</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>os herbários possam ser comparados e combinados:</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`taxonRank`</span>, <span class="in">`family`</span>, <span class="in">`genus`</span>, <span class="in">`specificEpithet`</span> e demais colunas</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  taxonômicas são limpas. Nomes alternativos de família com um único</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  equivalente na classificação atual são unificados (por exemplo, Leguminosae</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  para Fabaceae e Compositae para Asteraceae). O epíteto específico nunca</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  repete o gênero: <span class="in">`&quot;Ormosia&quot;`</span> como epíteto de um registro do gênero Ormosia é</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  removido (registros de gênero, família e categorias superiores não têm</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  epíteto), e <span class="in">`&quot;ormosia monosperma&quot;`</span> vira <span class="in">`&quot;monosperma&quot;`</span>.</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`country`</span> é sempre em inglês (por exemplo, <span class="in">`&quot;Brasil&quot;`</span> e <span class="in">`&quot;Brazil&quot;`</span> viram</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="in">`&quot;Brazil&quot;`</span>), erros de digitação e valores que não são país são removidos, e</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>  <span class="in">`countryCode`</span> é o código ISO 3166 alfa-2 do país. Um país ausente é obtido</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>  dos registros com o mesmo estado.</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`stateProvince`</span>: os estados brasileiros têm a grafia oficial completa</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>  (erros como <span class="in">`&quot;Pernanbuco&quot;`</span>, formas como <span class="in">`&quot;Estado do Rio de Janeiro&quot;`</span> ou</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="in">`&quot;Minas Gerais, MG&quot;`</span> e abreviações são corrigidos). Um município encontrado</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  na coluna de estado é movido para <span class="in">`municipality`</span>.</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`typeStatus`</span> é padronizado para termos em inglês (Holotype, Isotype,</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  Paratype...), e valores que não são um tipo são removidos.</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`eventDate`</span> e <span class="in">`dateIdentified`</span> estão no formato ISO (<span class="in">`aaaa-mm-dd`</span>, <span class="in">`aaaa-mm`</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  ou <span class="in">`aaaa`</span>); <span class="in">`year`</span>, <span class="in">`month`</span> e <span class="in">`day`</span> fora do intervalo (por exemplo, 0) são</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  <span class="in">`NA`</span>.</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Valores de preenchimento de altitude (por exemplo, <span class="in">`-9999`</span>) e valores</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  impossíveis, e coordenadas <span class="in">`0, 0`</span>, são <span class="in">`NA`</span>. Números de coletor como</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  <span class="in">`&quot;s/n&quot;`</span>, <span class="in">`&quot;S/N&quot;`</span> ou <span class="in">`&quot;sn&quot;`</span> são <span class="in">`&quot;s.n.&quot;`</span>.</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="fu">### Argumentos</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Argumento <span class="pp">|</span> Descrição <span class="pp">|</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> path <span class="pp">|</span> Caminho para o diretório do computador onde estão as pastas dwca baixadas do JABOT. <span class="pp">|</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> herbarium <span class="pp">|</span> Um vetor de siglas de herbário específicas (código da coleção) em letras maiúsculas, ou deixe como <span class="in">`NULL`</span> para analisar os registros de espécimes de todas as pastas dwca de herbário no diretório definido em <span class="in">`path`</span>. <span class="pp">|</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> verbose <span class="pp">|</span> Lógico; se <span class="in">`FALSE`</span>, uma mensagem mostrando as etapas ao resumir os registros de espécimes não será impressa por completo no console. <span class="pp">|</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="fu">### Valor</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>Uma lista de arquivos dwca, incluindo dados e metadados associados.</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exemplos</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="fu">jabot_download</span>(<span class="at">herbarium =</span> <span class="fu">c</span>(<span class="st">&quot;ALCB&quot;</span>, <span class="st">&quot;HUEFS&quot;</span>, <span class="st">&quot;K&quot;</span>, <span class="st">&quot;RB&quot;</span>),</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>               <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>               <span class="at">dir =</span> <span class="st">&quot;jabot_download&quot;</span>)</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>dwca <span class="ot">&lt;-</span> <span class="fu">jabot_parse</span>(<span class="at">path =</span> <span class="st">&quot;jabot_download&quot;</span>,</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>                    <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

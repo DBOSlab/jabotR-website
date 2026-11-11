@@ -40,7 +40,7 @@ A análise inclui o número de espécimes indeterminados, quantos podem ser pare
 | `jabot_path`, `reflora_path` | Caminhos para diretórios com arquivos DwC-A do JABOT e do REFLORA já baixados. `NULL` baixa automaticamente. |
 | `format` | Formatos estáticos para salvar as figuras individuais: `"pdf"`, `"png"` ou ambos. O relatório HTML é sempre gerado. |
 | `fig_width`, `fig_height` | Dimensões (em polegadas) das figuras salvas. |
-| `open_report` | Se `TRUE`, abre o relatório HTML no navegador padrão após a geração. |
+| `open_report` | Se `TRUE`, abre o relatório HTML no navegador padrão após a geração. Padrão `FALSE`: o relatório é apenas salvo. |
 | `verbose` | Se `TRUE`, imprime mensagens de progresso. |
 | `dir` | Diretório de saída. O padrão é `"<herbarium>_identify"`. |
 
@@ -49,7 +49,7 @@ A análise inclui o número de espécimes indeterminados, quantos podem ser pare
 ```{r}
 identify_analysis <- jabot_identify(herbarium = "RB",
                                     verbose = TRUE,
-                                    open_report = TRUE,
+                                    open_report = FALSE,
                                     dir = "RB_identify")
 ```
 
@@ -60,7 +60,7 @@ Use `taxon` para focar nos espécimes indeterminados já posicionados em uma fam
 ```{r}
 identify_analysis <- jabot_identify(herbarium = "RB",
                                     taxon = c("Fabaceae", "Inga"),
-                                    open_report = TRUE)
+                                    open_report = FALSE)
 ```
 
 ## Restringindo os Herbários e Reutilizando Arquivos Baixados
@@ -74,7 +74,7 @@ identify_analysis <- jabot_identify(herbarium = "RB",
                                     jabot_path = "jabot_download",
                                     reflora_path = "reflora_download",
                                     format = "pdf",
-                                    open_report = TRUE)
+                                    open_report = FALSE)
 ```
 
 Herbários que estão apenas no REFLORA e o uso dos herbários internacionais do REFLORA são tratados em [Use o REFLORA para identificar espécimes indeterminados](/pt/articles/identify_with_reflora.qmd).

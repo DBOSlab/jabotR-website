@@ -68,15 +68,38 @@ head(dwca[["ALCB"]][["data"]][["occurrence.txt"]])
 
 ## Data Cleaning and Column Standardization
 
-- Converts taxonomic fields to title case.
-- Adds `taxonName` combining `genus`, `specificEpithet`, `infraspecificEpithet`.
-- Replaces missing taxon ranks with `"FAMILY"`.
+The records of JABOT come from many herbaria that fill the same fields in different ways (for example, the country as `"Brasil"`, `"Brazil"` or `"Brasi"`). `jabot_parse()` standardizes the columns so that the herbaria can be compared and combined:
+
+| Column | Standardization | Example |
+|---|---|---|
+| `family`, `genus`, `specificEpithet`, `taxonRank` | Title case, cleaning of names and ranks, `taxonName` combining genus, epithet and infraspecific epithet, missing ranks replaced with `"FAMILY"`. Alternative family names with a single equivalent are unified. | `Leguminosae` to `Fabaceae`, `Compositae` to `Asteraceae` |
+| `specificEpithet` | Never repeats the genus: records of genus, family and higher ranks have no epithet, and a genus before the epithet is removed. | `Ormosia` as the epithet of the genus *Ormosia* to `NA`; `ormosia monosperma` to `monosperma` |
+| `country` | Always an English country name. Typos and values that are not a country are removed, and a missing country is taken from the records with the same state. | `Brasil`, `Brazil`, `Brasi` to `Brazil`; `Bolívia` to `Bolivia`; `Capital`, `Indisponível` to `NA` |
+| `countryCode` | ISO 3166 alpha-2 code of the country. | `Brazil` to `BR` |
+| `stateProvince` | Full official spelling of the Brazilian states. A municipality found in the state column is moved to `municipality`. | `Pernanbuco` to `Pernambuco`; `Minas Gerais, MG` to `Minas Gerais`; `Estado do Rio de Janeiro` to `Rio de Janeiro` |
+| `typeStatus` | English terms; values that are not a type are removed. | `Holotipo`, `HOLOTYPUS` to `Holotype`; `Chapéu de couro` to `NA` |
+| `eventDate`, `dateIdentified` | ISO format (`yyyy-mm-dd`, `yyyy-mm` or `yyyy`). | `2014-9-4` to `2014-09-04`; `28/4/2020` to `2020-04-28` |
+| `year`, `month`, `day` | Valid values only; invalid ones are taken from `eventDate` when possible. | `0` to `NA` |
+| `minimumElevationInMeters`, `maximumElevationInMeters` | Placeholders and impossible values removed. | `-9999` to `NA` |
+| `decimalLatitude`, `decimalLongitude` | `0, 0` and out-of-range values removed. | |
+| `recordNumber` | Records without a collector number. | `s/n`, `S/N`, `sn` to `s.n.` |
+
+The standardized columns can be checked, for example, with:
+
+```r
+occ <- dwca[["ALCB"]][["data"]][["occurrence.txt"]]
+table(occ$country)
+table(occ$typeStatus)
+```
+
+Other fields, such as `locality`, `recordedBy`, `identifiedBy` and the coordinates (for example, a wrong sign), are not changed. Use `barRoso::barroso_std()` to standardize the collectors, and `jabot_identify()` does it automatically when it compares the duplicates.
 
 ## Tips
 
 - Ensure you've downloaded data using `jabot_download()` before parsing.
 - Use `jabot_summary()` to explore which herbaria are repatriated.
 - You can combine and analyze parsed data using `dplyr::bind_rows()`.
+- Parsing a large herbarium (such as RB, with more than 850 thousand records) takes a few minutes because of the standardization.
 
 ## See Also
 

@@ -34,7 +34,7 @@ This tool is ideal for reporting collection strengths — e.g. for institutional
 | `jabot_path` | Path to a directory with previously downloaded JABOT DwC-A files. `NULL` downloads automatically. |
 | `format` | Static formats to save individual figures: `"pdf"`, `"png"`, or both. The HTML report is always generated regardless. |
 | `fig_width`, `fig_height` | Dimensions (in inches) of saved figures. |
-| `open_report` | If `TRUE`, opens the HTML report in the default browser after rendering. |
+| `open_report` | If `TRUE`, opens the HTML report in the default browser after rendering. Default `FALSE`: the report is only saved. |
 | `verbose` | If `TRUE`, prints progress messages. |
 | `dir` | Output directory. Defaults to `"<herbarium>_representativeness"`. |
 
@@ -43,7 +43,7 @@ This tool is ideal for reporting collection strengths — e.g. for institutional
 ```{r}
 coverage_analysis <- jabot_coverage(herbarium = "RB",
                                     verbose = TRUE,
-                                    open_report = TRUE,
+                                    open_report = FALSE,
                                     dir = "RB_representativeness")
 ```
 
@@ -53,7 +53,7 @@ coverage_analysis <- jabot_coverage(herbarium = "RB",
 coverage_analysis <- jabot_coverage(herbarium = "RB",
                                     format = c("pdf", "png"),
                                     verbose = TRUE,
-                                    open_report = TRUE,
+                                    open_report = FALSE,
                                     dir = "RB_representativeness")
 ```
 
@@ -64,7 +64,7 @@ coverage_analysis <- jabot_coverage(herbarium = "RB",
                                     jabot_path = "jabot_download",
                                     format = "pdf",
                                     verbose = TRUE,
-                                    open_report = TRUE,
+                                    open_report = FALSE,
                                     dir = "RB_representativeness")
 ```
 
